@@ -1,0 +1,118 @@
+.icon {
+    cursor: pointer;
+}
+.icon.icon-blue {
+    color: #3554e4;
+}
+.icon.icon-red {
+    color: #e43562;
+}
+
+/* Website Styles */
+.website-main-bg-image {
+    background-image: url('../images/png/gradient1.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    filter: blur(5px);
+}
+
+.seller-bg-image {
+    background-image: url('../images/png/why-us.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.intro-bg {
+    background-image: url('../images/png/intro-bg.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.intro-bg {
+    background-image: url('../images/png/intro-bg.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.rs-sidenav {
+    /* background-color: rgb(20, 24, 28); */
+    height: calc(100vh - 110px);
+    overflow: auto;
+}
+.rs-sidenav::-webkit-scrollbar {
+    width: 4px;
+    background-color: rgb(20, 24, 28);
+}
+.rs-sidenav::-webkit-scrollbar-button {
+    background-color: rgb(20, 24, 28);
+}
+.rs-sidenav::-webkit-scrollbar-thumb {
+    background-color: rgb(47, 169, 230);
+    border-radius: 10px;
+    width: 6px !important;
+}
+.rs-breadcrumb {
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    color: rgb(27, 14, 14);
+    margin-bottom: 0px;
+}
+.rs-sidenav-nav > .rs-sidenav-item {
+    padding-left: 10px;
+}
+.rs-sidenav-collapse-in {
+    padding: 11px 20px 11px 10px !important;
+}
+.rs-dropdown-toggle.rs-btn,
+.rs-sidenav-item {
+    display: flex;
+    align-items: center;
+}
+.rs-sidenav-item svg {
+    margin-right: 10px;
+}
+.rs-dropdown-toggle {
+    padding-left: 10px !important;
+}
+* {
+    text-decoration: none;
+}
+.hideArrow::-webkit-inner-spin-button,
+.hideArrow::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: none;
+}
+body,
+#root {
+    overflow-x: hidden !important;
+}
+.myScroll::-webkit-scrollbar {
+    width: 4px;
+    background-color: rgb(255, 255, 255);
+}
+.myScroll::-webkit-scrollbar-button {
+    background-color: rgb(255, 255, 255);
+}
+.myScroll::-webkit-scrollbar-thumb {
+    background-color: rgb(217, 217, 217);
+    border-radius: 10px;
+    width: 4px !important;
+}
+
+.myScroll-x::-webkit-scrollbar {
+    height: 4px;
+    background-color: rgb(255, 255, 255);
+}
+.myScroll-x::-webkit-scrollbar-button {
+    background-color: rgb(255, 255, 255);
+    width: 3px;
+}
+.myScroll-x::-webkit-scrollbar-thumb {
+    background-color: rgb(217, 217, 217);
+    border-radius: 10px;
+    height: 4px !important;
+}
+
+@media screen and (max-width: 380px) {
+    .rs-panel-body {
+        padding: 5px;
+    }
+}

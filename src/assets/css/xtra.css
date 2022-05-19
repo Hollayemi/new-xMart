@@ -1,0 +1,201 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    font-family: Helvetica, Arial, sans-serif;
+}
+a {
+    text-decoration: none;
+}
+li {
+    list-style-type: none;
+}
+.centt {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+header {
+    height: 70px;
+    box-shadow: -10px 10px 30px 5px rgba(0, 0, 0, 0.099);
+}
+#navbar {
+    position: fixed;
+    width: 100%;
+    z-index: 60000 !important;
+    transition: 0.5s;
+    top: 0px;
+}
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+}
+.mainLogo {
+    width: 150px;
+}
+.mainLogo img {
+    width: 150px;
+}
+.XtraLinks {
+    width: 60%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+div ul {
+    display: flex;
+}
+
+div ul li {
+    margin: 0px 10px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 120px;
+    position: relative;
+}
+
+div ul li a {
+    font-size: 16px;
+    color: rgb(8, 49, 138);
+    font-weight: 700;
+}
+.shop-link .dashboard {
+    background-color: rgb(8, 49, 138);
+    border-radius: 5px;
+}
+.shop-link .dashboard a {
+    color: #fff;
+}
+.shop-link .visitStore {
+    border: 1px solid rgb(8, 49, 138);
+    border-radius: 5px;
+}
+li div {
+    position: absolute;
+    width: 0%;
+    height: 3px;
+    background-color: rgb(8, 49, 138);
+    bottom: 0px;
+    transition: 0.3s;
+    margin-left: 50%;
+}
+li:hover div {
+    width: 90%;
+    margin-left: 0%;
+}
+
+/* th-sdjs-a */
+.th-sdjs-a {
+    text-align: center;
+    margin-top: 120px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column;
+}
+
+main {
+    width: 80%;
+    margin-left: 10%;
+    margin-top: 50px;
+    background-color: rgb(250, 248, 248);
+}
+.th-sdjs-a h3 {
+    font-size: 28px;
+    color: rgb(8, 49, 138);
+    font-weight: bolder;
+}
+.th-sdjs-a p {
+    font-size: 16px;
+    color: rgb(130, 130, 130);
+    width: 300px;
+}
+
+.contLev {
+    display: flex;
+    width: 80%;
+    margin-left: 10%;
+    justify-content: space-evenly;
+    padding: 20px 0px;
+}
+.contLev h4 {
+    width: 33.3%;
+    text-align: center;
+}
+.level {
+    width: 80%;
+    background-color: #fff;
+    height: 5px;
+    margin-left: 10%;
+}
+.level div {
+    width: 33.3%;
+    height: 100%;
+    background-color: rgb(8, 49, 138);
+    transition: 0.5s;
+}
+
+.setPricing {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.genPricin {
+    padding: 30px 5px;
+    width: 320px;
+    height: 300px;
+    border: 1px solid rgba(206, 205, 205, 0.22);
+    margin-top: 50px;
+    margin: 50px 10px;
+    min-width: 310px;
+    transition: 0.5s;
+}
+.genPricin:hover {
+    box-shadow: -2px 5px 30px 5px rgba(0, 0, 0, 0.099);
+    margin-top: 40px;
+}
+.genPricin h2 {
+    font-size: 30px;
+    text-align: center;
+    color: rgb(8, 49, 138);
+}
+.genPricin h3 {
+    font-size: 18px;
+    text-align: center;
+}
+
+.genPricin h4 {
+    font-size: 14px;
+    margin-top: 50px;
+    font-style: italic;
+    text-align: center;
+}
+.genPricin button {
+    width: 90%;
+    margin-left: 5%;
+    margin-top: 50px;
+    font-size: 17px;
+    height: 40px;
+    color: #fff;
+    background-color: rgb(8, 49, 138);
+    border: none;
+    cursor: pointer;
+}
+
+.genPricin p {
+    font-size: 15px;
+    line-height: 27px;
+    text-align: center;
+    margin-top: 30px;
+}
+
+@media screen and (max-width: 700px) {
+    main {
+        width: 96%;
+        margin-left: 2%;
+    }
+}
