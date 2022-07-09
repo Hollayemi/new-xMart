@@ -1,15 +1,23 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, unwrapResult } from '@reduxjs/toolkit';
 import { REQUEST_STATUS } from '../constants';
-import martApi from '../../api/baseApi';
+import martApi from '../api/baseApi';
+import { Message, toaster } from 'rsuite';
 
 const kem_signin = createAsyncThunk('post/kem_signin', async (payload) => {
-    console.log(payload);
-    const { data } = await martApi.post('/signin', {
-        payload,
-    });
+    const { data } = await martApi
+        .post('/signin', {
+            payload,
+        })
+        .then((res) => {
+            return res;
+        })
+        .catch((err) => {
+            return err.response;
+        });
 
     return data;
 });
+
 const initialState = {
     userData: {},
     loading: false,
@@ -21,26 +29,34 @@ const initialState = {
 const UserSlice = createSlice({
     name: 'xMartLogin',
     initialState,
-    keepUnusedDataFor: 2,
+    // keepUnusedDataFor: 2,
     reducers: {
         wasGoing: (state, { payload }) => {
-            // state.wasGoing = payload;
             return { ...initialState, wasGoing: payload };
         },
     },
     extraReducers: {
         [kem_signin.pending]: (state) => {
-            state.status = REQUEST_STATUS.PENDING;
-            state.loading = true;
+            return {
+                ...initialState,
+                status: REQUEST_STATUS.PENDING,
+                loading: true,
+            };
         },
         [kem_signin.fulfilled]: (state, { payload }) => {
-            state.status = REQUEST_STATUS.FULFILLED;
-            state.userData = payload;
-            state.loading = false;
+            return {
+                ...initialState,
+                userData: payload,
+                status: REQUEST_STATUS.FULFILLED,
+                loading: false,
+            };
         },
         [kem_signin.rejected]: (state, error) => {
-            state.status = REQUEST_STATUS.REJECTED;
-            state.error = error;
+            return {
+                ...initialState,
+                status: REQUEST_STATUS.REJECTED,
+                error: error,
+            };
         },
     },
 });
@@ -50,3 +66,36 @@ export const { setUsers, wasGoing } = UserSlice.actions;
 // export states
 export default UserSlice.reducer;
 export { kem_signin };
+
+/*
+
+
+
+
+
+*/
+
+export const myLogin = (formData, navigate, dispatch, wasGoing) => {
+    dispatch(kem_signin(formData))
+        .then(unwrapResult)
+        .then((res) => {
+            toaster.push(
+                <Message showIcon type={res.type}>
+                    {res.message}
+                </Message>,
+                {
+                    placement: 'topEnd',
+                }
+            );
+            if (res.type === 'success') {
+                if (wasGoing !== 'no-where') {
+                    navigate(`/${wasGoing}`);
+                } else {
+                    navigate('/');
+                }
+            }
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+};

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import { Steps, Panel, toaster, Message } from 'rsuite';
+import { useNavigate, useParams } from 'react-router-dom';
+import { Steps, Panel } from 'rsuite';
 import Button from '../../components/elements/Button';
 import InputGroup from '../../components/elements/Input/InputGroup';
 import ProfiePreview, {
@@ -10,10 +10,8 @@ import { FaAngleLeft } from 'react-icons/fa';
 import UploadProfilePic from '../../components/websiteCompoents/UploadFile/uploadProfilePic';
 import ModalPanel from '../../components/elements/ModalPanel';
 //stateManagement
-import { addShop } from '../../state/slices/shop/addShop';
-import { otpHandler } from '../../state/slices/shop/setOtp';
+import { createHandler } from '../../state/slices/shop/addShop';
 import { useDispatch, useSelector } from 'react-redux';
-import { unwrapResult } from '@reduxjs/toolkit';
 
 //
 //
@@ -90,7 +88,7 @@ const NewPage = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { _id } = useSelector((state) => state.reducer.loginReducer.userData);
-    const getshopInfo = useSelector((state) => state.reducer.setShopReducer);
+    // const getshopInfo = useSelector((state) => state.reducer.setShopReducer);
     //
     const submitButton = async () => {
         const payload = {
@@ -99,39 +97,7 @@ const NewPage = () => {
             isSelle: true,
             buzz_cate: Category,
         };
-        dispatch(addShop(payload))
-            .then(unwrapResult)
-            .then((res) => {
-                console.log(res);
-                if (res.type === 'success') {
-                    dispatch(otpHandler(res.id))
-                        .then(unwrapResult)
-                        .then((res) => {
-                            console.log(res);
-                            toaster.push(
-                                <Message showIcon type={res.type}>
-                                    {res.message.replace('buzz_', 'business ')}
-                                </Message>,
-                                {
-                                    placement: 'topEnd',
-                                }
-                            );
-                            navigate('/seller/dashboard');
-                        });
-                } else {
-                    toaster.push(
-                        <Message showIcon type={res.type}>
-                            {res.message.replace('buzz_', 'business ')}
-                        </Message>,
-                        {
-                            placement: 'topEnd',
-                        }
-                    );
-                }
-            })
-            .catch((e) => {
-                console.log(e);
-            });
+        createHandler(payload, dispatch, navigate);
     };
     //
     //

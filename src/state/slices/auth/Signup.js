@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { REQUEST_STATUS } from '../constants';
-import martApi from '../../api/baseApi';
+import martApi from '../api/baseApi';
 
 export const RegNewUser = createAsyncThunk(
     'post/RegNewUser',

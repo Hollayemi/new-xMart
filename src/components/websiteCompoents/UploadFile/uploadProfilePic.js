@@ -4,7 +4,6 @@ import { FaPlus, FaUser } from 'react-icons/fa';
 import { Avatar } from './avatar';
 import DividerPanel from '../../elements/DividerPanel';
 const UploadProfilePic = ({ formData, updateValue }) => {
-    console.log(updateValue);
     const imageHandler = (e) => {
         let preImg = null;
         let exactType = e.target.files[0].type.split('/');

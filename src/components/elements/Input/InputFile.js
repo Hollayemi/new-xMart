@@ -18,6 +18,7 @@ import React from 'react';
 export const InputFile = ({
     icon,
     name,
+    filename,
     value,
     placeholder,
     label,
@@ -60,6 +61,7 @@ export const InputFile = ({
                 onChange={onChange}
                 onFocus={onFocus}
                 name={name}
+                filename={name}
                 value={value}
                 placeholder={placeholder || 'Input Placeholder'}
                 required={required || false}

@@ -23,6 +23,7 @@ import {
     FaMoneyBill,
 } from 'react-icons/fa';
 import RecentInfo from './RecentInfo';
+import Footer from '../../websiteCompoents/Footer';
 
 const NavToggle = ({ expand, onChange }) => {
     return (
@@ -80,7 +81,7 @@ const DashboardWrapper = ({ ...props }) => {
     return (
         <div className="show-fake-browser sidebar-page bg-slate-100">
             <Container>
-                <div className="rounded-r-3xl overflow-hidden h-[100%] bg-slate-900 fixed top-0">
+                <div className="rounded-r-3xl overflow-hidden h-[100%] bg-slate-900 fixed z-50 top-0">
                     <Sidebar
                         style={{ display: 'flex', flexDirection: 'column' }}
                         width={expand ? 260 : 56}
@@ -107,7 +108,7 @@ const DashboardWrapper = ({ ...props }) => {
                                 <Nav>
                                     <Nav.Item
                                         eventKey="1"
-                                        active
+                                        active={showing === 'Dashboard' && true}
                                         onClick={() => setShowing('Dashboard')}
                                     >
                                         <div className="h-5 ml-2 min-w-[100%]">
@@ -124,6 +125,9 @@ const DashboardWrapper = ({ ...props }) => {
 
                                     <Nav.Item
                                         eventKey="2"
+                                        active={
+                                            showing === '0_Analytics' && true
+                                        }
                                         onClick={() =>
                                             setShowing('0_Analytics')
                                         }
@@ -160,6 +164,10 @@ const DashboardWrapper = ({ ...props }) => {
                                     >
                                         <Dropdown.Item
                                             eventKey="3-1"
+                                            active={
+                                                showing ===
+                                                    'Store_Collections' && true
+                                            }
                                             onClick={() =>
                                                 setShowing('Store_Collections')
                                             }
@@ -168,6 +176,10 @@ const DashboardWrapper = ({ ...props }) => {
                                         </Dropdown.Item>
                                         <Dropdown.Item
                                             eventKey="3-2"
+                                            active={
+                                                showing === 'Store_Brands' &&
+                                                true
+                                            }
                                             onClick={() =>
                                                 setShowing('Store_Brands')
                                             }
@@ -176,6 +188,10 @@ const DashboardWrapper = ({ ...props }) => {
                                         </Dropdown.Item>
                                         <Dropdown.Item
                                             eventKey="3-1"
+                                            active={
+                                                showing === 'Store_Products' &&
+                                                true
+                                            }
                                             onClick={() =>
                                                 setShowing('Store_Products')
                                             }
@@ -208,6 +224,11 @@ const DashboardWrapper = ({ ...props }) => {
                                     >
                                         <Dropdown.Item
                                             eventKey="order-1"
+                                            active={
+                                                showing ===
+                                                    'Status_Unsupplied Products' &&
+                                                true
+                                            }
                                             onClick={() =>
                                                 setShowing(
                                                     'Status_Unsupplied Products'
@@ -218,6 +239,11 @@ const DashboardWrapper = ({ ...props }) => {
                                         </Dropdown.Item>
                                         <Dropdown.Item
                                             eventKey="xtra-1"
+                                            active={
+                                                showing ===
+                                                    'Status_Supplied Products' &&
+                                                true
+                                            }
                                             onClick={() =>
                                                 setShowing(
                                                     'Status_Supplied Products'
@@ -238,6 +264,9 @@ const DashboardWrapper = ({ ...props }) => {
                                         </Dropdown.Item>
                                         <Dropdown.Item
                                             eventKey="xtra-1"
+                                            active={
+                                                showing === 'xtra_prod' && true
+                                            }
                                             onClick={() =>
                                                 setShowing('xtra_prod')
                                             }
@@ -258,7 +287,7 @@ const DashboardWrapper = ({ ...props }) => {
                                                         <FaCog />
                                                     </i>
                                                     <span className="px-5">
-                                                        Seetings
+                                                        Settings
                                                     </span>
                                                 </div>
                                             </div>
@@ -274,13 +303,30 @@ const DashboardWrapper = ({ ...props }) => {
                                         >
                                             Edit Store Information
                                         </Dropdown.Item>
-                                        <Dropdown.Item eventKey="4-2">
-                                            Set OTP
+                                        <Dropdown.Item
+                                            eventKey="entryMode"
+                                            onClick={() =>
+                                                setShowing('Setting_Entry Mode')
+                                            }
+                                        >
+                                            Entry Mode
                                         </Dropdown.Item>
-                                        <Dropdown.Item eventKey="4-3">
+                                        <Dropdown.Item
+                                            eventKey="activities"
+                                            onClick={() =>
+                                                setShowing('Setting_Activities')
+                                            }
+                                        >
                                             Activities
                                         </Dropdown.Item>
-                                        <Dropdown.Item eventKey="4-4">
+                                        <Dropdown.Item
+                                            eventKey="ref-keys"
+                                            onClick={() =>
+                                                setShowing(
+                                                    'Setting_Reference Keys'
+                                                )
+                                            }
+                                        >
                                             Reference Keys
                                         </Dropdown.Item>
                                     </Dropdown>
@@ -360,19 +406,26 @@ const DashboardWrapper = ({ ...props }) => {
                     >
                         <Header></Header>
                         <Content>
-                            <div className="h-14 bg-slate-100 shadow flex items-center px-3">
+                            <div
+                                className={`h-14 bg-slate-100 z-45 shadow pl-10 flex items-center px-3 fixed top-0 ${
+                                    expand === true
+                                        ? 'w-[calc(100%_-_260px)] ml-[240px]'
+                                        : 'w-[calc(100%-56px)] ml-[45px]'
+                                } left-0`}
+                            >
                                 <DashboardHeader
                                     BreadcrumbList={props.BreadcrumbList}
                                 />
                             </div>
-                            <div className="w-full bg-slate-100">
+                            <div className="w-full z-30 bg-slate-100 mt-16">
                                 {props.children}
                             </div>
-                            {showing !== '0_Analytics' && (
-                                <div className="fixed -right-[280px] lg:right-0  top-0 w-[280px] h-full  bg-slate-50 shadow-md">
-                                    <RecentInfo />
-                                </div>
-                            )}
+                            {showing !== '0_Analytics' &&
+                                showing !== 'Dashboard' && (
+                                    <div className="fixed -right-[280px] lg:right-0  top-0 w-[280px] h-full  bg-slate-50 shadow-md">
+                                        <RecentInfo />
+                                    </div>
+                                )}
                         </Content>
                     </div>
                 </Container>

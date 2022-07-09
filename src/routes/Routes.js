@@ -1,20 +1,47 @@
 import { useRoutes } from 'react-router-dom';
-import DashOutlet from '../components/HOC/DashboardOutlet';
 import LazyLoading from '../components/LazyLoading';
 
 const NotFound = LazyLoading(() => import('../pages/NotFound'));
 const AuthOutlet = LazyLoading(() => import('../components/HOC/AuthOutlet'));
+const AdminOutlet = LazyLoading(() => import('../components/HOC/AdminOutlet'));
 
 const ErorrBoundary = LazyLoading(() =>
     import('../components/HOC/ErrorBoundary')
 );
 
+const Home = LazyLoading(() => import('../pages/website/Home'));
+const SearchBrands = LazyLoading(() =>
+    import('../pages/website/containers/brands')
+);
+const ProdContainter = LazyLoading(() =>
+    import('../pages/website/containers/products')
+);
+const Checkout = LazyLoading(() => import('../pages/website/checkout'));
+const Cart = LazyLoading(() => import('../pages/website/cart'));
 // auth Routes
 const SignUp = LazyLoading(() => import('../pages/auth/signup/SignUp'));
 const SignIn = LazyLoading(() => import('../pages/auth/signin/Signin'));
-const Home = LazyLoading(() => import('../pages/website/Home'));
-const Seller = LazyLoading(() => import('../pages/seller'));
-const Agent = LazyLoading(() => import('../pages/Agent'));
+const Sell = LazyLoading(() => import('../pages/seller/seller/Home'));
+const Agent = LazyLoading(() => import('../pages/Agent/website/Home'));
+
+// admin page
+const Admin = LazyLoading(() =>
+    import('../pages/Agent - Copy/website/Home.js')
+);
+const AdminLogin = LazyLoading(() =>
+    import('../pages/Agent - Copy/website/Login')
+);
+
+const AdminSignup = LazyLoading(() =>
+    import('../pages/Agent - Copy/website/Signup')
+);
+
+const AdminForgotPassword = LazyLoading(() =>
+    import('../pages/Agent - Copy/website/ForgotPass')
+);
+const AdminDashboard = LazyLoading(() =>
+    import('../pages/Agent - Copy/Dashboard')
+);
 
 // sellerPage
 const CreateAccount = LazyLoading(() =>
@@ -24,8 +51,6 @@ const SellerDashboard = LazyLoading(() => import('../pages/seller/Dashboard'));
 // Agent Page
 const NewAgent = LazyLoading(() => import('../pages/Agent/newAgent.js'));
 const AgentDashboard = LazyLoading(() => import('../pages/Agent/Dashboard'));
-
-// const BossDashboard = LazyLoading(() => import('../Dashboard/Dashboard.js'));
 
 //
 const AppRoutes = () => {
@@ -39,6 +64,22 @@ const AppRoutes = () => {
                     path: '/signup',
                     element: <SignUp />,
                 },
+                {
+                    path: '/s/:brandName',
+                    element: <SearchBrands />,
+                },
+                {
+                    path: '/b/:product',
+                    element: <ProdContainter />,
+                },
+                {
+                    path: '/checkout',
+                    element: <Checkout />,
+                },
+                {
+                    path: '/cart',
+                    element: <Cart />,
+                },
                 { path: '/forgot-password', element: <SignUp /> },
             ],
         },
@@ -46,7 +87,7 @@ const AppRoutes = () => {
             path: '/seller',
             element: <AuthOutlet to="seller" />,
             children: [
-                { element: <Seller />, index: true },
+                { element: <Sell />, index: true },
                 {
                     path: '/seller/create-account/:level',
                     element: <CreateAccount />,
@@ -54,6 +95,10 @@ const AppRoutes = () => {
                 {
                     path: '/seller/dashboard',
                     element: <SellerDashboard />,
+                },
+                {
+                    path: 'seller/sell',
+                    element: <Sell />,
                 },
             ],
         },
@@ -67,6 +112,29 @@ const AppRoutes = () => {
                     element: <NewAgent />,
                 },
                 { element: <AgentDashboard />, path: 'dashboard' },
+            ],
+        },
+        {
+            path: '/admin',
+            children: [
+                { element: <Admin />, index: true },
+                {
+                    path: '/admin/signup',
+                    element: <AdminSignup />,
+                },
+                {
+                    element: <AdminForgotPassword />,
+                    path: '/admin/forgot-password',
+                },
+                {
+                    element: <AdminLogin />,
+                    path: '/admin/login',
+                },
+                {
+                    element: <AdminOutlet to="admin" />,
+                    path: '/admin/dashboard',
+                    children: [{ element: <AdminDashboard />, index: true }],
+                },
             ],
         },
         {

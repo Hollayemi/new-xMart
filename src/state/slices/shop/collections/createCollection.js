@@ -1,7 +1,8 @@
 import { createAsyncThunk, createSlice, unwrapResult } from '@reduxjs/toolkit';
 import { Message, toaster } from 'rsuite';
-import martApi from '../../../api/baseApi';
+import martApi from '../../api/baseApi';
 import { REQUEST_STATUS } from '../../constants';
+import { storeFiles } from '../display/displayAll';
 
 export const allCollections = createAsyncThunk(
     'post/allCollections',
@@ -38,11 +39,9 @@ export const createCollection = createAsyncThunk(
 export const updateInstance = createAsyncThunk(
     'post/collectionInstance',
     async (payload) => {
-        console.log(payload);
         const { data } = await martApi
             .post(`/use`, payload, {})
             .then((res) => {
-                console.log(res);
                 return res;
             })
             .catch((e) => {
@@ -66,17 +65,17 @@ const newCollection = createSlice({
     reducers: {},
     extraReducers: {
         [createCollection.pending]: () => {
-            return { ...initialState, status: REQUEST_STATUS.pending };
+            return { ...initialState, status: REQUEST_STATUS.PENDING };
         },
         [createCollection.fulfilled]: (state, { payload }) => {
             return {
                 ...initialState,
-                status: REQUEST_STATUS.fulfilled,
+                status: REQUEST_STATUS.FULFILLED,
                 colData: payload,
             };
         },
         [createCollection.rejected]: () => {
-            return { ...initialState, status: REQUEST_STATUS.rejected };
+            return { ...initialState, status: REQUEST_STATUS.REJECTED };
         },
     },
 });
@@ -95,6 +94,7 @@ export const createHandler = (
     otpData,
     selectedCate,
     dispatch,
+    setFiles,
     reFetchData
 ) => {
     if (status === REQUEST_STATUS.VERIFIED) {
@@ -126,11 +126,10 @@ export const createHandler = (
                         placement: 'topEnd',
                     }
                 );
-                console.log(res.type);
                 if (res.type === 'success') {
-                    console.log('dsdsd');
                     dispatch(updateInstance(subPayload));
                 }
+                storeFiles(shopData.id, dispatch, setFiles);
                 reFetchData();
             })
             .catch((e) => {
@@ -192,7 +191,5 @@ export const deleteCol = (
                 });
             eventFunc('');
         })
-        .catch((e) => {
-            console.log(e);
-        });
+        .catch((e) => {});
 };

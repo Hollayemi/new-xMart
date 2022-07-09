@@ -8,10 +8,9 @@ import Button from '../../../components/elements/Button';
 import { Link, useNavigate } from 'react-router-dom';
 import DividerPanel from '../../../components/elements/DividerPanel';
 import { useDispatch, useSelector } from 'react-redux';
-import { kem_signin } from '../../../state/slices/auth/Login';
+import { myLogin } from '../../../state/slices/auth/Login';
 import { REQUEST_STATUS } from '../../../state/slices/constants';
 import { defaultOTP } from '../../../state/slices/shop/setOtp';
-import { unwrapResult } from '@reduxjs/toolkit';
 
 //
 const KemSignUp = () => {
@@ -37,24 +36,13 @@ const KemSignUp = () => {
     //
     //
     //
-    const { userData, status, wasGoing } = useSelector(
+    const { status, wasGoing } = useSelector(
         (state) => state.reducer.loginReducer
     );
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
     const loginHandler = () => {
-        dispatch(kem_signin(formData))
-            .then(unwrapResult)
-            .then((res) => {
-                if (status === REQUEST_STATUS.FULFILLED) {
-                    if (wasGoing !== 'no-where') {
-                        navigate(`/${wasGoing}`);
-                    } else {
-                        navigate('/');
-                    }
-                }
-            });
+        myLogin(formData, navigate, dispatch, wasGoing);
     };
     return (
         <section className="h-80 min-h-screen overflow-x-hidden">
@@ -120,7 +108,7 @@ const KemSignUp = () => {
                                 <Button
                                     onClick={loginHandler}
                                     btnClass="w-full h-10 rounded shadow mt-2 justify-center"
-                                    title="Sign into dashboard"
+                                    title="Sign in"
                                 />
                             </Row>
                             <DividerPanel text="OR" />

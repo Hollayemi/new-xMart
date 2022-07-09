@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { FaFolderOpen, FaPlus, FaEllipsisH } from 'react-icons/fa';
-import { CheckPicker, Message, SelectPicker, toaster } from 'rsuite';
+import { CheckPicker, SelectPicker } from 'rsuite';
 import InputGroup from '../../../components/elements/Input/InputGroup';
 import IconDropdown from '../../../components/elements/IconDropDown';
 import TextAreaGroup from '../../../components/elements/Input/TextAreaGroup';
 import Folder2 from '../../../assets/images/main/folder2.png';
-import { useDispatch } from 'react-redux';
 import {
     createBrand,
     deleteBrand,
@@ -14,15 +13,16 @@ import {
 import ModalPanel from '../../../components/elements/ModalPanel';
 import { deleteHandler } from '../../../state/slices/shop/delete';
 import { myBusinessFiles } from '../../../state/slices/shop/display/displayAll';
-import { unwrapResult } from '@reduxjs/toolkit';
 import { REQUEST_STATUS } from '../../../state/slices/constants';
+import { useDispatch } from 'react-redux';
 
 // //////////////////////
 // //////////////////////
 ////////////////////////
 
-const Brand = ({ dispatch, neededInfo, loadedCateg, myBrands }) => {
-    const { otpData, shopData, otpStatus, reFetchData } = neededInfo;
+const Brand = ({ neededInfo, loadedCateg, myBrands }) => {
+    const { shopData, otpStatus, reFetchData } = neededInfo;
+    const dispatch = useDispatch();
     useEffect(() => {
         reFetchData();
     }, []);
@@ -57,9 +57,8 @@ const Brand = ({ dispatch, neededInfo, loadedCateg, myBrands }) => {
                     num={each.brandCollection}
                     key={index}
                     id={each._id}
-                    otpData={otpData}
-                    shopData={shopData}
-                    reFetchData={reFetchData}
+                    neededInfo={neededInfo}
+                    dispatch={dispatch}
                 />
             );
         });
@@ -107,15 +106,7 @@ const Brand = ({ dispatch, neededInfo, loadedCateg, myBrands }) => {
                             <h5 className="font-bold text-gray-200">New</h5>
                         </div>
                     </div>
-                    {/* <Folders name="Folder 1" num="1" />
-                    <Folders name="Folder 2" num="1" />
-                    <Folders name="Folder 3" num="1" />
-                    <Folders name="Folder 4" num="1" />
-                    <Folders name="Folder 5" num="1" />
-                    <Folders name="Folder 6" num="1" />
-                    <Folders name="Folder 7" num="1" />
-                    <Folders name="Folder 8" num="1" /> */}
-                    {folders}
+                    <div>{folders}</div>
                 </div>
                 <div className=" px-2 md:px-5 flex justify-center md:items-center flex-col pt-5 w-full overflow-auto">
                     <div className="w-full md:px-0 md:w-4/5 min-w-[200px]">
@@ -191,21 +182,19 @@ const Brand = ({ dispatch, neededInfo, loadedCateg, myBrands }) => {
 
 export default Brand;
 
-const Folders = ({ name, num, id, otpData, shopData }) => {
-    const dispatch = useDispatch();
+const Folders = ({ name, num, id, neededInfo, dispatch }) => {
     const [eventFunc, setEventFunc] = useState('');
     const splited = eventFunc.split('-');
     const [open, setOpen] = useState(true);
 
     const deleteBrandHandler = () => {
         deleteBrand(
-            shopData,
-            otpData,
             splited,
-            dispatch,
+            neededInfo,
             deleteHandler,
             myBusinessFiles,
-            eventFunc
+            eventFunc,
+            dispatch
         );
     };
 
@@ -214,7 +203,7 @@ const Folders = ({ name, num, id, otpData, shopData }) => {
             <i className="text-6xl text-blue-500">
                 <img src={Folder2} alt="Brand" className="w-14" />
             </i>
-            <i className="absolute top-2 right-2 w-6 h-3 bg-white rounded-full flex items-center justify-center text-xs text-slate-300 cursor-pointer">
+            <i className="absolute top-2 right-2 w-6 h-3 bg-white  rounded-full flex items-center justify-center text-xs text-slate-300 cursor-pointer">
                 <IconDropdown
                     Icon={<FaEllipsisH />}
                     Content={[
@@ -264,32 +253,3 @@ const Folders = ({ name, num, id, otpData, shopData }) => {
         </div>
     );
 };
-
-//
-// const Folders = ({ name, num, id }) => {
-//     const [eventFunc, setEventFunc] = useState('');
-//     console.log(eventFunc);
-//     return (
-//         <div className="flex justify-between items-center min-w-[200px] relative px-4 m-2  h-24 border rounded-xl bg-blue-100 shadow-md">
-//             <i className="text-6xl text-blue-500">
-//                 <img src={Folder2} alt="Brand" className="w-14" />
-//             </i>
-//             <i className="absolute top-2 right-2 w-6 h-3 bg-white rounded-full flex items-center justify-center text-xs text-slate-300 cursor-pointer">
-//                 <IconDropdown
-//                     Icon={<FaEllipsisH />}
-//                     Content={[
-//                         { value: name + '-delete-' + id, name: 'Delete' },
-//                         { value: name + '-edit-' + id, name: 'Edit' },
-//                         { value: name + '-view-' + id, name: 'View' },
-//                     ]}
-//                     onClose={setEventFunc}
-//                     className="w-20"
-//                 />
-//             </i>
-//             <div className="flex flex-col justify-evenly mt-3 h-full">
-//                 <h5 className="font-bold">{name}</h5>
-//                 <p className="text-xs">{num} products(s)</p>
-//             </div>
-//         </div>
-//     );
-// };

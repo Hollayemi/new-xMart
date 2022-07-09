@@ -1,6 +1,21 @@
+import LadiedImage from '../../../assets/images/png/purchase.png';
+import MenImage from '../../../assets/images/png/Landing/main5.jpg';
+import FootImage from '../../../assets/images/png/Landing/main2.png';
+import fakeImg1 from '../../../assets/images/png/_supreme.png';
+import fakeImg2 from '../../../assets/images/png/_supreme2.jpg';
+import fakeImg3 from '../../../assets/images/png/_supreme3.png';
+import fakeImg4 from '../../../assets/images/png/_supreme4.png';
+import fakeImg5 from '../../../assets/images/png/_supreme5.png';
+import fakeImg6 from '../../../assets/images/png/_supreme6.png';
+import { MySlickSlide } from '../../../pages/website/Home';
+import { websiteImages } from '../../websiteCompoents/Images';
+import Slider from 'react-slick';
+// import fakeImg7 from '../../../assets/images/png/_supreme7.jpg';
+
 export const MartCategories = [
     'Wears',
-    'Drink',
+    'Bags',
+    'Drinks',
     'Kitchen Appliances',
     'Home Appliances',
     'Computer & Electronics',
@@ -15,6 +30,119 @@ export const MartCategories = [
     'Tv, Audio & Media',
     'Gaming',
     'Health & Person',
+];
+
+var settings2 = {
+    infinite: true,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    pauseOnHover: true,
+};
+const WearSliders = () => {
+    return (
+        <div className="h-32 md:h-48 relative md:-mt-6">
+            <Slider {...settings2}>
+                <MySlickSlide
+                    h="h-32 md:h-48"
+                    image={websiteImages.shopWomen}
+                />
+                <MySlickSlide h="h-32 md:h-48" image={websiteImages.shopMen} />
+                <MySlickSlide h="h-32 md:h-48" image={websiteImages.shopKids} />
+                <MySlickSlide
+                    h="h-32 md:h-48"
+                    image={websiteImages.shopWomen2}
+                />
+            </Slider>
+        </div>
+    );
+};
+
+const ElectronicsSliders = () => {
+    return (
+        <div className="h-32 md:h-48 relative md:-mt-6">
+            <Slider {...settings2}>
+                <MySlickSlide
+                    h="h-32 md:h-48"
+                    image={websiteImages.shopPhones}
+                />
+                <MySlickSlide
+                    h="h-32 md:h-48"
+                    image={websiteImages.shopSolar}
+                />
+                <MySlickSlide
+                    h="h-32 md:h-48"
+                    image={websiteImages.shopWomen2}
+                />
+            </Slider>
+        </div>
+    );
+};
+
+const PhoneSlider = () => {
+    return (
+        <div className="h-32 md:h-48 relative md:-mt-6">
+            <Slider {...settings2}>
+                <MySlickSlide
+                    h="h-32 md:h-48"
+                    image={websiteImages.shopDrinks}
+                />
+                <MySlickSlide
+                    h="h-32 md:h-48"
+                    image={websiteImages.shopPhones}
+                />
+                <MySlickSlide
+                    h="h-32 md:h-48"
+                    image={websiteImages.shopSolarCarger}
+                />
+            </Slider>
+        </div>
+    );
+};
+
+const FoodSliders = () => {
+    return (
+        <div className="h-32 md:h-48 relative md:-mt-6">
+            <Slider {...settings2}>
+                <MySlickSlide
+                    h="h-36 md:h-48"
+                    image={websiteImages.kitchenEquipment}
+                />
+                <MySlickSlide
+                    h="h-32 md:h-48"
+                    image={websiteImages.shopDrinks}
+                />
+            </Slider>
+        </div>
+    );
+};
+
+export const HomeDisplay = [
+    {
+        name: 'Wears',
+        about: 'Get decent wears for  from xmart',
+        image: LadiedImage,
+        slider: <WearSliders />,
+    },
+    {
+        name: 'Electronics',
+        about: 'Get ladies decent outfit from xmart',
+        image: LadiedImage,
+        slider: <ElectronicsSliders />,
+    },
+    {
+        name: 'Food Materials',
+        about: 'Order for men jacket today, look different today',
+        image: MenImage,
+        slider: <FoodSliders />,
+    },
+    {
+        name: 'Phone Accessories',
+        about: 'High quality of leader shoes from xmart',
+        image: FootImage,
+        slider: <PhoneSlider />,
+    },
 ];
 
 export const martCategories = [
@@ -45,11 +173,6 @@ export const martCategories = [
                                 value: 'kids Head Wear',
                                 children: [],
                             },
-                            {
-                                label: 'kids School Bags',
-                                value: 'kids School Bags',
-                                children: [],
-                            },
                         ],
                     },
                     {
@@ -69,11 +192,6 @@ export const martCategories = [
                             {
                                 label: 'Ladies Head Wear',
                                 value: 'Ladies Head Wear',
-                                children: [],
-                            },
-                            {
-                                label: 'Ladies Bag',
-                                value: 'Ladies Bag',
                                 children: [],
                             },
                         ],
@@ -97,11 +215,6 @@ export const martCategories = [
                                 value: 'Men Head Wear',
                                 children: [],
                             },
-                            {
-                                label: 'Men Bags',
-                                value: 'Men Bags',
-                                children: [],
-                            },
                         ],
                     },
                     {
@@ -123,19 +236,72 @@ export const martCategories = [
                                 value: 'Men & Women Head Wear',
                                 children: [],
                             },
-                            {
-                                label: 'Men & Women Bags',
-                                value: 'Men & Women Bags',
-                                children: [],
-                            },
                         ],
                     },
                 ],
             },
             {
-                label: 'Drink',
-                value: 'Drink',
-                children: [],
+                label: 'Bags',
+                value: 'Bags',
+                children: [
+                    {
+                        label: 'kids School Bags',
+                        value: 'kids School Bags',
+                        children: [],
+                    },
+                    {
+                        label: 'Ladies Bag',
+                        value: 'Ladies Bag',
+                        children: [],
+                    },
+                    {
+                        label: 'Hand Bags',
+                        value: 'Hand Bags',
+                        children: [],
+                    },
+                    {
+                        label: 'Cross Bags',
+                        value: 'Cross Bags',
+                        children: [],
+                    },
+                    {
+                        label: 'Men Bags',
+                        value: 'Men Bags',
+                        children: [],
+                    },
+                    {
+                        label: 'Men & Women Bags',
+                        value: 'Men & Women Bags',
+                        children: [],
+                    },
+                ],
+            },
+
+            {
+                label: 'Drinks',
+                value: 'Drinks',
+                children: [
+                    {
+                        label: 'Men & Women Foot Wear',
+                        value: 'Men & Women Foot Wear',
+                        children: [],
+                    },
+                    {
+                        label: 'Men & Women Wrist Wear',
+                        value: 'Men & Women Wrist Wear',
+                        children: [],
+                    },
+                    {
+                        label: 'Men & Women Head Wear',
+                        value: 'Men & Women Head Wear',
+                        children: [],
+                    },
+                    {
+                        label: 'Men & Women Bags',
+                        value: 'Men & Women Bags',
+                        children: [],
+                    },
+                ],
             },
             {
                 label: 'Kitchen Appliances',
@@ -352,5 +518,22 @@ export const productInformation = {
             value: 'Pink',
             children: [],
         },
+    ],
+};
+
+export let myProducts2 = {
+    message: [
+        { images: [{ image: fakeImg1 }], prodPrice: 200, prodName: 'sweater' },
+        { images: [{ image: fakeImg2 }], prodPrice: 200, prodName: 'sweater' },
+        { images: [{ image: fakeImg3 }], prodPrice: 200, prodName: 'sweater' },
+        { images: [{ image: fakeImg4 }], prodPrice: 200, prodName: 'sweater' },
+        { images: [{ image: fakeImg5 }], prodPrice: 200, prodName: 'sweater' },
+        { images: [{ image: fakeImg6 }], prodPrice: 200, prodName: 'sweater' },
+        { images: [{ image: fakeImg1 }], prodPrice: 200, prodName: 'sweater' },
+        { images: [{ image: fakeImg2 }], prodPrice: 200, prodName: 'sweater' },
+        { images: [{ image: fakeImg3 }], prodPrice: 200, prodName: 'sweater' },
+        { images: [{ image: fakeImg4 }], prodPrice: 200, prodName: 'sweater' },
+        { images: [{ image: fakeImg5 }], prodPrice: 200, prodName: 'sweater' },
+        { images: [{ image: fakeImg6 }], prodPrice: 200, prodName: 'sweater' },
     ],
 };

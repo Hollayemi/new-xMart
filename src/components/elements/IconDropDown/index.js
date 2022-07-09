@@ -10,7 +10,6 @@ const IconDropdown = ({ Icon, Content, onSelect, className, ref, val }) => {
         );
     });
     const handleSelect = async (eventKey) => {
-        console.log(eventKey);
         onSelect(eventKey);
     };
 

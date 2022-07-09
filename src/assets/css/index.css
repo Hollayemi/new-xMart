@@ -1,3 +1,8 @@
+* {
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+}
 .icon {
     cursor: pointer;
 }
@@ -6,6 +11,21 @@
 }
 .icon.icon-red {
     color: #e43562;
+}
+h1,
+h2,
+h3,
+h4,
+h5 h6,
+p {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
+        'Lucida Sans', Arial, sans-serif;
+}
+.topLine-height {
+    /* line-height:60px !important; */
+}
+a {
+    text-decoration: none !important;
 }
 
 /* Website Styles */
@@ -27,9 +47,10 @@
     background-size: cover;
 }
 .intro-bg {
-    background-image: url('../images/png/intro-bg.jpg');
+    background-image: url('../images/png/intro-img.svg');
     background-repeat: no-repeat;
     background-size: cover;
+    filter: blur(8px);
 }
 .rs-sidenav {
     /* background-color: rgb(20, 24, 28); */

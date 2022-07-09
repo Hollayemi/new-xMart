@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Steps, Panel } from 'rsuite';
 import Button from '../../components/elements/Button';
 import InputGroup from '../../components/elements/Input/InputGroup';
 import { FaAngleLeft } from 'react-icons/fa';
 import UploadProfilePic from '../../components/websiteCompoents/UploadFile/uploadProfilePic';
+import { registerAgentHandler } from '../../state/slices/agents/signup';
+import { useDispatch, useSelector } from 'react-redux';
 
 export const FieldAdded = ({ title, value }) => {
     return (
@@ -14,16 +16,18 @@ export const FieldAdded = ({ title, value }) => {
     );
 };
 const NewAgent = () => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const { userData } = useSelector((state) => state.reducer.loginReducer);
     const [formData, setFormData] = useState({
         name: '',
         email: '',
         phone: '',
         username: '',
-        acc_no: '',
-        acc_bnk: '',
-        acc_name: '',
+        account_number: '',
+        bank_name: '',
+        account_name: '',
         avatar: '',
-        isAvatar: '',
     });
     const [agreedToTerms, setAgreedToTerms] = useState(false);
     const onNext = () => onChange(step + 1);
@@ -37,11 +41,10 @@ const NewAgent = () => {
             variable === 'email' && (newValue = { email: newVal });
             variable === 'phone' && (newValue = { phone: newVal });
             variable === 'username' && (newValue = { username: newVal });
-            variable === 'acc_no' && (newValue = { acc_no: newVal });
-            variable === 'acc_bnk' && (newValue = { acc_bnk: newVal });
-            variable === 'acc_name' && (newValue = { acc_name: newVal });
+            variable === 'acc_no' && (newValue = { account_number: newVal });
+            variable === 'acc_bnk' && (newValue = { bank_name: newVal });
+            variable === 'acc_name' && (newValue = { account_name: newVal });
             variable === 'avatar' && (newValue = { avatar: newVal });
-            variable === 'isAvatar' && (newValue = { isAvatar: newVal });
         }
         setFormData({
             ...formData,
@@ -50,8 +53,7 @@ const NewAgent = () => {
     };
 
     const submitButton = () => {
-        const fullName = document.getElementById('fullName');
-        console.log(fullName);
+        registerAgentHandler(formData, dispatch, userData._id, navigate);
     };
     const [step, setStep] = useState(0);
     const onChange = (nextStep) => {

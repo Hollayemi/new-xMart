@@ -1,129 +1,110 @@
-import { Doughnut, Line, Pie } from 'react-chartjs-2';
-import { Chart as ChartJS, registerables } from 'chart.js';
+import { FaAngleRight } from 'react-icons/fa';
+import { Placeholder } from 'rsuite';
 
-ChartJS.register(...registerables);
-
-export const TransacChart = ({ chartLoader }) => {
+export const SmallCard = ({ total, icon, info }) => {
     return (
-        <div className="bg-white m-2 rounded py-1 shadow w-64 h-16 flex items-center px-3">
-            <div className="w-32">
-                <p className="text-gray-300 text-xs">Daily Transaction Value</p>
-                <h5>₦4,000,000</h5>
+        <div className="w-52 mx-2 my-3 h-20 shadow-md rounded flex items-center justify-evenly cursor-pointer hover:bg-gray-50 bg-white">
+            <i className="w-10 h-10 text-2xl ll rounded-full flex items-center justify-center bg-blue-100 text-blue-400">
+                {icon}
+            </i>
+            <div className="flex flex-col ">
+                <h5 className="font-bold text-md text-slate-900">{total}</h5>
+                <h5 className="text-sm text-gray-400">{info}</h5>
             </div>
-            <div className="w-36 max-w-[100px] h-full">{chartLoader}</div>
         </div>
     );
 };
 
-// export const ChartGraph = ({ ctx }) => {
-//     //
-//     const myChart = new ChartJS(ctx, {
-//         type: 'bar',
-//         data: {
-//             labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-//             datasets: [
-//                 {
-//                     label: '# of Votes',
-//                     data: [12, 19, 3, 5, 2, 3],
-//                     backgroundColor: [
-//                         'rgba(255, 99, 132, 0.2)',
-//                         'rgba(54, 162, 235, 0.2)',
-//                         'rgba(255, 206, 86, 0.2)',
-//                         'rgba(75, 192, 192, 0.2)',
-//                         'rgba(153, 102, 255, 0.2)',
-//                         'rgba(255, 159, 64, 0.2)',
-//                     ],
-//                     borderColor: [
-//                         'rgba(255, 99, 132, 1)',
-//                         'rgba(54, 162, 235, 1)',
-//                         'rgba(255, 206, 86, 1)',
-//                         'rgba(75, 192, 192, 1)',
-//                         'rgba(153, 102, 255, 1)',
-//                         'rgba(255, 159, 64, 1)',
-//                     ],
-//                     borderWidth: 1,
-//                 },
-//             ],
-//         },
-//         options: {
-//             scales: {
-//                 y: {
-//                     beginAtZero: true,
-//                 },
-//             },
-//         },
-//     });
+export const ChangeTime = ({ prevDate }) => {
+    prevDate = new Date(prevDate);
+    let newDate = new Date();
+    let timeDiff = newDate.getTime() - prevDate.getTime();
+    let period = Math.floor(timeDiff / (1000 * 60));
 
-//     return { myChart };
-// };
+    let realTime;
+    if (period > 60) {
+        period = Math.floor(timeDiff / (1000 * 3600));
+        if (period > 23) {
+            if (period > 720) {
+                realTime = Math.floor(period / 30) + ' months ago';
+            } else {
+                if (Math.floor(Math.floor(period) / 24) > 1) {
+                    realTime =
+                        Math.floor(Math.floor(period) / 24) + ' days ago';
+                } else {
+                    realTime = Math.floor(Math.floor(period) / 24) + ' day ago';
+                }
+            }
+        } else {
+            realTime = Math.floor(period) + ' hours ago';
+        }
+    } else {
+        if (Math.floor(period) > 59) {
+            realTime = Math.floor(period / 60) + ' hours ago';
+        } else {
+            if (Math.floor(period) > 0) {
+                realTime = Math.floor(period) + ' minutes ago';
+            } else {
+                realTime = ' Just now';
+            }
+        }
+    }
 
-/*
+    return realTime;
+};
 
-
-
-
-
-
-
-
-
-
-
-
-
-*/
-export const Graph2 = ({ myData, labels, legend }) => {
-    let data = {
-        labels: labels,
-        datasets: [
-            {
-                label: '# of Votes',
-                data: myData,
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)',
-                ],
-                fill: false,
-                borderColor: 'rgb(75, 192, 192)',
-                tension: 0.5,
-                pointBorderWidth: 0,
-                borderWidth: 1,
-            },
-        ],
-    };
-    console.log(legend);
-    let options = {
-        maintainAspectRatio: false,
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true,
-                },
-            },
-        },
-        plugins: {
-            legend: legend, // Hide legend
-        },
-        scales: {
-            y: {
-                display: false, // Hide Y axis labels
-            },
-            x: {
-                display: false, // Hide X axis labels
-            },
-        },
-        elements: {
-            point: {
-                borderWidth: 0,
-                radius: 3,
-                backgroundColor: 'rgba(0,0,0,0)',
-            },
-        },
-    };
-
-    return <Doughnut data={data} options={options} />;
+export const Activities = ({ activities, header, title, shopOwner }) => {
+    let myActivities;
+    if (activities) {
+        myActivities = activities.message.map((res, index) => {
+            return (
+                <div
+                    key={index}
+                    className="flex w-full px-4 hover:bg-gray-50 mx-2 items-center justify-between py-2 border-b-2"
+                >
+                    <div>
+                        {index === 0 && (
+                            <h5 className="font-bold text-md text-slate-900">
+                                Hello {shopOwner || 'there'},
+                            </h5>
+                        )}
+                        {res.name !== 'Login' ? (
+                            <h5
+                                className="text-md text-slate-500 text-md"
+                                title={res.info}
+                            >
+                                You {res.event}d a{' '}
+                                {res.event !== 'delete'
+                                    ? 'new ' + res.action
+                                    : res.action}{' '}
+                                {<ChangeTime prevDate={res.createdAt} />}
+                            </h5>
+                        ) : (
+                            <h5 className="text-md text-slate-500 text-md">
+                                Last Login was{' '}
+                                {<ChangeTime prevDate={res.createdAt} />}
+                            </h5>
+                        )}
+                    </div>
+                    <i>
+                        <FaAngleRight />
+                    </i>
+                </div>
+            );
+        });
+    } else {
+        myActivities = <Placeholder />;
+    }
+    return (
+        <div className=" w-full h-full relative shadow-md rounded-md overflow-hidden flex flex-col items-center cursor-pointer bg-white">
+            <div className="w-full px-4 py-2 h-[60px] flex flex-col justify-center bg-slate-900 ">
+                <h5 className="text-md text-slate-300">{header}</h5>
+                <p className="text-xs text-slate-500">{title}</p>
+            </div>
+            {myActivities}
+            <div className="absolute left bottom-0 hover:font-bold w-full h-8 bg-slate-100 text-center leading-8">
+                View all activities
+            </div>
+        </div>
+    );
 };

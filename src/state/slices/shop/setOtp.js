@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import martApi from '../../api/baseApi';
+import martApi from '../api/baseApi';
 import { REQUEST_STATUS } from '../constants';
 
 export const otpHandler = createAsyncThunk(
@@ -8,7 +8,6 @@ export const otpHandler = createAsyncThunk(
         const { data } = await martApi
             .post(`/setOTP/${payload}`, {}, {})
             .then((res) => {
-                console.log(res);
                 return res;
             })
             .catch((e) => {
@@ -23,11 +22,9 @@ export const getOTP = createAsyncThunk('post/getotp', async (info) => {
     const { data } = await martApi
         .post(`/getOTP/${info.myId}`, { otp: info.code })
         .then((res) => {
-            console.log(res.response);
-            return res.response;
+            return res;
         })
         .catch((e) => {
-            console.log(e.response);
             return e.response;
         });
     return data;
@@ -69,7 +66,6 @@ const setOtp = createSlice({
             return { ...initialState, otpStatus: REQUEST_STATUS.PENDING };
         },
         [getOTP.fulfilled]: (state, { payload }) => {
-            console.log(payload.message);
             if (payload.message === 'matched') {
                 return {
                     ...initialState,

@@ -1,24 +1,46 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Tooltip, Whisper } from 'rsuite';
 import { InputFile } from '../../../components/elements/Input/InputFile';
 import { FaInfoCircle, FaPlus, FaTimes } from 'react-icons/fa';
+import {
+    removeBg,
+    removeBg2,
+} from '../../../state/slices/shop/products/productSlice';
 
 const ImagePreview = ({ fileList, setFileList }) => {
+    const [preview, setPreview] = useState({ images: [] });
     const imageHandler = (e) => {
         let preImg = null;
         let exactType = e.target.files[0].type.split('/');
         if (exactType[0] === 'image') {
-            preImg = [URL.createObjectURL(e.target.files[0])];
-            console.log(preImg[0]);
-            setFileList(fileList.concat([preImg[0]]));
+            for (let index = 0; index < e.target.files.length; index++) {
+                preImg = [URL.createObjectURL(e.target.files[index])];
+                const reader = new FileReader();
+                reader.onloadend = () => {
+                    setFileList(reader.result, 'image');
+                    removeBg(reader.result, setFileList);
+                };
+                reader.readAsDataURL(e.target.files[index]);
+                let newValue = {};
+                removeBg2(e.target.files[index].name, setFileList);
+                newValue = { ...preview.images.push(preImg) };
+                setPreview({
+                    ...preview,
+                    ...newValue,
+                });
+            }
+            // preImg = [URL.createObjectURL(e.target.files[0])];
+            // setFileList(fileList.concat([preImg[0]]), 'image');
         }
     };
     let pictures = null;
-
     if (fileList.length !== 0) {
-        pictures = fileList.map((res, index) => {
+        pictures = preview.images.map((res, index) => {
             return (
-                <div className="flex items-center border px-2 m-1">
+                <div
+                    className="flex items-center border px-2 m-1 py-1"
+                    key={index}
+                >
                     <div>
                         <img
                             src={res}
@@ -28,7 +50,10 @@ const ImagePreview = ({ fileList, setFileList }) => {
                     </div>
                     <div className="flex items-center justify-between px-3 w-5/6">
                         <p className="ml-12">Image {index + 1}</p>
-                        <p className="ml-12 font-light">
+                        <p
+                            className="ml-12 font-light"
+                            onClick={() => setFileList(res, 'removeImg')}
+                        >
                             <FaTimes />
                         </p>
                     </div>
@@ -44,7 +69,8 @@ const ImagePreview = ({ fileList, setFileList }) => {
                         label="add picture"
                         icon={<FaPlus />}
                         multiple={true}
-                        name="uploadProfilePic2"
+                        name="kemImage"
+                        filename="kemImage"
                         value={[]}
                         onChange={(e) => imageHandler(e)}
                     />
@@ -55,10 +81,18 @@ const ImagePreview = ({ fileList, setFileList }) => {
                     trigger="click"
                     speaker={
                         <Tooltip>
-                            This is a help <i>tooltip</i>Collection
-                            categoryCollection categoryCollection
-                            categoryCollection categoryCollection
-                            categoryCollection category .
+                            <h5 className="text-left leading-5">
+                                Only image with no or white background is
+                                accepted, you can remove background here{' '}
+                                <a
+                                    className="text-blue-500 underline"
+                                    target="_blank"
+                                    href="https://remove.bg"
+                                    rel="noreferrer"
+                                >
+                                    remove.bg
+                                </a>
+                            </h5>
                         </Tooltip>
                     }
                 >

@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import martApi from '../../api/baseApi';
+import martApi from '../api/baseApi';
 
 export const deleteHandler = createAsyncThunk(
     'post/deleteHandler',
@@ -9,14 +9,12 @@ export const deleteHandler = createAsyncThunk(
                 headers: { token: payload.auth.token },
             })
             .then((res) => {
-                console.log(res);
                 return res;
             })
             .catch((e) => {
                 console.log(e.response);
                 return e;
             });
-        console.log(data);
         return data;
     }
 );

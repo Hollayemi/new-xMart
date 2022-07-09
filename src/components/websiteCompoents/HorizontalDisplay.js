@@ -1,123 +1,97 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import { getProduct } from '../../state/slices/home';
+import { Loader } from 'rsuite';
+import { myProducts2 } from '../SellerComponents/Info/Categories';
+import { FaShoppingCart, FaStar } from 'react-icons/fa';
+import { MySlickSlide } from '../../pages/website/Home';
 import { websiteImages } from './Images';
 
-const prodArray = [
-    {
-        img: websiteImages.Image2,
-        sellingPrice: '100',
-        originalPrice: '700',
-        name: 'Teddy Bear',
-    },
-    {
-        img: websiteImages.Image3,
-        sellingPrice: '100',
-        originalPrice: '700',
-        name: 'Toy',
-    },
-    {
-        img: websiteImages.Image1,
-        sellingPrice: '800',
-        originalPrice: '300',
-        name: 'Game Boy',
-    },
-    {
-        img: websiteImages.Image2,
-        sellingPrice: '100',
-        originalPrice: '700',
-        name: 'Teddy Bear',
-    },
-    {
-        img: websiteImages.Image3,
-        sellingPrice: '100',
-        originalPrice: '700',
-        name: 'Toy',
-    },
-    {
-        img: websiteImages.Image1,
-        sellingPrice: '800',
-        originalPrice: '300',
-        name: 'Game Boy',
-    },
-    {
-        img: websiteImages.Image2,
-        sellingPrice: '100',
-        originalPrice: '700',
-        name: 'Teddy Bear',
-    },
-    {
-        img: websiteImages.Image3,
-        sellingPrice: '100',
-        originalPrice: '700',
-        name: 'Toy',
-    },
-    {
-        img: websiteImages.Image1,
-        sellingPrice: '800',
-        originalPrice: '300',
-        name: 'Game Boy',
-    },
-    {
-        img: websiteImages.Image2,
-        sellingPrice: '100',
-        originalPrice: '700',
-        name: 'Teddy Bear',
-    },
-    {
-        img: websiteImages.Image3,
-        sellingPrice: '100',
-        originalPrice: '700',
-        name: 'Toy',
-    },
-    {
-        img: websiteImages.Image1,
-        sellingPrice: '800',
-        originalPrice: '300',
-        name: 'Game Boy',
-    },
-];
+var settings = {
+    infinite: true,
+    centerMode: true,
+    variableWidth: true,
+    autoplaySpeed: 3000,
+    slidesToScroll: 1,
+    autoplay: true,
+    pauseOnHover: true,
+};
 
-const HorizontalDisplay = ({ image, about, aspect }) => {
-    const Products = prodArray.map((each, index) => {
-        return (
-            <Product
-                key={index}
-                img={each.img}
-                sellingPrice={each.sellingPrice}
-                originalPrice={each.originalPrice}
-                name={each.name}
+const HorizontalDisplay = ({ image, about, tag, slider, reverse }) => {
+    const [myProducts, setProducts] = useState();
+    const dispatch = useDispatch();
+    useEffect(() => {
+        getProduct(dispatch, tag, 'prodSub_Category', setProducts);
+    }, []);
+
+    let Products = (
+        <div className=" w-full h-44 flex justify-center items-center">
+            <Loader
+                backdrop
+                speed="fast"
+                content="In few seconds..."
+                vertical
             />
-        );
-    });
+        </div>
+    );
+    if (myProducts) {
+        Products = myProducts2.message.map((each, index) => {
+            return (
+                <Product
+                    key={index}
+                    img={each.images[0].image}
+                    sellingPrice={each.prodPrice}
+                    originalPrice={each.prodPrice}
+                    name={each.prodName}
+                />
+            );
+        });
+    }
     return (
         <div className="bg-white py-4 md:p-4 mt-6 shadow-lg shadow-slate-200 border-t-4 border-slate-800">
-            <h2 className="h-16 pl-5 md:pl-20 border-b font-bold text-lg text-black flex items-center">
-                Electronics
+            <h2 className="h-16 pl-5 md:pl-20 border-b font-bold text-lg text-black flex items-center justify-between">
+                {tag}
+                <Link to={`/s/${tag}`}>
+                    <button className="h-8 px-3 py-1 text-[15px] border mr-2">
+                        EXPLORE
+                    </button>
+                </Link>
             </h2>
-            <div className="flex h-[700px] md:h-[360px] flex-col md:flex-row">
-                <div className="w-full md:w-80 md:min-w-[250px] h-80 md:h-full relative">
+            {slider}
+            <div
+                className={`flex h-[790px] md:h-[450px] flex-col md:flex-row ${
+                    reverse && 'md:flex-row-reverse'
+                }`}
+            >
+                <div className="w-full md:w-80 md:min-w-[320px] h-80 md:h-full relative">
                     <img
                         src={image}
                         alt="imageHere"
                         className="w-full h-full "
                     />
-                    <div className="absolute bg-gradient-to-t from-blue-500 md:via-slate-800 to-transparent top-0 left-0 h-full w-full">
+                    <div className="absolute bg-gradient-to-t from-slate-900 to-transparent top-0 left-0 h-full w-full">
                         <div className="flex flex-col items-center absolute w-2/3 pr-2 right-0 md:w-full bottom-6 md:bottom-2 px-2">
                             <h5 className="text-white text-lg font-bold">
-                                Disposable Gloves Hazmat Suit Personal
-                                Protective Equipment Kit
+                                {about}
                             </h5>
-                            <button className="w-28 h-8 mt-3 rounded bg-white text-blue-500 shadow-xl">
-                                Expore
-                            </button>
+                            <Link to={`/s/${tag}`}>
+                                <h5 className="flex items-center justify-center w-28 h-8 mt-3 rounded bg-white text-blue-500 shadow-xl">
+                                    Expore
+                                </h5>
+                            </Link>
                         </div>
                     </div>
                 </div>
-                <div className="flex flex-col overflow-x-auto ml-1">
-                    <div className="overflow-x-auto myScroll-x overflow-y-hidden flex items-center">
-                        {Products}
+                <div className="flex flex-col justify-evenly pl-2 w-full md:w-[calc(100%-320px)]">
+                    <div className="w-full relative">
+                        <Slider {...settings}>{Products}</Slider>
                     </div>
-                    <div className="overflow-x-auto myScroll-x overflow-y-hidden flex items-center">
-                        {Products}
+                    <div className="w-full relative">
+                        <Slider {...settings}>{Products}</Slider>
                     </div>
                 </div>
             </div>
@@ -126,18 +100,36 @@ const HorizontalDisplay = ({ image, about, aspect }) => {
 };
 export default HorizontalDisplay;
 
-export const Product = ({ originalPrice, sellingPrice, img, name }) => {
+export const Product = ({ originalPrice, img, name, styles }) => {
     return (
-        <div className="flex flex-col items-center w-40 h-40 rounded m-2 hover:shadow-lg">
-            <div className="w-40 h-40">
+        <div
+            className={`flex flex-col justify-center items-center ${styles} h-52 pb-2 border rounded mx-2 my-1 hover:shadow-lg `}
+        >
+            <div className="w-40 h-40 flex justify-center">
                 <img
                     src={img}
                     alt="img_here"
-                    className="w-40 h-32 bg-gray00 rounded-xl"
+                    className="w-28 h-28 pt-2 rounded-xl"
                 />
             </div>
-            <div className="flex items-center justify-evenly w-full h-6">
-                <h5 className="text-xs font-bold">{name}</h5>
+            <div className="w-full px-2">
+                <p className="text-[12px] p-0 text-red-400">Ship to Nigeria</p>
+                <Link to={`/b/${name}`}>
+                    <h5 className="text-lg text-slate-800 font-bold">{name}</h5>
+                </Link>
+                <div className="flex items-center">
+                    <i className="flex items-center">
+                        <FaStar className="text-slate-900" />
+                        <FaStar className="text-slate-900" />
+                        <FaStar className="text-slate-900" />
+                        <FaStar className="text-slate-900" />
+                    </i>
+                    <h5 className="ml-4">321 Reviews</h5>
+                </div>
+                <div className="flex items-center justify-between px-3">
+                    <h5 className="font-black text-sm">{originalPrice}</h5>
+                    <FaShoppingCart className="text-slate-800" />
+                </div>
             </div>
         </div>
     );

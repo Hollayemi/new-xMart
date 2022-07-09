@@ -66,6 +66,7 @@ const DashboardHeader = ({ agentDetails }) => {
 
 const DashboardWrapper = ({ ...props }) => {
     const setShowing = props.setShowing;
+    const showing = props.showing;
     const [expand, setExpand] = useState(true);
     return (
         <div className="show-fake-browser sidebar-page bg-slate-100">
@@ -97,7 +98,7 @@ const DashboardWrapper = ({ ...props }) => {
                                 <Nav>
                                     <Nav.Item
                                         eventKey="1"
-                                        active
+                                        active={showing === 'Overview' && true}
                                         onClick={() => setShowing('Overview')}
                                     >
                                         <div className="h-5 ml-2 min-w-[100%]">
@@ -114,6 +115,7 @@ const DashboardWrapper = ({ ...props }) => {
 
                                     <Nav.Item
                                         eventKey="2"
+                                        active={showing === 'Reward' && true}
                                         onClick={() => setShowing('Reward')}
                                     >
                                         <div className="h-5 ml-2 min-w-[100%]">
@@ -130,6 +132,7 @@ const DashboardWrapper = ({ ...props }) => {
 
                                     <Nav.Item
                                         eventKey="2"
+                                        active={showing === 'Pickup' && true}
                                         onClick={() => setShowing('Pickup')}
                                     >
                                         <div className="h-5 ml-2 min-w-[100%]">
@@ -145,7 +148,8 @@ const DashboardWrapper = ({ ...props }) => {
                                     </Nav.Item>
                                     <Nav.Item
                                         eventKey="2"
-                                        onClick={() => setShowing('Analytics')}
+                                        active={showing === 'Available' && true}
+                                        onClick={() => setShowing('Available')}
                                     >
                                         <div className="h-5 ml-2 min-w-[100%]">
                                             <div className="flex items-center h-full">
@@ -160,7 +164,8 @@ const DashboardWrapper = ({ ...props }) => {
                                     </Nav.Item>
                                     <Nav.Item
                                         eventKey="2"
-                                        onClick={() => setShowing('Analytics')}
+                                        active={showing === 'Settings' && true}
+                                        onClick={() => setShowing('Settings')}
                                     >
                                         <div className="h-5 ml-2 min-w-[100%]">
                                             <div className="flex items-center h-full">
@@ -168,14 +173,15 @@ const DashboardWrapper = ({ ...props }) => {
                                                     <FaCog />
                                                 </i>
                                                 <span className="px-3">
-                                                    Settigs
+                                                    Settings
                                                 </span>
                                             </div>
                                         </div>
                                     </Nav.Item>
                                     <Nav.Item
                                         eventKey="2"
-                                        onClick={() => setShowing('Analytics')}
+                                        active={showing === 'Help' && true}
+                                        onClick={() => setShowing('Help')}
                                     >
                                         <div className="h-5 ml-2 min-w-[100%]">
                                             <div className="flex items-center h-full">

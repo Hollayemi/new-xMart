@@ -62,7 +62,7 @@ class ErrorBoundary extends Component {
                                                     <h2 className="font-bold text-2xl text-blue-600">
                                                         500 ERROR
                                                     </h2>
-                                                    <p>Error title here</p>
+                                                    <p>Server error</p>
                                                 </div>
                                                 <i className="w-16 h-16 rounded-full flex items-center justify-center text-2xl bg-red-400 text-white">
                                                     <FaTimes />

@@ -1,26 +1,23 @@
 import { createAsyncThunk, unwrapResult } from '@reduxjs/toolkit';
 import { Message, toaster } from 'rsuite';
 import { martCategories } from '../../../../components/SellerComponents/Info/Categories';
-import martApi from '../../../api/baseApi';
+import martApi from '../../api/baseApi';
 import { REQUEST_STATUS } from '../../constants';
+import { storeFiles } from '../display/displayAll';
 
 export const createBrandApi = createAsyncThunk(
     'post/createBrand',
     async (payload) => {
-        console.log(payload);
         const { data } = await martApi
             .post(`/newBrand/` + payload.id, payload.body, {
                 headers: { token: payload.auth.token },
             })
             .then((res) => {
-                console.log(res);
                 return res;
             })
             .catch((e) => {
-                console.log(e.response);
                 return e.response;
             });
-        console.log(data);
         return data;
     }
 );
@@ -28,33 +25,30 @@ export const createBrandApi = createAsyncThunk(
 export const updateInstance = createAsyncThunk(
     'post/collectionInstance',
     async (payload) => {
-        console.log(payload);
         const { data } = await martApi
             .post(`/use`, payload, {})
             .then((res) => {
-                console.log(res);
                 return res;
             })
             .catch((e) => {
-                console.log(e.response);
                 return e.response;
             });
         return data;
     }
 );
+
 //
 //
 //
 //
 
 export const createBrand = (formData, neededInfo, dispatch) => {
-    console.log(neededInfo);
     if (neededInfo.otpStatus === REQUEST_STATUS.VERIFIED) {
-        console.log(formData);
         const payload = {
             id: neededInfo.shopData.id,
             body: {
                 ...formData,
+                // shopId: neededInfo.shopData.id,
             },
             auth: {
                 token: 'Holla ' + neededInfo.otpData.accessToken,
@@ -69,7 +63,6 @@ export const createBrand = (formData, neededInfo, dispatch) => {
         dispatch(createBrandApi(payload))
             .then(unwrapResult)
             .then((res) => {
-                console.log(res);
                 toaster.push(
                     <Message showIcon type={res.type}>
                         {res.message.replace('buzz_', 'business ')}
@@ -78,10 +71,10 @@ export const createBrand = (formData, neededInfo, dispatch) => {
                         placement: 'topEnd',
                     }
                 );
-                if (res.type) {
+                neededInfo.reFetchData();
+                if (res.type === 'success') {
                     dispatch(updateInstance(subPayload));
                 }
-                neededInfo.reFetchData();
             })
             .catch((e) => {
                 console.log(e);
@@ -95,19 +88,19 @@ export const createBrand = (formData, neededInfo, dispatch) => {
 //
 
 export const deleteBrand = (
-    shopData,
-    otpData,
     splited,
-    dispatch,
+    neededInfo,
     deleteHandler,
     getInfo,
-    eventFunc
+    eventFunc,
+    dispatch
 ) => {
+    const { shopData, otpData, reFetchData } = neededInfo;
     const payload = {
         shopID: shopData.id,
         body: {
             delCase: 'brand',
-            id: splited[2],
+            _id: splited[2],
         },
         auth: {
             token: 'Holla ' + otpData.accessToken,
@@ -119,14 +112,13 @@ export const deleteBrand = (
         useCase: 'brands',
         operator: '+',
     };
-    console.log(payload);
     dispatch(deleteHandler(payload))
         .then(unwrapResult)
         .then((resr) => {
             dispatch(getInfo(shopData.id))
                 .then(unwrapResult)
                 .then((res) => {
-                    // refresh(res);
+                    console.log(resr);
                     toaster.push(
                         <Message showIcon type={resr.type}>
                             {resr.message}
@@ -138,6 +130,7 @@ export const deleteBrand = (
                     if (resr.type) {
                         dispatch(updateInstance(subPayload));
                     }
+                    reFetchData();
                 });
             eventFunc('');
         })
@@ -147,6 +140,7 @@ export const deleteBrand = (
 };
 
 export const loadChildren = (cate) => {
+    console.log(cate);
     let theArray = [];
     const forArr = (array) => {
         for (let i = 0; i < array.length; i++) {
@@ -169,4 +163,3 @@ export const loadChildren = (cate) => {
 
     return theArray;
 };
-const resolved = loadChildren('Wears');

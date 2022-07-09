@@ -45,11 +45,11 @@ const Pickup = () => {
     };
     return (
         <section className="bg-white overflow-x-auto">
-            <div className="flex flex-col min-w-[270px] md:flex-row mx-1 md:mx-5 my-6 rounded-md">
+            <div className="flex flex-col min-w-[270px] md:justify-center md:justify-evenly md:flex-row mx-1 md:mx-5 my-6 rounded-md">
                 <div className="flex justify-center w-full mb-6 md:mb-2 md:w-2/5">
-                    <img src={PickupImage} alt={'nairaImage'} />
+                    <img src={PickupImage} alt={'nairaImage'} width="h-auto" />
                 </div>
-                <div className="w-full md:w-3/5 min-h-[500px]">
+                <div className="w-full md:w-3/5 max-w-[450px] min-h-[500px]">
                     <h3 className="border-b w-full leading-10 text-md px-3 flex justify-between items-center px-5 text-sm">
                         <p>Account Information</p>
                         <i

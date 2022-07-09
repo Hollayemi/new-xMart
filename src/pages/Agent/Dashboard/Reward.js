@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import { FaUserEdit } from 'react-icons/fa';
 import onlinePayment from '../../../assets/images/png/onlinePayment.png';
 import InputGroup from '../../../components/elements/Input/InputGroup';
-const Reward = () => {
+import Footer from '../../../components/websiteCompoents/Footer';
+const Reward = ({ data }) => {
+    console.log(data);
     const [edit, setEdit] = useState(false);
     const [formData, setFormData] = useState({
         AccountName: '',
@@ -28,12 +30,12 @@ const Reward = () => {
                 <div className="flex justify-center w-full mb-6 md:mb-2 md:w-2/5">
                     <img src={onlinePayment} alt={'nairaImage'} />
                 </div>
-                <div className="w-full md:w-3/5">
+                <div className="w-full md:w-3/5 max-w-[450px]">
                     <h3 className="border-b w-full leading-10 text-md px-3 flex justify-between items-center px-5 text-sm">
                         <p>Account Information</p>
                         <i
                             onClick={() => setEdit(!edit)}
-                            className="cursor-pointer h-8 w-8 flex items-center justify-center rounded-full hover:bg-gray-200"
+                            className="cursor-pointer h-8 w-8 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-300"
                         >
                             <FaUserEdit />
                         </i>
@@ -47,6 +49,7 @@ const Reward = () => {
                                     placeholder=" "
                                     disabled={!edit}
                                     required={edit}
+                                    value={data.message.account_name}
                                     onChange={(e) =>
                                         updateValue(e.target.value, 'name')
                                     }
@@ -60,6 +63,7 @@ const Reward = () => {
                                     placeholder=" "
                                     disabled={!edit}
                                     required={edit}
+                                    value={data.message.account_number}
                                     onChange={(e) =>
                                         updateValue(e.target.value, 'acc_num')
                                     }
@@ -75,6 +79,7 @@ const Reward = () => {
                                     placeholder=" "
                                     disabled={!edit}
                                     required={edit}
+                                    value={data.message.bank_name}
                                     onChange={(e) =>
                                         updateValue(e.target.value, 'bank')
                                     }
@@ -88,6 +93,7 @@ const Reward = () => {
                                     placeholder=" "
                                     disabled={!edit}
                                     required={edit}
+                                    value={data.message.phone}
                                     onChange={(e) =>
                                         updateValue(e.target.value, 'phone')
                                     }
@@ -105,6 +111,7 @@ const Reward = () => {
                     </div>
                 </div>
             </div>
+            <Footer />
         </section>
     );
 };

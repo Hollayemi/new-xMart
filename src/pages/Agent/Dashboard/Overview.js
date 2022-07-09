@@ -1,8 +1,27 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Badge, Progress, Timeline, Toggle } from 'rsuite';
 import { FaCreditCard, FaPlane, FaUser, FaWallet } from 'react-icons/fa';
 
 const Overview = () => {
+    const [amount1, setamt1] = useState('10000');
+    const [amount2, setamt2] = useState('40000');
+
+    const hideAmount = (action, content, func) => {
+        var star = '*';
+        console.log(content);
+        console.log(action);
+        for (let i = 1; i < content.length; i++) {
+            star = star + '*';
+            func(star);
+        }
+        if (action === true) {
+            console.log(star);
+            func(star);
+        } else {
+            console.log(content);
+            func(content);
+        }
+    };
     return (
         <section className="py-10 overflow-x-auto">
             <div className="flex flex-col md:flex-row min-w-[270px] items-center justify-evenly px-2 md:px-6">
@@ -13,8 +32,10 @@ const Overview = () => {
                         </h3>
                         <Toggle
                             size="md"
-                            checkedChildren="Hide Balance"
-                            unCheckedChildren="Reveal Balance"
+                            checkedChildren="Reveal Balance"
+                            defaultChecked={false}
+                            unCheckedChildren="Hide Balance"
+                            onChange={(e) => hideAmount(e, '10000', setamt1)}
                         />
                     </div>
                     <div className="flex items-center justify-between px-6 h-28 ">
@@ -22,7 +43,7 @@ const Overview = () => {
                             <i className="w-8 h-8 rounded-full mx-1 text-blue-400 flex bg-slate-600 items-center justify-center">
                                 <FaWallet />
                             </i>
-                            <p>&#8358; 1,200</p>
+                            <p>&#8358; {amount1}</p>
                         </h5>
                         <div style={{ width: 80 }}>
                             <Progress.Circle percent={30} strokeColor="slate" />
@@ -37,8 +58,10 @@ const Overview = () => {
                         </h3>
                         <Toggle
                             size="md"
-                            checkedChildren="Hide Balance"
-                            unCheckedChildren="Reveal Balance"
+                            checkedChildren="Reveal Balance"
+                            defaultChecked={false}
+                            unCheckedChildren="Hide Balance"
+                            onChange={(e) => hideAmount(e, '40000', setamt2)}
                         />
                     </div>
                     <div className="flex items-center justify-between px-6 h-28 ">
@@ -46,7 +69,7 @@ const Overview = () => {
                             <i className="w-8 h-8 rounded-full mx-1 text-blue-400 flex bg-slate-600 items-center justify-center">
                                 <FaWallet />
                             </i>
-                            <p>&#8358; 8,450</p>
+                            <p>&#8358; {amount2}</p>
                         </h5>
                         <div style={{ width: 80 }}>
                             <Progress.Circle percent={30} strokeColor="slate" />

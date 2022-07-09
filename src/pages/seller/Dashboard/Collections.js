@@ -12,13 +12,16 @@ import {
 } from '../../../state/slices/shop/collections/createCollection';
 import ModalPanel from '../../../components/elements/ModalPanel';
 import { deleteHandler } from '../../../state/slices/shop/delete';
-import { myBusinessFiles } from '../../../state/slices/shop/display/displayAll';
+import {
+    myBusinessFiles,
+    storeFiles,
+} from '../../../state/slices/shop/display/displayAll';
 //
 
 const Collections = ({ collections, neededInfo }) => {
-    const { reFetchData, otpStatus } = neededInfo;
+    const { reFetchData, otpStatus, setFiles } = neededInfo;
     useEffect(() => {
-        reFetchData();
+        storeFiles(shopData.id, dispatch, reFetchData);
     }, []);
 
     const [formData, setFormData] = useState({
@@ -40,7 +43,6 @@ const Collections = ({ collections, neededInfo }) => {
 
     //
     //
-
     let folders = null;
     if (collections.type === 'success') {
         folders = collections.message.map((each, index) => {
@@ -86,6 +88,7 @@ const Collections = ({ collections, neededInfo }) => {
             otpData,
             selectedCate,
             dispatch,
+            setFiles,
             reFetchData
         );
     };

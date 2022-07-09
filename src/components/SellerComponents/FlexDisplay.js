@@ -56,7 +56,7 @@ export default TwoColFlexImgRight;
 
 export const IconNoteFlex = ({ note, icon, tag }) => {
     return (
-        <div className="w-72 h-48 border shadow-xl rounded-2xl shadow-slate-200 m-6 flex flex-col justify-center items-center px-5 text-justify">
+        <div className="w-72 min-w-[300px] md:min-w-[200px] h-48 border shadow-xl rounded-2xl shadow-slate-200 m-6 flex flex-col justify-center items-center px-5 text-justify">
             <div className="flex flex-col items-center mb-3">
                 <i className="text-5xl">{icon}</i>
                 <h5 className="font-bold text-md">{tag}</h5>
