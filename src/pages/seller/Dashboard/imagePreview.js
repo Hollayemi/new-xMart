@@ -22,7 +22,7 @@ const ImagePreview = ({ fileList, setFileList }) => {
                 };
                 reader.readAsDataURL(e.target.files[index]);
                 let newValue = {};
-                removeBg2(e.target.files[index].name, setFileList);
+                removeBg(e.target.files[index].name, setFileList);
                 newValue = { ...preview.images.push(preImg) };
                 setPreview({
                     ...preview,

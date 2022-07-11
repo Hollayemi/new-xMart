@@ -106,7 +106,7 @@ const Brand = ({ neededInfo, loadedCateg, myBrands }) => {
                             <h5 className="font-bold text-gray-200">New</h5>
                         </div>
                     </div>
-                    <div>{folders}</div>
+                    {folders}
                 </div>
                 <div className=" px-2 md:px-5 flex justify-center md:items-center flex-col pt-5 w-full overflow-auto">
                     <div className="w-full md:px-0 md:w-4/5 min-w-[200px]">

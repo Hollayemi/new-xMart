@@ -65,7 +65,7 @@ const initialState = {
     error: '',
 };
 
-const addNewShop = createSlice({
+const editExistingShop = createSlice({
     name: 'newShop',
     initialState,
     reducers: {},
@@ -102,8 +102,8 @@ const addNewShop = createSlice({
     },
 });
 
-export const { setShop } = addNewShop.actions;
-export default addNewShop.reducer;
+export const { setShop } = editExistingShop.actions;
+export default editExistingShop.reducer;
 
 /*
 

@@ -52,37 +52,6 @@ export const updateInstance = createAsyncThunk(
     }
 );
 //
-const initialState = {
-    creatname: '',
-};
-
-//
-//
-//
-const newCollection = createSlice({
-    name: 'newCollection',
-    initialState,
-    reducers: {},
-    extraReducers: {
-        [createCollection.pending]: () => {
-            return { ...initialState, status: REQUEST_STATUS.PENDING };
-        },
-        [createCollection.fulfilled]: (state, { payload }) => {
-            return {
-                ...initialState,
-                status: REQUEST_STATUS.FULFILLED,
-                colData: payload,
-            };
-        },
-        [createCollection.rejected]: () => {
-            return { ...initialState, status: REQUEST_STATUS.REJECTED };
-        },
-    },
-});
-
-export const { addNewCollection } = newCollection.actions;
-export default newCollection.reducer;
-
 //
 //
 //

@@ -4,7 +4,7 @@ import { Message, toaster } from 'rsuite';
 import martApi from '../../api/baseApi';
 import { REQUEST_STATUS } from '../../constants';
 import { deleteHandler } from '../delete';
-import { removeBackgroundFromImageBase64 } from 'remove.bg';
+// import { removeBackgroundFromImageBase64 } from 'remove.bg';
 //add product
 export const createNewProduct = createAsyncThunk(
     'post/newProductkk',
@@ -202,21 +202,21 @@ export const removeBg = (imgUrl, setImgData) => {
 // const base64img = fs.readFileSync(localFile, { encoding: 'base64' });
 // console.log(base64img);
 
-export const removeBg2 = (name, setImgData) => {
-    const outputFile = `${__dirname}/out/${name}.png`;
-    removeBackgroundFromImageBase64({
-        setImgData,
-        apiKey: 'sMy4sR7AsoQNHLSNCZQEGL7r',
-        size: 'regular',
-        type: 'product',
-        outputFile,
-    })
-        .then((result) => {
-            console.log(`File saved to ${outputFile}`);
-            const base64img = result.base64img;
-            console.log(base64img);
-        })
-        .catch((errors) => {
-            console.log(JSON.stringify(errors));
-        });
-};
+// export const removeBg2 = (name, setImgData) => {
+//     const outputFile = `${__dirname}/out/${name}.png`;
+//     removeBackgroundFromImageBase64({
+//         setImgData,
+//         apiKey: 'sMy4sR7AsoQNHLSNCZQEGL7r',
+//         size: 'regular',
+//         type: 'product',
+//         outputFile,
+//     })
+//         .then((result) => {
+//             console.log(`File saved to ${outputFile}`);
+//             const base64img = result.base64img;
+//             console.log(base64img);
+//         })
+//         .catch((errors) => {
+//             console.log(JSON.stringify(errors));
+//         });
+// };
