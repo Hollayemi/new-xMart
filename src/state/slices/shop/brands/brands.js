@@ -141,7 +141,6 @@ export const deleteBrand = (
 };
 
 export const loadChildren = (cate) => {
-    console.log(cate);
     let theArray = [];
     const forArr = (array) => {
         for (let i = 0; i < array.length; i++) {
@@ -161,6 +160,6 @@ export const loadChildren = (cate) => {
             forArr(res.children);
         }
     });
-
+    console.log(theArray);
     return theArray;
 };

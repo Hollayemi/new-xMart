@@ -163,7 +163,7 @@ export const BigHeader = ({ top, raise, sideBarState, cartItems }) => {
 
 export const SmallHeader = ({ expandCate, setCategory, open, setOpen }) => {
     return (
-        <div className="bg-slate-800 pb-2">
+        <div className="bg-slate-800 pb-2 fixed top-0 w-full z-50">
             <div className="flex justify-end px-4 text-slate-300 border-b border-slate-700 py-2 items-center h-6">
                 <Link to="/seller">
                     <h5 className="mx-2">Sell on Kemon</h5>
@@ -317,6 +317,7 @@ const Header = ({ expandCate, setCategory, setOpen, open, cartItems }) => {
                 <BigHeader cartItems={cartItems} />
             </div>
             <div className="block md:hidden">
+                <div className="h-36"></div>
                 <SmallHeader
                     expandCate={expandCate}
                     setCategory={setCategory}

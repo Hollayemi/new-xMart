@@ -6,8 +6,6 @@ import fakeImg1 from '../../../../assets/images/png/_supreme4.png';
 // import { FetchCartHandler } from '../../../state/slices/home/cart/fetchCart';
 import { useParams } from 'react-router-dom';
 import { getOneProductHandler } from '../../../../state/slices/home';
-import ModalPanel from '../../../../components/elements/ModalPanel';
-import { SignInForm } from '../../../auth/signin/Signin';
 import { FetchCartHandler } from '../../../../state/slices/home/cart/fetchCart';
 import { ProductDisplay } from './productDisplay';
 
@@ -18,8 +16,7 @@ const ProductsContainer = () => {
         (state) => state.reducer.cartedProduct
     );
     const { userData } = useSelector((state) => state.reducer.loginReducer);
-    const [productInfo, setInfo] = useState([{}]);
-    const [openAdd, setOpenAdd] = useState(false);
+    const [productInfo, setInfo] = useState({});
 
     useEffect(() => {
         getOneProductHandler(dispatch, fetchPayload, setInfo);
@@ -31,12 +28,12 @@ const ProductsContainer = () => {
     };
     let payload = {
         body: {
-            productId: (productInfo[0] && productInfo[0]._id) || 'noId',
+            productId: (productInfo && productInfo._id) || 'noId',
             userId: (userData && userData._id) || 'noId',
         },
     };
-
-    let prodState = [];
+    const prodState = [];
+    console.log(typeof prodState);
     if (cartData && cartData.message.length > 0) {
         cartData.message.map((x) => {
             return prodState.push(x.productId);
@@ -44,9 +41,7 @@ const ProductsContainer = () => {
     }
     let chosenSize = ['0'];
     chosenSize =
-        (productInfo[0] &&
-            productInfo[0].prodVari &&
-            productInfo[0].prodVari[0].size) ||
+        (productInfo && productInfo.prodVari && productInfo.prodVari[0].size) ||
         '0';
     return (
         <section className="min-h-[100vh] bg-slate-90 pb-16 md:pb-0 w-full flex items-center justify-center">
@@ -69,7 +64,7 @@ const ProductsContainer = () => {
                     />
                 </div>
             </div>
-            {productInfo[0] && productInfo[0]._id ? (
+            {productInfo && productInfo._id ? (
                 <ProductDisplay
                     payload={payload}
                     productInfo={productInfo}
@@ -80,16 +75,6 @@ const ProductsContainer = () => {
             ) : (
                 <Loader speed="fast" content="wait..." />
             )}
-            <ModalPanel
-                closeButton={true}
-                title=" "
-                children={<SignInForm going="/" />}
-                hasBackdrop={true}
-                keyboard={true}
-                open={openAdd}
-                buttonName="Varify Code"
-                handleClose={() => setOpenAdd(!openAdd)}
-            />
         </section>
     );
 };

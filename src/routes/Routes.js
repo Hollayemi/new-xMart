@@ -65,7 +65,7 @@ const AppRoutes = () => {
                     element: <SignUp />,
                 },
                 {
-                    path: '/s/:brandName',
+                    path: '/s/:category',
                     element: <SearchBrands />,
                 },
                 {

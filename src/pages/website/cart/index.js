@@ -1,10 +1,32 @@
 import React, { useState } from 'react';
 import { FaCheckCircle, FaTrash } from 'react-icons/fa';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-// import myLogo from '../../../assets/images/png/logo_2.png';
 import fakeImg1 from '../../../assets/images/png/_supreme4.png';
 import SearchWrapper from '../../../components/websiteCompoents/ReuseableFlex';
+import { getOnebyId } from '../../../state/slices/home';
+import { MyCartPreView } from '../containers/products/components';
 const Cart = () => {
+    const { cartData } = useSelector((state) => state.reducer.cartedProduct);
+    let prodState = [];
+    if (cartData && cartData.message.length > 0) {
+        cartData.message.map((x) => {
+            return prodState.push(x.productId);
+        });
+    }
+    const dispatch = useDispatch();
+    console.log(prodState);
+    const allName = prodState.map(async (res) => {
+        console.log(res);
+        // const res_1 = await getOnebyId(dispatch, '62d73c57343eaa1a7ae5826e');
+        // console.log(res_1);
+        // <MyCartPreView
+        //     name={res_1.prodName}
+        //     image={fakeImg1}
+        //     qty={12}
+        //     price={res_1.prodPrice}
+        // />;
+    });
     return (
         <SearchWrapper>
             <section>
@@ -16,6 +38,7 @@ const Cart = () => {
                         <h5 className="w-full border-b border-slate-300 h-10 px-4 font-[800] text-lg leading-10">
                             Cart
                         </h5>
+                        {allName}
                         <CartItem
                             image={fakeImg1}
                             name="Arduino Uno Micro-controller Plus Usb Cabl..."

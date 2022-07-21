@@ -89,9 +89,10 @@ export const getOnebyId = (dispatch, id) => {
     };
     return new Promise((resolve, reject) => {
         dispatch(getOneProduct(payload))
+            .then(unwrapResult)
             .then((res) => {
-                console.log(res);
-                resolve(res);
+                console.log(res.message);
+                resolve(res.message);
             })
             .catch((err) => {
                 reject(err.message);
