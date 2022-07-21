@@ -3,6 +3,7 @@ import { Message, toaster } from 'rsuite';
 import martApi from '../api/baseApi';
 import { REQUEST_STATUS } from '../constants';
 import { otpHandler } from './setOtp';
+import { editShopInfo } from './settings/editShop';
 
 export const addShop = createAsyncThunk('post/addNewShop', async (payload) => {
     const { data } = await martApi
@@ -83,7 +84,7 @@ const editExistingShop = createSlice({
         [addShop.rejected]: (state) => {
             return { ...initialState, status: REQUEST_STATUS.REJECTED };
         },
-
+        //
         //
         //
         [getShopInfo.pending]: (state) => {
@@ -97,6 +98,23 @@ const editExistingShop = createSlice({
             };
         },
         [getShopInfo.rejected]: (state) => {
+            return { ...initialState, status: REQUEST_STATUS.REJECTED };
+        },
+
+        //
+        //
+        //
+        [editShopInfo.pending]: (state) => {
+            return { ...initialState, status: REQUEST_STATUS.PENDING };
+        },
+        [editShopInfo.fulfilled]: (state, { payload }) => {
+            return {
+                ...initialState,
+                shopData: payload,
+                status: REQUEST_STATUS.FULFILLED,
+            };
+        },
+        [editShopInfo.rejected]: (state) => {
             return { ...initialState, status: REQUEST_STATUS.REJECTED };
         },
     },

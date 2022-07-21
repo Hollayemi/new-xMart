@@ -23,11 +23,12 @@ import Overview from './Overview';
 import EntryMode from './Settings/entryMode';
 import ReferenceKey from './Settings/referenceKey';
 import ActivitiesPage from './Settings/activities';
+import EditProduct from './editProduct';
 
 const Dashboard = () => {
     const dispatch = useDispatch();
     const [agreedToTerms, setAgreedToTerms] = useState(true);
-    const [showing, setShowing] = useState('Store_Collections');
+    const [showing, setShowing] = useState('0_Analytics');
     const fakeData = { myCategories: { type: 'empty' } };
     const [files, setFiles] = useState(fakeData);
 
@@ -64,7 +65,6 @@ const Dashboard = () => {
         setFiles: setFiles,
         reFetchData: reLoad,
     };
-    console.log(neededInfo);
     const myBrandData = [];
     if (files.myBrand) {
         files.myBrand.message.map((res, index) => {
@@ -82,76 +82,104 @@ const Dashboard = () => {
     }
 
     return (
-        <DashboardWrapper
-            danger="mainly"
-            BreadcrumbList={myBreadcrumb}
-            setShowing={setShowing}
-            showing={showing}
-            shopName="Kemon-Mart"
-        >
-            {showing === 'Dashboard' && <Overview neededInfo={neededInfo} />}
-            {splitedShowing[1] === 'Analytics' && (
-                <Analytics neededInfo={neededInfo} />
-            )}
-            {splitedShowing[1] === 'Brands' && (
-                <Brand
-                    neededInfo={neededInfo}
-                    dispatch={dispatch}
-                    myBrands={files.myBrand}
-                    loadedCateg={files.myCategories}
-                />
-            )}
-            {splitedShowing[1] === 'Collections' && (
-                <Collections
-                    collections={files.myCategories}
-                    neededInfo={neededInfo}
-                />
-            )}
-            {splitedShowing[1] === 'Products' && (
-                <Products
-                    myBrandData={myBrandData}
-                    dispatch={dispatch}
-                    allProducts={files.allProducts}
-                    neededInfo={neededInfo}
-                />
-            )}
-            {splitedShowing[1] === 'Xtra Brand' && <PurchaseBrand />}
-            {splitedShowing[1] === 'Xtra Product' && <PurchaseProduct />}
-            {splitedShowing[1] === 'Xtra Collection' && <PurchaseCollection />}
-            {splitedShowing[1] === 'Unsupplied Products' && <Unsupplied />}
-            {splitedShowing[1] === 'Carted Products' && <Carted />}
-            {splitedShowing[1] === 'Supplied Products' && <Supplied />}
-            {splitedShowing[1] === 'Edit' && <Setting />}
-            {splitedShowing[1] === 'Entry Mode' && <EntryMode />}
-            {splitedShowing[1] === 'Reference Keys' && <ReferenceKey />}
-            {splitedShowing[1] === 'Activities' && (
-                <ActivitiesPage neededInfo={neededInfo} />
-            )}
+        <div className="bg-slate-300">
+            <DashboardWrapper
+                danger="mainly"
+                BreadcrumbList={myBreadcrumb}
+                setShowing={setShowing}
+                showing={showing}
+                shopName="Kemon-Mart"
+            >
+                {showing === 'Dashboard' && (
+                    <Overview neededInfo={neededInfo} />
+                )}
+                {splitedShowing[1] === 'Analytics' && (
+                    <Analytics neededInfo={neededInfo} />
+                )}
+                {splitedShowing[1] === 'Brands' && (
+                    <Brand
+                        neededInfo={neededInfo}
+                        myBrands={files.myBrand}
+                        loadedCateg={files.myCategories}
+                        setShowing={setShowing}
+                        showing={showing}
+                    />
+                )}
+                {splitedShowing[1] === 'Collections' && (
+                    <Collections
+                        collections={files.myCategories}
+                        neededInfo={neededInfo}
+                    />
+                )}
+                {splitedShowing[1] === 'Products' && (
+                    <Products
+                        myBrandData={myBrandData}
+                        dispatch={dispatch}
+                        allProducts={files.allProducts}
+                        neededInfo={neededInfo}
+                    />
+                )}
+                {splitedShowing[1] === 'My store' && (
+                    <EditProduct
+                        myBrandData={myBrandData}
+                        loadedCateg={files.myCategories}
+                        dispatch={dispatch}
+                        allProducts={files.allProducts}
+                        neededInfo={neededInfo}
+                        pageInfo={splitedShowing[2]}
+                    />
+                )}
+                {splitedShowing[1] === 'Xtra Brand' && (
+                    <PurchaseBrand shopData={shopData} />
+                )}
+                {splitedShowing[1] === 'Xtra Product' && (
+                    <PurchaseProduct shopData={shopData} />
+                )}
+                {splitedShowing[1] === 'Xtra Collection' && (
+                    <PurchaseCollection shopData={shopData} />
+                )}
+                {splitedShowing[1] === 'Unsupplied Products' && <Unsupplied />}
+                {splitedShowing[1] === 'Carted Products' && <Carted />}
+                {splitedShowing[1] === 'Supplied Products' && <Supplied />}
+                {splitedShowing[1] === 'Edit Store Info' && (
+                    <Setting neededInfo={neededInfo} />
+                )}
+                {splitedShowing[1] === 'Entry Mode' && (
+                    <EntryMode neededInfo={neededInfo} />
+                )}
+                {splitedShowing[1] === 'Reference Keys' && <ReferenceKey />}
+                {splitedShowing[1] === 'Activities' && (
+                    <ActivitiesPage neededInfo={neededInfo} />
+                )}
 
-            {/*  */}
-            {/*  */}
-            {/*  */}
-            {otpStatus !== REQUEST_STATUS.VERIFIED && (
-                <ModalPanel
-                    title="Dashboard Authorization"
-                    children={
-                        <MyOtpModal
-                            otpPic={otpPic}
-                            id={shopData.id}
-                            title="Enter verification code"
-                            note={`we have just sent a verification code to
-                            ${shopData.shopEmail} and it expires in 1hour`}
-                        />
-                        // <PasswordVerification />
-                    }
-                    hasBackdrop={true}
-                    keyboard={true}
-                    open={agreedToTerms}
-                    buttonName="Varify Code"
-                    handleClose={() => setAgreedToTerms(!agreedToTerms)}
-                />
-            )}
-        </DashboardWrapper>
+                {/*  */}
+                {/*  */}
+                {/*  */}
+                {otpStatus !== REQUEST_STATUS.VERIFIED && (
+                    <ModalPanel
+                        title="Dashboard Authorization"
+                        children={
+                            shopData.data.entryMode === 'otp' ? (
+                                <MyOtpModal
+                                    otpPic={otpPic}
+                                    id={shopData.id}
+                                    title="Enter verification code"
+                                    note={`we have just sent a verification code to
+                            ${shopData.data.shopEmail} and it expires in 1hour`}
+                                />
+                            ) : (
+                                <PasswordVerification id={shopData.id} />
+                            )
+                        }
+                        hasBackdrop={true}
+                        keyboard={true}
+                        open={agreedToTerms}
+                        buttonName="Varify Code"
+                        handleClose={() => setAgreedToTerms(!agreedToTerms)}
+                    />
+                )}
+            </DashboardWrapper>
+        </div>
     );
 };
 

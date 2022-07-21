@@ -8,11 +8,9 @@ export const addCart = createAsyncThunk('post/myCart', async (payload) => {
     const { data } = await martApi
         .post('/cartProduct', payload.body, {})
         .then((e) => {
-            console.log(e, 'Then');
             return e;
         })
         .catch((e) => {
-            console.log(e, 'catch');
             return e.response;
         });
     return data;
@@ -21,17 +19,15 @@ export const myCart = createAsyncThunk('post/myCart', async (payload) => {
     const { data } = await martApi
         .post('/allMyCart', payload.body, {})
         .then((e) => {
-            console.log(e, 'Then');
             return e;
         })
         .catch((e) => {
-            console.log(e, 'catch');
             return e.response;
         });
     return data;
 });
 const initialState = {
-    shopData: {},
+    cartData: { message: [] },
     status: 'idle',
     error: '',
 };
@@ -47,11 +43,29 @@ const addNewCart = createSlice({
         [addCart.fulfilled]: (state, { payload }) => {
             return {
                 ...initialState,
-                shopData: payload,
+                cartData: payload,
                 status: REQUEST_STATUS.FULFILLED,
             };
         },
         [addCart.rejected]: (state) => {
+            return { ...initialState, status: REQUEST_STATUS.REJECTED };
+        },
+
+        /*
+
+
+        */
+        [myCart.pending]: (state) => {
+            return { ...initialState, status: REQUEST_STATUS.PENDING };
+        },
+        [myCart.fulfilled]: (state, { payload }) => {
+            return {
+                ...initialState,
+                cartData: payload,
+                status: REQUEST_STATUS.FULFILLED,
+            };
+        },
+        [myCart.rejected]: (state) => {
             return { ...initialState, status: REQUEST_STATUS.REJECTED };
         },
     },
@@ -65,28 +79,24 @@ export default addNewCart.reducer;
 
 */
 
-export const cartHandler = (payload, dispatch, SetProdState, setHideCart) => {
+export const cartHandler = (payload, dispatch, setHideCart) => {
     setHideCart('hidden');
     dispatch(addCart(payload))
         .then(unwrapResult)
         .then((res) => {
-            console.log(res);
             if (res.type === 'success') {
-                console.log(res);
                 toaster.push(
                     <Message showIcon type={res.type}>
-                        {res.message.replace('buzz_', 'business ')}
+                        {res.text}
                     </Message>,
                     {
                         placement: 'topEnd',
                     }
                 );
                 FetchCartHandler(payload, dispatch);
-                FetchSingle(payload, dispatch, SetProdState);
+                // FetchSingle(payload, dispatch);
                 setHideCart('block');
             }
         })
-        .catch((e) => {
-            console.log(e);
-        });
+        .catch((e) => {});
 };

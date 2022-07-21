@@ -8,8 +8,10 @@ import { getProduct } from '../../state/slices/home';
 import { Loader } from 'rsuite';
 import { myProducts2 } from '../SellerComponents/Info/Categories';
 import { FaShoppingCart, FaStar } from 'react-icons/fa';
-import { MySlickSlide } from '../../pages/website/Home';
-import { websiteImages } from './Images';
+import { fakeImages } from './Images';
+import { cartHandler } from '../../state/slices/home/cart';
+import ModalPanel from '../elements/ModalPanel';
+import { SignInForm } from '../../pages/auth/signin/Signin';
 
 var settings = {
     infinite: true,
@@ -21,11 +23,12 @@ var settings = {
     pauseOnHover: true,
 };
 
-const HorizontalDisplay = ({ image, about, tag, slider, reverse }) => {
+const HorizontalDisplay = (props) => {
+    const { userId, image, about, tag, slider, reverse, myCarts } = props;
     const [myProducts, setProducts] = useState();
     const dispatch = useDispatch();
     useEffect(() => {
-        getProduct(dispatch, tag, 'prodSub_Category', setProducts);
+        getProduct(dispatch, tag, 'prodCategory', setProducts);
     }, []);
 
     let Products = (
@@ -39,14 +42,19 @@ const HorizontalDisplay = ({ image, about, tag, slider, reverse }) => {
         </div>
     );
     if (myProducts) {
-        Products = myProducts2.message.map((each, index) => {
+        Products = myProducts.message.map((each, index) => {
             return (
                 <Product
                     key={index}
-                    img={each.images[0].image}
+                    id={each._id}
+                    userId={userId}
+                    img={fakeImages['fakeImg' + (index + 1)]}
                     sellingPrice={each.prodPrice}
                     originalPrice={each.prodPrice}
                     name={each.prodName}
+                    styles="w-48"
+                    nick={each.shopNick}
+                    myCarts={myCarts}
                 />
             );
         });
@@ -63,7 +71,7 @@ const HorizontalDisplay = ({ image, about, tag, slider, reverse }) => {
             </h2>
             {slider}
             <div
-                className={`flex h-[790px] md:h-[450px] flex-col md:flex-row ${
+                className={`flex h-[810px] md:h-[480px] flex-col md:flex-row ${
                     reverse && 'md:flex-row-reverse'
                 }`}
             >
@@ -100,12 +108,23 @@ const HorizontalDisplay = ({ image, about, tag, slider, reverse }) => {
 };
 export default HorizontalDisplay;
 
-export const Product = ({ originalPrice, img, name, styles }) => {
+export const Product = (prop) => {
+    const [openAdd, setOpenAdd] = useState(false);
+    const [hideCart, noFunc] = useState();
+    const { id, userId, originalPrice, img, name, styles, nick, myCarts } =
+        prop;
+    const dispatch = useDispatch();
+    let payload = {
+        body: {
+            productId: id,
+            userId: userId,
+        },
+    };
     return (
         <div
-            className={`flex flex-col justify-center items-center ${styles} h-52 pb-2 border rounded mx-2 my-1 hover:shadow-lg `}
+            className={`flex flex-col justify-center items-center ${styles} h-56 pb-2 border rounded mx-2 my-1 hover:shadow-lg `}
         >
-            <div className="w-40 h-40 flex justify-center">
+            <div className="w-40 h-40 min-h-[105px] flex justify-center">
                 <img
                     src={img}
                     alt="img_here"
@@ -114,23 +133,48 @@ export const Product = ({ originalPrice, img, name, styles }) => {
             </div>
             <div className="w-full px-2">
                 <p className="text-[12px] p-0 text-red-400">Ship to Nigeria</p>
-                <Link to={`/b/${name}`}>
-                    <h5 className="text-lg text-slate-800 font-bold">{name}</h5>
+                <Link to={`/b/${nick}/${name.split(' ').join('-')}`}>
+                    <h5 className="text-md text-slate-800 font-[400] leading-5">
+                        {name}
+                    </h5>
                 </Link>
                 <div className="flex items-center">
                     <i className="flex items-center">
-                        <FaStar className="text-slate-900" />
-                        <FaStar className="text-slate-900" />
-                        <FaStar className="text-slate-900" />
-                        <FaStar className="text-slate-900" />
+                        <FaStar className="text-yellow-500" />
+                        <FaStar className="text-yellow-500" />
+                        <FaStar className="text-yellow-500" />
+                        <FaStar className="text-yellow-500" />
                     </i>
-                    <h5 className="ml-4">321 Reviews</h5>
+                    <h5 className="ml-4 text-[12px]">321 Reviews</h5>
                 </div>
                 <div className="flex items-center justify-between px-3">
                     <h5 className="font-black text-sm">{originalPrice}</h5>
-                    <FaShoppingCart className="text-slate-800" />
+                    <FaShoppingCart
+                        className={`${
+                            myCarts.includes(id)
+                                ? 'text-yellow-500'
+                                : 'text-slate-800'
+                        } cursor-pointer`}
+                        onClick={() => {
+                            if (userId !== 'noId') {
+                                cartHandler(payload, dispatch, noFunc);
+                            } else {
+                                setOpenAdd(!openAdd);
+                            }
+                        }}
+                    />
                 </div>
             </div>
+            <ModalPanel
+                closeButton={true}
+                title=" "
+                children={<SignInForm going="/" />}
+                hasBackdrop={true}
+                keyboard={true}
+                open={openAdd}
+                buttonName="Varify Code"
+                handleClose={() => setOpenAdd(!openAdd)}
+            />
         </div>
     );
 };

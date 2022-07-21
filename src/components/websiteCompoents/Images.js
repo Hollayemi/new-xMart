@@ -9,7 +9,7 @@ import slider4 from '../../assets/images/png/home/pick-up.png';
 import slider5 from '../../assets/images/png/home/startearning.png';
 import slider6 from '../../assets/images/png/home/StartSelling.png';
 
-//good slider
+//category slider
 
 import kitchenEquipment from '../../assets/images/png/home/kitchenEquipment.png';
 import shopDrinks from '../../assets/images/png/home/shop now drinks.png';
@@ -22,6 +22,23 @@ import shopWomen2 from '../../assets/images/png/home/shop now women2.png';
 import shopSolarCarger from '../../assets/images/png/home/solar charger.png';
 import shopSolar from '../../assets/images/png/home/solar.png';
 
+/*developmentImages
+
+
+
+*/
+import fakeImg1 from '../../assets/images/png/_supreme.png';
+import fakeImg2 from '../../assets/images/png/_supreme2.jpg';
+import fakeImg3 from '../../assets/images/png/_supreme3.png';
+import fakeImg4 from '../../assets/images/png/_supreme4.png';
+import fakeImg5 from '../../assets/images/png/_supreme5.png';
+import fakeImg6 from '../../assets/images/png/_supreme6.png';
+
+/*
+
+
+
+*/
 export const websiteImages = {
     Logo: Logo,
     Image1: Image1,
@@ -45,6 +62,11 @@ export const websiteImages = {
     shopSolar: shopSolar,
 };
 
-const beta = {
-    name: [],
+export const fakeImages = {
+    fakeImg1: fakeImg1,
+    fakeImg2: fakeImg2,
+    fakeImg3: fakeImg3,
+    fakeImg4: fakeImg4,
+    fakeImg5: fakeImg5,
+    fakeImg6: fakeImg6,
 };

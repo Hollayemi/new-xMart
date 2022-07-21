@@ -1,4 +1,4 @@
-import LadiedImage from '../../../assets/images/png/purchase.png';
+import LadiesImage from '../../../assets/images/png/purchase.png';
 import MenImage from '../../../assets/images/png/Landing/main5.jpg';
 import FootImage from '../../../assets/images/png/Landing/main2.png';
 import fakeImg1 from '../../../assets/images/png/_supreme.png';
@@ -122,13 +122,13 @@ export const HomeDisplay = [
     {
         name: 'Wears',
         about: 'Get decent wears for  from xmart',
-        image: LadiedImage,
+        image: LadiesImage,
         slider: <WearSliders />,
     },
     {
-        name: 'Electronics',
+        name: 'Bags',
         about: 'Get ladies decent outfit from xmart',
-        image: LadiedImage,
+        image: LadiesImage,
         slider: <ElectronicsSliders />,
     },
     {
@@ -442,45 +442,40 @@ export const productInformation = {
     ],
     size: [
         {
-            label: 'xs',
-            value: 'xs',
+            label: 'S (small)',
+            value: 'S',
             children: [],
         },
         {
-            label: 'sm (small)',
-            value: 'sm (small)',
+            label: 'M (medium)',
+            value: 'M',
             children: [],
         },
         {
-            label: 'md (medium)',
-            value: 'md (medium)',
+            label: 'L (large)',
+            value: 'L',
             children: [],
         },
         {
-            label: 'lg (large)',
-            value: 'lg (large)',
+            label: 'XL (extra large)',
+            value: 'XL',
             children: [],
         },
         {
-            label: 'xl (extral large)',
-            value: 'xl (extral large)',
-            children: [],
-        },
-        {
-            label: 'xxl (double extral large)',
-            value: 'xxl (double extral large)',
+            label: 'XXL (double extra large)',
+            value: 'XXL',
             children: [],
         },
     ],
     color: [
         {
-            label: 'black',
-            value: 'black',
+            label: 'Black',
+            value: 'Black',
             children: [],
         },
         {
-            label: 'white',
-            value: 'white',
+            label: 'White',
+            value: 'White',
             children: [],
         },
         {
@@ -509,8 +504,8 @@ export const productInformation = {
             children: [],
         },
         {
-            label: 'purple',
-            value: 'purple',
+            label: 'Purple',
+            value: 'Purple',
             children: [],
         },
         {

@@ -11,7 +11,7 @@ const ErorrBoundary = LazyLoading(() =>
 
 // auth Routes
 const SignUp = LazyLoading(() => import('../pages/auth/signup/SignUp'));
-const SignIn = LazyLoading(() => import('../pages/auth/signin/Signin'));
+const SignIn = LazyLoading(() => import('../pages/auth/signin'));
 const Home = LazyLoading(() => import('../pages/website/Home'));
 const Seller = LazyLoading(() => import('../pages/seller'));
 const Agent = LazyLoading(() => import('../pages/Agent'));

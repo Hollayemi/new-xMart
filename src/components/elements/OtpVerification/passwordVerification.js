@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
-import { Button, Row } from 'rsuite';
-import { myLogin } from '../../../state/slices/auth/Login';
+import { Row } from 'rsuite';
+import { dasboardLoginHandler } from '../../../state/slices/shop/settings/dashboardLogin';
 import DividerPanel from '../DividerPanel';
 import InputAddon from '../Input/InputAddon';
 import InputGroup from '../Input/InputGroup';
 
-const PasswordVerification = () => {
+const PasswordVerification = ({ id }) => {
     const [formData, setFormData] = useState({ email: '', password: '' });
     const [showPassword, setShowPassword] = useState(false);
     const [useOTP, setUseOTP] = useState(false);
@@ -18,8 +18,8 @@ const PasswordVerification = () => {
     const updateValue = (newVal, variable) => {
         // eslint-disable-next-line no-lone-blocks
         {
-            variable === 'email' && (newValue = { email: newVal });
-            variable === 'password' && (newValue = { password: newVal });
+            variable === 'username' && (newValue = { entryUname: newVal });
+            variable === 'password' && (newValue = { entryPass: newVal });
         }
         setFormData({
             ...formData,
@@ -28,12 +28,21 @@ const PasswordVerification = () => {
     };
     const dispatch = useDispatch();
     const loginHandler = () => {
-        myLogin(formData, dispatch);
+        let payload = {
+            body: {
+                data: {
+                    ...formData,
+                },
+                shopID: id,
+                message: 'Logged in',
+            },
+        };
+        dasboardLoginHandler(payload, dispatch);
     };
     return (
         <section className="flex justify-center items-center">
             <div className="w-[320px]">
-                <form className="my-4 h-4/6 flex flex-col items-stretch pt-4">
+                <div className="my-4 h-4/6 flex flex-col items-stretch pt-4">
                     <Row>
                         <InputGroup
                             label="Username"
@@ -81,7 +90,7 @@ const PasswordVerification = () => {
                             Use OTP
                         </label>
                     </div>
-                </form>
+                </div>
             </div>
         </section>
     );

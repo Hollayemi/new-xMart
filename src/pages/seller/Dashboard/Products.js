@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { FaPlus, FaEllipsisH, FaImage } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 import { SelectPicker, CheckPicker, AvatarGroup, Avatar, Loader } from 'rsuite';
 import InputGroup from '../../../components/elements/Input/InputGroup';
 import IconDropdown from '../../../components/elements/IconDropDown';
@@ -34,6 +35,8 @@ const Product = ({ myBrandData, dispatch, neededInfo, allProducts }) => {
         images: [],
         prodKey: '',
         prodInfo: '',
+        shopName: neededInfo.shopData.data.shopName,
+        shopNick: neededInfo.shopData.data.shopName.toLowerCase(),
     });
     const newProd = useSelector((state) => state.reducer.myNewProduct);
     const [productCategory, setProductCategory] = useState(null);
@@ -100,7 +103,7 @@ const Product = ({ myBrandData, dispatch, neededInfo, allProducts }) => {
             <section className="relative mx-3">
                 <div className="lg:w-[calc(100%-280px)]">
                     <div className="flex items-center h-44 relative overflow-x-auto w-full myScroll-x bg-slate-50 px-4 w-full border-4 border-slate-50">
-                        <div className="flex justify-between items-center px-4 m-2 w-48 h-20 border min-w-[280px] rounded-lg bg-slate-50 shadow-sm">
+                        <div className="flex justify-between items-center px-4 m-2 w-48 h-20 border min-w-[200px] rounded-lg bg-slate-50 shadow-sm">
                             <h5 className="text-gray-200 relative">
                                 <FaImage className="text-6xl" />
                                 <i className="text-sm shadow-md w-6 h-6 bg-white rounded-full flex items-center justify-center absolute top-5 left-4">
@@ -219,7 +222,7 @@ const Product = ({ myBrandData, dispatch, neededInfo, allProducts }) => {
                                         updateValue(value, 'color')
                                     }
                                 />
-                                <SelectPicker
+                                <CheckPicker
                                     data={productInformation.size}
                                     className=" w-full sm:w-1/5 min-w-[280px] m-1 md:m-2 bg-slate-100"
                                     size="lg"
@@ -283,6 +286,7 @@ const Folders = ({ name, neededInfo, prodImage, price, id }) => {
     const splited = eventFunc.split('-');
     const [open, setOpen] = useState(true);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     let max = 1;
     if (prodImage.length > 1) {
         max = 2;

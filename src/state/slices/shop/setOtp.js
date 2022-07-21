@@ -1,4 +1,5 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, unwrapResult } from '@reduxjs/toolkit';
+import { Message, toaster } from 'rsuite';
 import martApi from '../api/baseApi';
 import { REQUEST_STATUS } from '../constants';
 
@@ -18,9 +19,9 @@ export const otpHandler = createAsyncThunk(
     }
 );
 
-export const getOTP = createAsyncThunk('post/getotp', async (info) => {
+export const getOTP = createAsyncThunk('post/getotp', async (payload) => {
     const { data } = await martApi
-        .post(`/getOTP/${info.myId}`, { otp: info.code })
+        .post(`/getOTP/${payload.myId}`, payload.info, {})
         .then((res) => {
             return res;
         })
@@ -66,7 +67,7 @@ const setOtp = createSlice({
             return { ...initialState, otpStatus: REQUEST_STATUS.PENDING };
         },
         [getOTP.fulfilled]: (state, { payload }) => {
-            if (payload.message === 'matched') {
+            if (payload.message === 'welcome') {
                 return {
                     ...initialState,
                     otpData: payload,
@@ -88,3 +89,21 @@ const setOtp = createSlice({
 
 export const { setOTP, defaultOTP } = setOtp.actions;
 export default setOtp.reducer;
+
+export const getOTPhandler = (dispatch, payload) => {
+    dispatch(getOTP(payload))
+        .then(unwrapResult)
+        .then((res) => {
+            toaster.push(
+                <Message showIcon type={res.type}>
+                    {res.message.replace('buzz_', 'business ')}
+                </Message>,
+                {
+                    placement: 'topStart',
+                }
+            );
+        })
+        .catch((e) => {
+            console.log(e);
+        });
+};

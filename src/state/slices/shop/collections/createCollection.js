@@ -1,8 +1,9 @@
-import { createAsyncThunk, createSlice, unwrapResult } from '@reduxjs/toolkit';
+import { createAsyncThunk, unwrapResult } from '@reduxjs/toolkit';
 import { Message, toaster } from 'rsuite';
 import martApi from '../../api/baseApi';
 import { REQUEST_STATUS } from '../../constants';
 import { storeFiles } from '../display/displayAll';
+import { updateInstance } from '../settings/genApi';
 
 export const allCollections = createAsyncThunk(
     'post/allCollections',
@@ -36,21 +37,6 @@ export const createCollection = createAsyncThunk(
     }
 );
 
-export const updateInstance = createAsyncThunk(
-    'post/collectionInstance',
-    async (payload) => {
-        const { data } = await martApi
-            .post(`/use`, payload, {})
-            .then((res) => {
-                return res;
-            })
-            .catch((e) => {
-                console.log(e.response);
-                return e.response;
-            });
-        return data;
-    }
-);
 //
 //
 //

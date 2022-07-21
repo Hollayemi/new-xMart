@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { getOTP } from '../../../state/slices/shop/setOtp';
-import { unwrapResult } from '@reduxjs/toolkit';
-import { Message, toaster } from 'rsuite';
+import { getOTPhandler } from '../../../state/slices/shop/setOtp';
 
 const MyOtpModal = ({ title, note, otpPic, id }) => {
     const [num1, setNum1] = useState('');
@@ -11,28 +9,11 @@ const MyOtpModal = ({ title, note, otpPic, id }) => {
     const [num4, setNum4] = useState('');
 
     const dispatch = useDispatch();
+    const nums =
+        num1.toString() + num2.toString() + num3.toString() + num4.toString();
+    const payload = { myId: id, info: { otp: nums } };
     const sendOtp = () => {
-        const nums =
-            num1.toString() +
-            num2.toString() +
-            num3.toString() +
-            num4.toString();
-        const info = { myId: id, code: nums };
-        dispatch(getOTP(info))
-            .then(unwrapResult)
-            .then((res) => {
-                toaster.push(
-                    <Message showIcon type={res.type}>
-                        {res.message.replace('buzz_', 'business ')}
-                    </Message>,
-                    {
-                        placement: 'topStart',
-                    }
-                );
-            })
-            .catch((e) => {
-                console.log(e);
-            });
+        getOTPhandler(dispatch, payload);
     };
 
     return (

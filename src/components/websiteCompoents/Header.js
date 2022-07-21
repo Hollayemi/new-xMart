@@ -28,9 +28,11 @@ export const BigHeader = ({ top, raise, sideBarState, cartItems }) => {
             className={`container-fluid fixed top-0 z-50 w-full top-0 bg-slate-700 shadow-sm h-28`}
         >
             <div className="flex justify-between py-2 border-b border-slate-600 px-10 text-white items-center h-12">
-                <div className="hidden md:block">
-                    <img src={myLogo} alt="logo" width={80} />
-                </div>
+                <Link to="/">
+                    <div className="hidden md:block">
+                        <img src={myLogo} alt="logo" width={80} />
+                    </div>
+                </Link>
                 <div className="flex items-center justify-end">
                     <Link to="/seller">
                         <h5 className="mx-2">Sell on Kemon</h5>
@@ -120,7 +122,7 @@ export const BigHeader = ({ top, raise, sideBarState, cartItems }) => {
                                 </div>
                             }
                         >
-                            <div className="flex items-center mx-3 w-full h-10 hover:bg-slate-50 cursor-pointer hover:font-semibold">
+                            <div className="flex items-center mx-3 w-full h-10 text-slate-500 hover:text-slate-900 cursor-pointer font-semibold">
                                 <i className="text-lg">
                                     <FaAddressCard />
                                 </i>
@@ -128,7 +130,7 @@ export const BigHeader = ({ top, raise, sideBarState, cartItems }) => {
                                     Orders
                                 </h5>
                             </div>
-                            <div className="flex items-center mx-3 w-full h-10 hover:bg-slate-50 cursor-pointer hover:font-semibold">
+                            <div className="flex items-center mx-3 w-full h-10 text-slate-500 hover:text-slate-900 cursor-pointer font-semibold">
                                 <i className="text-lg">
                                     <FaLaptopCode />
                                 </i>
@@ -136,7 +138,7 @@ export const BigHeader = ({ top, raise, sideBarState, cartItems }) => {
                                     Coupons
                                 </h5>
                             </div>
-                            <div className="flex items-center mx-3 w-full h-10 hover:bg-slate-50 cursor-pointer hover:font-semibold">
+                            <div className="flex items-center mx-3 w-full h-10 text-slate-500 hover:text-slate-900 cursor-pointer font-semibold">
                                 <i className="text-lg">
                                     <FaHeart />
                                 </i>
@@ -145,9 +147,11 @@ export const BigHeader = ({ top, raise, sideBarState, cartItems }) => {
                                 </h5>
                             </div>
                             <div className="flex items-center items-center py-3 px-5 border-t">
-                                <button className="w-40 h-8 text-white rounded-md bg-slate-600 hover:bg-slate-700 shadow-lg">
-                                    SIGN IN
-                                </button>
+                                <Link to="/signin">
+                                    <button className="w-40 h-8 text-white rounded-md bg-slate-600 hover:bg-slate-700 shadow-lg text-md">
+                                        SIGN IN / SIGN UP
+                                    </button>
+                                </Link>
                             </div>
                         </Dropdown>
                     </div>

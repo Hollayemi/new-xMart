@@ -3,6 +3,7 @@ import { Message, toaster } from 'rsuite';
 import { martCategories } from '../../../../components/SellerComponents/Info/Categories';
 import martApi from '../../api/baseApi';
 import { REQUEST_STATUS } from '../../constants';
+import { updateInstance } from '../settings/genApi';
 import { storeFiles } from '../display/displayAll';
 
 export const createBrandApi = createAsyncThunk(
@@ -22,20 +23,20 @@ export const createBrandApi = createAsyncThunk(
     }
 );
 
-export const updateInstance = createAsyncThunk(
-    'post/collectionInstance',
-    async (payload) => {
-        const { data } = await martApi
-            .post(`/use`, payload, {})
-            .then((res) => {
-                return res;
-            })
-            .catch((e) => {
-                return e.response;
-            });
-        return data;
-    }
-);
+// export const updateInstance = createAsyncThunk(
+//     'post/collectionInstance',
+//     async (payload) => {
+//         const { data } = await martApi
+//             .post(`/use`, payload, {})
+//             .then((res) => {
+//                 return res;
+//             })
+//             .catch((e) => {
+//                 return e.response;
+//             });
+//         return data;
+//     }
+// );
 
 //
 //

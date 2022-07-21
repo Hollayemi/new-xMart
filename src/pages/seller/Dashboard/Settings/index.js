@@ -1,27 +1,52 @@
 import React, { useState } from 'react';
 import { FaUserEdit } from 'react-icons/fa';
+import { useDispatch } from 'react-redux';
 import Store from '../../../../assets/images/png/my store.png';
 import InputGroup from '../../../../components/elements/Input/InputGroup';
-const Setting = () => {
+import { editShopHandler } from '../../../../state/slices/shop/settings/editShop';
+const Setting = ({ neededInfo }) => {
+    console.log(neededInfo);
+    const { shopData } = neededInfo;
     const [edit, setEdit] = useState(false);
+
     const [formData, setFormData] = useState({
-        AccountName: '',
-        Account_Number: '',
-        Bank: '',
-        Phone_number: '',
+        shopName: shopData.data.shopName,
+        shopEmail: shopData.data.shopEmail,
+        shopLine: shopData.data.shopLine,
+        street: shopData.data.Location[0].street,
+        city: shopData.data.Location[0].city,
+        state: shopData.data.Location[0].state,
+        postalCode: shopData.data.Location[0].postalCode,
+        landmark: shopData.data.Location[0].landMark,
     });
+
     let newValue = {};
     function updateValue(newVal, variable) {
-        variable === 'name' && (newValue = { AccountName: newVal });
-        variable === 'acc_num' && (newValue = { Account_Number: newVal });
-        variable === 'bank' && (newValue = { Bank: newVal });
-        variable === 'phone' && (newValue = { Phone_number: newVal });
+        variable === 'shop_name' && (newValue = { shopName: newVal });
+        variable === 'buzz_email' && (newValue = { shopEmail: newVal });
+        variable === 'buzz_line' && (newValue = { shopLine: newVal });
+        variable === 'Location' && (newValue = { street: newVal });
+        variable === 'buzz_city' && (newValue = { city: newVal });
+        variable === 'buzz_state' && (newValue = { state: newVal });
+        variable === 'buzz_postal' && (newValue = { postalCode: newVal });
+        variable === 'buzz_landmark' && (newValue = { landmark: newVal });
 
         setFormData({
             ...formData,
             ...newValue,
         });
     }
+    const dispatch = useDispatch();
+    const payload = {
+        data: {
+            ...formData,
+        },
+        shopID: shopData.data._id,
+    };
+
+    const editShopInfo = () => {
+        editShopHandler(dispatch, payload);
+    };
     return (
         <section className="bg-white overflow-x-auto lg:w-[calc(100%-280px)]">
             <div className="flex flex-col min-w-[270px] items-center mx-1 md:mx-5 my-6 rounded-md">
@@ -43,12 +68,13 @@ const Setting = () => {
                             <div className="w-full md:w-2/3 px-2">
                                 <InputGroup
                                     label="Business Name"
-                                    name="acc_name"
+                                    name="buzz_name"
+                                    value={formData.shopName}
                                     placeholder=" "
                                     disabled={!edit}
                                     required={edit}
                                     onChange={(e) =>
-                                        updateValue(e.target.value, 'name')
+                                        updateValue(e.target.value, 'shop_name')
                                     }
                                 />
                             </div>
@@ -58,6 +84,7 @@ const Setting = () => {
                                     label="Business Email"
                                     name="buzz_email"
                                     placeholder=" "
+                                    value={formData.shopEmail}
                                     disabled={!edit}
                                     required={edit}
                                     onChange={(e) =>
@@ -76,6 +103,7 @@ const Setting = () => {
                                     label="Business Line"
                                     name="buzz_line"
                                     placeholder=" "
+                                    value={formData.shopLine}
                                     disabled={!edit}
                                     required={edit}
                                     onChange={(e) =>
@@ -90,6 +118,7 @@ const Setting = () => {
                                     name="State"
                                     placeholder=" "
                                     disabled={!edit}
+                                    value={formData.state}
                                     required={edit}
                                     onChange={(e) =>
                                         updateValue(
@@ -106,6 +135,7 @@ const Setting = () => {
                                     label="City"
                                     name="buzz_city"
                                     placeholder=" "
+                                    value={formData.city}
                                     disabled={!edit}
                                     required={edit}
                                     onChange={(e) =>
@@ -120,6 +150,7 @@ const Setting = () => {
                                     name="Postal"
                                     placeholder=" "
                                     disabled={!edit}
+                                    value={formData.postalCode}
                                     required={edit}
                                     onChange={(e) =>
                                         updateValue(
@@ -138,6 +169,7 @@ const Setting = () => {
                                     placeholder=" "
                                     disabled={!edit}
                                     required={edit}
+                                    value={formData.landmark}
                                     onChange={(e) =>
                                         updateValue(
                                             e.target.value,
@@ -154,6 +186,7 @@ const Setting = () => {
                                     placeholder=" "
                                     disabled={!edit}
                                     required={edit}
+                                    value={formData.street}
                                     onChange={(e) =>
                                         updateValue(
                                             e.target.value,
@@ -166,7 +199,8 @@ const Setting = () => {
                         <div className="px-4">
                             <button
                                 disabled={!edit}
-                                className="w-full h-10 rounded-md shadow text-white text-lg bg-blue-500"
+                                onClick={editShopInfo}
+                                className="w-full h-10 rounded-md shadow text-white text-lg bg-slate-800"
                             >
                                 Save
                             </button>

@@ -12,6 +12,7 @@ import { loadChildren } from '../../state/slices/shop/brands/brands';
 import { Link } from 'react-router-dom';
 import { catIcons } from '../../components/SellerComponents/Info/categoriesIcon';
 import { HomeDisplay } from '../../components/SellerComponents/Info/Categories';
+import { useSelector } from 'react-redux';
 
 export const MySlickSlide = ({ image, h }) => {
     return (
@@ -40,15 +41,24 @@ export var settings2 = {
 const Home = () => {
     const [expandCate, setCategory] = useState('');
     const getFromCate = loadChildren(expandCate);
-
+    const { userData } = useSelector((state) => state.reducer.loginReducer);
+    const { cartData } = useSelector((state) => state.reducer.cartedProduct);
+    let prodState = ['0'];
+    if (cartData.message && cartData.message.length > 0) {
+        cartData.message.map((x) => {
+            return prodState.push(x.productId);
+        });
+    }
     const HomePreview = HomeDisplay.map((res, index) => {
         return (
             <HorizontalDisplay
+                myCarts={prodState}
                 tag={res.name}
                 key={index}
                 about={res.about}
                 image={res.image}
                 slider={res.slider}
+                userId={(userData && userData._id) || 'noId'}
             />
         );
     });

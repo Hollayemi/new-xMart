@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { FaHeart, FaTrash } from 'react-icons/fa';
+import { FaCheckCircle, FaTrash } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import myLogo from '../../../assets/images/png/logo_2.png';
+// import myLogo from '../../../assets/images/png/logo_2.png';
 import fakeImg1 from '../../../assets/images/png/_supreme4.png';
 import SearchWrapper from '../../../components/websiteCompoents/ReuseableFlex';
 const Cart = () => {
@@ -74,9 +74,12 @@ const CartItem = ({ image, name, F_qty, amount, company }) => {
     const [qty, setQty] = useState(F_qty);
     return (
         <div className="w-full px-3 py-6 text-slate-900 flex flex-col items-center border-b">
-            <div className="flex justify-between flex-col md:flex-row md:items-center w-full">
+            <div className="flex justify-between flex-col md:flex-row md:items-center w-full relative">
                 <div className="flex items-center w-full lg:w-3/6 px-2">
-                    <div className="w-24 h-20 md:w-36 md:h-36 lg:h-28 flex justify-center items-center">
+                    <div className="border border-slate-900 h-4 w-4 cursor-pointer rounded-full absolute top-0 right-2">
+                        <FaCheckCircle className="text-slate-900" />
+                    </div>
+                    <div className="w-28 h-24 md:w-36 md:h-36 lg:h-28 flex justify-center items-center">
                         <img
                             src={image}
                             className="w-full h-full max-h-fit"
@@ -84,7 +87,7 @@ const CartItem = ({ image, name, F_qty, amount, company }) => {
                         />
                     </div>
                     <div className="ml-5">
-                        <h5 className="font-[500] text-lg">{name}</h5>
+                        <h5 className="font-[500] text-md">{name}</h5>
                         <div>
                             <div className="flex mb-4 md:mb-0 mt-2 px-3 w-28 max-w-fit tracking-wide text-xs items-center bg-slate-200 rounded-sm px-1 shadow-md">
                                 <h5>sold by:</h5>

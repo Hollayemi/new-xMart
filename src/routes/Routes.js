@@ -69,7 +69,7 @@ const AppRoutes = () => {
                     element: <SearchBrands />,
                 },
                 {
-                    path: '/b/:product',
+                    path: '/b/:shop/:product',
                     element: <ProdContainter />,
                 },
                 {

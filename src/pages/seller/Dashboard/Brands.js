@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { FaFolderOpen, FaPlus, FaEllipsisH } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 import { CheckPicker, SelectPicker } from 'rsuite';
 import InputGroup from '../../../components/elements/Input/InputGroup';
 import IconDropdown from '../../../components/elements/IconDropDown';
@@ -20,7 +21,7 @@ import { useDispatch } from 'react-redux';
 // //////////////////////
 ////////////////////////
 
-const Brand = ({ neededInfo, loadedCateg, myBrands }) => {
+const Brand = ({ neededInfo, loadedCateg, myBrands, setShowing, showing }) => {
     const { shopData, otpStatus, reFetchData } = neededInfo;
     const dispatch = useDispatch();
     useEffect(() => {
@@ -59,6 +60,7 @@ const Brand = ({ neededInfo, loadedCateg, myBrands }) => {
                     id={each._id}
                     neededInfo={neededInfo}
                     dispatch={dispatch}
+                    setShowing={setShowing}
                 />
             );
         });
@@ -182,7 +184,7 @@ const Brand = ({ neededInfo, loadedCateg, myBrands }) => {
 
 export default Brand;
 
-const Folders = ({ name, num, id, neededInfo, dispatch }) => {
+const Folders = ({ name, num, id, neededInfo, dispatch, setShowing }) => {
     const [eventFunc, setEventFunc] = useState('');
     const splited = eventFunc.split('-');
     const [open, setOpen] = useState(true);
@@ -250,6 +252,8 @@ const Folders = ({ name, num, id, neededInfo, dispatch }) => {
                     handleClose={() => setOpen(!open)}
                 />
             )}
+            {splited[1] === 'view' &&
+                setShowing(`Edit Product_My store_brand-${num}-${name}`)}
         </div>
     );
 };

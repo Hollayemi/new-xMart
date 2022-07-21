@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { FaTimes } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import { MyCartPreView } from '../../pages/website/containers/products';
+import { MyCartPreView } from '../../pages/website/containers/products/components';
 import { loadChildren } from '../../state/slices/shop/brands/brands';
 import { myProducts2 } from '../SellerComponents/Info/Categories';
 import Footer from './Footer';

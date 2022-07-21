@@ -1,6 +1,10 @@
 import React from 'react';
 import { FaBell, FaUserEdit, FaUsers, FaShoppingBag } from 'react-icons/fa';
 import Avartar from '../../../assets/images/avatar/avatar1.png';
+import Prod1 from '../../../assets/images/png/_supreme5.png';
+import Prod2 from '../../../assets/images/png/_supreme3.png';
+import Prod3 from '../../../assets/images/png/_supreme4.png';
+import Prod4 from '../../../assets/images/png/_supreme.png';
 
 const RecentInfo = () => {
     return (
@@ -56,9 +60,38 @@ const RecentInfo = () => {
                     See All
                 </h3>
             </div>
-            <div className="flex justify-center">
-                <div className="w-11/12 bg-black h-[900px]">
-                    <></>
+            <div className="flex justify-center w-full">
+                <div className="w-full overflow-auto h-[300px] myScroll">
+                    <OrdersComponent
+                        amount={5000}
+                        image={Prod1}
+                        product="Redmi FX"
+                        time="2 days ago"
+                    />
+                    <OrdersComponent
+                        amount={5000}
+                        image={Prod2}
+                        product="Redmi FX"
+                        time="2 days ago"
+                    />
+                    <OrdersComponent
+                        amount={5000}
+                        image={Prod3}
+                        product="Redmi FX"
+                        time="2 days ago"
+                    />
+                    <OrdersComponent
+                        amount={5000}
+                        image={Prod4}
+                        product="Redmi FX"
+                        time="2 days ago"
+                    />
+                    <OrdersComponent
+                        amount={5000}
+                        image={Prod4}
+                        product="Redmi FX"
+                        time="2 days ago"
+                    />
                 </div>
             </div>
         </div>
@@ -66,3 +99,24 @@ const RecentInfo = () => {
 };
 
 export default RecentInfo;
+
+const OrdersComponent = ({ image, product, time, amount }) => {
+    return (
+        <div className="flex justify-center">
+            <div className="flex  justify-between py-4 border-b border-slate-100 items-center w-11/12 border px-3">
+                <div className="flex items-center">
+                    <div>
+                        <img src={image} alt="This is about me" width={30} />
+                    </div>
+                    <div className="flex ml-3 flex-col items-between">
+                        <h5 className="font-[600] text-blue-500">{product}</h5>
+                        <h5>{time}</h5>
+                    </div>
+                </div>
+                <div>
+                    <h5 className="font-[700]">&#x20A6;{amount}</h5>
+                </div>
+            </div>
+        </div>
+    );
+};
