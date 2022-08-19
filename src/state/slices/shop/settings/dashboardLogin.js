@@ -39,9 +39,16 @@ export const dasboardLoginHandler = (payload, dispatch) => {
                         placement: 'topEnd',
                     }
                 );
+            } else {
+                toaster.push(
+                    <Message showIcon type="error">
+                        {res.message}
+                    </Message>,
+                    {
+                        placement: 'topEnd',
+                    }
+                );
             }
         })
-        .catch((e) => {
-            console.log(e.response);
-        });
+        .catch((e) => {});
 };

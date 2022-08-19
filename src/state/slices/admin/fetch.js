@@ -1,6 +1,7 @@
 import { createAsyncThunk, unwrapResult } from '@reduxjs/toolkit';
 import martApi from '../api/baseApi';
 
+//Api to get all Business for admin
 export const getAllBusinesses = createAsyncThunk(
     'post/allBuzz',
     async (payload) => {
@@ -18,6 +19,7 @@ export const getAllBusinesses = createAsyncThunk(
     }
 );
 
+//Api to get all agents for admin
 export const getAllAgents = createAsyncThunk(
     'post/allBuzz',
     async (payload) => {
@@ -36,6 +38,7 @@ export const getAllAgents = createAsyncThunk(
 );
 
 export const adminFetch = (dispatch, setTargetInfo, token, Viewing) => {
+    //fetch
     const payload = {
         body: {
             shopQuary: Viewing,

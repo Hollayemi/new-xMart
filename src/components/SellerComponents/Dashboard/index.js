@@ -9,6 +9,7 @@ import {
     Nav,
     Sidenav,
     Breadcrumb,
+    Badge,
 } from 'rsuite';
 import {
     FaAngleRight,
@@ -21,6 +22,7 @@ import {
     FaShoppingBasket,
     FaCog,
     FaMoneyBill,
+    FaUser,
 } from 'react-icons/fa';
 import RecentInfo from './RecentInfo';
 import Footer from '../../websiteCompoents/Footer';
@@ -64,11 +66,19 @@ const DashboardHeader = ({ BreadcrumbList }) => {
         }
     });
     return (
-        <div className="h-full flex items-center">
+        <div className="h-full w-full flex justify-between items-center">
             <div className="font-medium text-white">
                 <Breadcrumb separator={<FaAngleRight />}>
                     {myBreadcrumb}
                 </Breadcrumb>
+            </div>
+            <div className="flex items-center mr-2">
+                <Badge color="green">
+                    <FaUser className="text-slate-200 text-3xl bg-white p-0.5 rounded-full" />
+                </Badge>
+                <h5 className="px-2 hidden sm:block Lucida text-md font-bold">
+                    Stephan
+                </h5>
             </div>
         </div>
     );
@@ -93,8 +103,11 @@ const DashboardWrapper = ({ ...props }) => {
                                     <i className="text-lg">
                                         <FaUserCog />
                                     </i>
-                                    <span className="px-4 text-sm">
-                                        {props.shopName}
+                                    <span className="px-4 text-sm flex flex-col">
+                                        <h5 className="leading-5">xMart</h5>
+                                        <h5 className="leading-4 text-xs">
+                                            {props.shopName}
+                                        </h5>
                                     </span>
                                 </div>
                             </div>
@@ -304,6 +317,10 @@ const DashboardWrapper = ({ ...props }) => {
                                         placement="leftStart"
                                     >
                                         <Dropdown.Item
+                                            active={
+                                                showing.split('_')[1] ===
+                                                    'Edit Store Info' && true
+                                            }
                                             eventKey="xtra-1"
                                             onClick={() =>
                                                 setShowing(
@@ -314,6 +331,10 @@ const DashboardWrapper = ({ ...props }) => {
                                             Edit Store Info
                                         </Dropdown.Item>
                                         <Dropdown.Item
+                                            active={
+                                                showing.split('_')[1] ===
+                                                    'Entry Mode' && true
+                                            }
                                             eventKey="entryMode"
                                             onClick={() =>
                                                 setShowing('Setting_Entry Mode')
@@ -323,6 +344,10 @@ const DashboardWrapper = ({ ...props }) => {
                                         </Dropdown.Item>
                                         <Dropdown.Item
                                             eventKey="activities"
+                                            active={
+                                                showing.split('_')[1] ===
+                                                    'Activities' && true
+                                            }
                                             onClick={() =>
                                                 setShowing('Setting_Activities')
                                             }
@@ -331,6 +356,10 @@ const DashboardWrapper = ({ ...props }) => {
                                         </Dropdown.Item>
                                         <Dropdown.Item
                                             eventKey="ref-keys"
+                                            active={
+                                                showing.split('_')[1] ===
+                                                    'Reference Keys' && true
+                                            }
                                             onClick={() =>
                                                 setShowing(
                                                     'Setting_Reference Keys'
@@ -359,6 +388,10 @@ const DashboardWrapper = ({ ...props }) => {
                                     >
                                         <Dropdown.Item
                                             eventKey="xtra-1"
+                                            active={
+                                                showing.split('_')[1] ===
+                                                    'Xtra Memory' && true
+                                            }
                                             onClick={() =>
                                                 setShowing(
                                                     'Pricing_Xtra Memory'
@@ -369,6 +402,10 @@ const DashboardWrapper = ({ ...props }) => {
                                         </Dropdown.Item>
                                         <Dropdown.Item
                                             eventKey="xtra-2"
+                                            active={
+                                                showing.split('_')[1] ===
+                                                    'Xtra Collection' && true
+                                            }
                                             onClick={() =>
                                                 setShowing(
                                                     'Pricing_Xtra Collection'
@@ -379,6 +416,10 @@ const DashboardWrapper = ({ ...props }) => {
                                         </Dropdown.Item>
                                         <Dropdown.Item
                                             eventKey="xtra-3"
+                                            active={
+                                                showing.split('_')[1] ===
+                                                    'Xtra Brand' && true
+                                            }
                                             onClick={() =>
                                                 setShowing('Pricing_Xtra Brand')
                                             }
@@ -387,6 +428,10 @@ const DashboardWrapper = ({ ...props }) => {
                                         </Dropdown.Item>
                                         <Dropdown.Item
                                             eventKey="xtra-4"
+                                            active={
+                                                showing.split('_')[1] ===
+                                                    'Xtra Product' && true
+                                            }
                                             onClick={() =>
                                                 setShowing(
                                                     'Pricing_Xtra Product'
@@ -414,10 +459,10 @@ const DashboardWrapper = ({ ...props }) => {
                                 : 'w-[calc(100%-56px)] ml-[56px]'
                         }`}
                     >
-                        <Header></Header>
+                        {/* <Header></Header> */}
                         <Content>
                             <div
-                                className={`h-14 bg-slate-100 z-50 shadow pl-10 flex items-center px-3 fixed top-0 ${
+                                className={`h-14 bg-slate-100 z-50 shadow pl-3 md:pl-10 flex items-center px-3 fixed top-0 ${
                                     expand === true
                                         ? 'w-[calc(100%_-_260px)] ml-[260px]'
                                         : 'w-[calc(100%-56px)] ml-[56px]'

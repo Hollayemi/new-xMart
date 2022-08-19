@@ -1,5 +1,4 @@
 import { createAsyncThunk, unwrapResult } from '@reduxjs/toolkit';
-import { resolveConfig } from 'prettier';
 import martApi from '../api/baseApi';
 
 export const fetchProduct = createAsyncThunk(
@@ -69,34 +68,29 @@ export const getOneProductHandler = (
         .then(unwrapResult)
         .then((res) => {
             if (isArray) {
-                console.log(res.message);
                 setInfo(myCarts.push(res.message));
             } else {
-                console.log(res.message);
                 setInfo(res.message);
             }
         })
-        .catch((err) => {
-            console.log(err.response);
-        });
+        .catch((err) => {});
 };
 
-export const getOnebyId = (dispatch, id) => {
+export const getOnebyId = async (dispatch, id, setInfo = null) => {
     const payload = {
         body: {
             query: { _id: id },
         },
     };
-    return new Promise((resolve, reject) => {
-        dispatch(getOneProduct(payload))
-            .then(unwrapResult)
-            .then((res) => {
-                console.log(res.message);
-                resolve(res.message);
-            })
-            .catch((err) => {
-                reject(err.message);
-                console.log(err.response);
-            });
-    });
+
+    const response = await dispatch(getOneProduct(payload))
+        .then(unwrapResult)
+        .then((res) => {
+            setInfo && setInfo(res.message);
+            return res.message;
+        })
+        .catch((err) => {
+            console.log(err.response);
+        });
+    return response;
 };

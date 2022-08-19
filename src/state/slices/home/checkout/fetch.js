@@ -8,11 +8,9 @@ export const allAddress = createAsyncThunk(
         const { data } = await martApi
             .post('/allAddress', payload.body, {})
             .then((e) => {
-                console.log(e, 'Then');
                 return e;
             })
             .catch((e) => {
-                console.log(e, 'catch');
                 return e.response;
             });
         return data;
@@ -57,12 +55,9 @@ export const getAllAddress = (payload, dispatch, setState) => {
     dispatch(allAddress(payload))
         .then(unwrapResult)
         .then((res) => {
-            console.log(res);
             if (res.type === 'success') {
                 setState(res.message);
             }
         })
-        .catch((e) => {
-            console.log(e);
-        });
+        .catch((e) => {});
 };

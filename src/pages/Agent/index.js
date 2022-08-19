@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Main1 from '../../assets/images/png/Landing/main3.png';
 import Main2 from '../../assets/images/png/features-1.svg';
 import Main3 from '../../assets/images/png/features-2.svg';
@@ -33,15 +33,14 @@ const Agent = () => {
                             it easy to locate different tools and options
                         </h5>
                         <div className="flex relative mt-8">
-                            <button
-                                onClick={CreateWithBusinessName}
-                                className="w-40 rounded-md h-12 bg-white shadow-lg hover:bg-slate-50 text-slate-900 flex items-center justify-center"
-                            >
-                                Get Started{' '}
-                                <i className="px-3">
-                                    <FaLongArrowAltRight />
-                                </i>
-                            </button>
+                            <Link to="/agent/new-agent">
+                                <button className="w-40 rounded-md h-12 bg-white shadow-lg hover:bg-slate-50 text-slate-900 flex items-center justify-center">
+                                    Get Started{' '}
+                                    <i className="px-3">
+                                        <FaLongArrowAltRight />
+                                    </i>
+                                </button>
+                            </Link>
                         </div>
                     </div>
                     <div className="relative">

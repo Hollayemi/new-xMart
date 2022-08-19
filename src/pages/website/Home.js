@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -11,8 +11,13 @@ import { FaTimes } from 'react-icons/fa';
 import { loadChildren } from '../../state/slices/shop/brands/brands';
 import { Link } from 'react-router-dom';
 import { catIcons } from '../../components/SellerComponents/Info/categoriesIcon';
-import { HomeDisplay } from '../../components/SellerComponents/Info/Categories';
-import { useSelector } from 'react-redux';
+import {
+    HomeDisplay,
+    MartCategories,
+} from '../../components/SellerComponents/Info/Categories';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetcher } from '../../state/slices/home/search/aggrSearch';
+import { Loader } from 'rsuite';
 
 export const MySlickSlide = ({ image, h }) => {
     return (
@@ -40,38 +45,60 @@ export var settings2 = {
 
 const Home = () => {
     const [expandCate, setCategory] = useState('');
+    const dispatch = useDispatch();
+    const [homeProduct, setHomeProduct] = useState(null);
     const getFromCate = loadChildren(expandCate);
     const { userData } = useSelector((state) => state.reducer.loginReducer);
     const { cartData } = useSelector((state) => state.reducer.cartedProduct);
     let prodState = ['0'];
-    if (cartData.message && cartData.message.length > 0) {
-        cartData.message.map((x) => {
-            return prodState.push(x.productId);
-        });
+    if (cartData && cartData.message && cartData.message.length > 0) {
+        if (cartData.message !== 'server error') {
+            cartData.message.map((x) => {
+                return prodState.push(x.productId);
+            });
+        }
     }
-    const HomePreview = HomeDisplay.map((res, index) => {
-        return (
-            <HorizontalDisplay
-                myCarts={prodState}
-                tag={res.name}
-                key={index}
-                about={res.about}
-                image={res.image}
-                slider={res.slider}
-                userId={(userData && userData._id) || 'noId'}
+    useEffect(() => {
+        fetcher(dispatch, '', setHomeProduct);
+    }, []);
+
+    const HomePreview = homeProduct ? (
+        homeProduct.map((res, index) => {
+            let infoCursor = res._id.name.split(' ')[0].split(',')[0];
+            return (
+                <HorizontalDisplay
+                    myCarts={prodState}
+                    tag={res._id && res._id.name}
+                    key={index}
+                    products={res.detail}
+                    about={HomeDisplay[infoCursor][0]}
+                    image={HomeDisplay[infoCursor][1]}
+                    slider={HomeDisplay[infoCursor][2]}
+                    userId={(userData && userData._id) || 'noId'}
+                />
+            );
+        })
+    ) : (
+        <div className="relative h-60">
+            <Loader
+                backdrop
+                speed="fast"
+                content="In few seconds..."
+                vertical
             />
-        );
-    });
+        </div>
+    );
 
     return (
         <SearchWrapper>
             <div className="flex justify-center md:mt-6">
-                <div className="flex w-full lg:w-11/12 md:mx-4 bg-white max-h-[400px]">
-                    <div className=" hidden md:block w-80 min-w-[240px] mx-2 rounded-md">
-                        <div className="shadow-md shadow-slate-200 h-full">
+                <div className="flex w-full lg:w-11/12 md:mx-4 bg-white max-h-[460px]">
+                    <div className="hidden md:block w-80 min-w-[240px] mx-2 rounded-md">
+                        <div className="shadow-md shadow-slate-200 h-[420px] mt-5 overflow-y-scroll myScroll">
                             <Categories
                                 setCategory={setCategory}
                                 expandCate={expandCate}
+                                allCate={MartCategories}
                             />
                         </div>
                     </div>
@@ -122,7 +149,7 @@ const Home = () => {
                             })}
                         </Slider>
                         {expandCate.length > 0 && (
-                            <div className="absolute top-0 left-0 w-full h-full opacity-95 bg-slate-200">
+                            <div className="absolute top-0 left-0 w-full h-full opacity-[.98] mt-4 bg-slate-100">
                                 <div className="w-full h-8 bg-slate-800 text-white font-bold text-md px-8 leading-8 flex justify-between items-center">
                                     <h5>{expandCate}</h5>
                                     <i
@@ -135,7 +162,9 @@ const Home = () => {
                                 <div className="h-full flex flex-col pb-10 flex-wrap items-start">
                                     {getFromCate.map((res, index) => {
                                         return (
-                                            <Link to="/">
+                                            <Link
+                                                to={`/s/${expandCate}/${res.value}`}
+                                            >
                                                 <div
                                                     className="w-40 p-1 px-4 max-w-40 text-black hover:text-blue-600"
                                                     key={index}

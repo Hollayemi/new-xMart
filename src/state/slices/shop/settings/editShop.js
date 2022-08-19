@@ -74,9 +74,11 @@ export const editShopInfo = createAsyncThunk(
 
 //
 export const editShopHandler = (dispatch, payload) => {
+    console.log(payload);
     dispatch(editShopInfo(payload))
         .then(unwrapResult)
         .then((shop_res) => {
+            console.log(shop_res);
             if (shop_res.type === 'success') {
                 toaster.push(
                     <Message showIcon type={shop_res.type}>
@@ -86,53 +88,7 @@ export const editShopHandler = (dispatch, payload) => {
                         placement: 'topEnd',
                     }
                 );
-                window.location.reload();
-            }
-        })
-        .catch((e) => {
-            console.log(e);
-        });
-};
-/*
-
-
-
-
-
-
-*/
-export const myPaymentRef = createAsyncThunk(
-    'post/paymentRef',
-    async (payload) => {
-        const { data } = await martApi
-            .post('/saveShopPayment', payload, {})
-            .then((e) => {
-                console.log(e, 'Then');
-                return e;
-            })
-            .catch((e) => {
-                console.log(e, 'catch');
-                return e.response;
-            });
-        console.log(data);
-        return data;
-    }
-);
-
-//
-export const handlePaymentSuccess = (dispatch, payload) => {
-    dispatch(myPaymentRef(payload))
-        .then(unwrapResult)
-        .then((res) => {
-            if (res.type === 'Transaction was successful') {
-                toaster.push(
-                    <Message showIcon type={res.type}>
-                        {res.message}
-                    </Message>,
-                    {
-                        placement: 'topEnd',
-                    }
-                );
+                // window.location.reload();
             }
         })
         .catch((e) => {

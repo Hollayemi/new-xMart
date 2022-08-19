@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Steps, Panel } from 'rsuite';
 import Button from '../../components/elements/Button';
 import InputGroup from '../../components/elements/Input/InputGroup';
 import { FaAngleLeft } from 'react-icons/fa';
 import UploadProfilePic from '../../components/websiteCompoents/UploadFile/uploadProfilePic';
-import { registerAgentHandler } from '../../state/slices/agents/signup';
+import { completeAgentReg } from '../../state/slices/agents/signup';
 import { useDispatch, useSelector } from 'react-redux';
 
 export const FieldAdded = ({ title, value }) => {
@@ -53,7 +53,7 @@ const NewAgent = () => {
     };
 
     const submitButton = () => {
-        registerAgentHandler(formData, dispatch, userData._id, navigate);
+        completeAgentReg(formData, dispatch, userData._id, navigate);
     };
     const [step, setStep] = useState(0);
     const onChange = (nextStep) => {

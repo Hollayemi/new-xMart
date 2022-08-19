@@ -17,12 +17,14 @@ h2,
 h3,
 h4,
 h5 h6,
-p {
+p,
+.arial {
+    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.Lucida {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
         'Lucida Sans', Arial, sans-serif;
-}
-.topLine-height {
-    /* line-height:60px !important; */
 }
 a {
     text-decoration: none !important;

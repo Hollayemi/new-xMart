@@ -24,13 +24,19 @@ import EntryMode from './Settings/entryMode';
 import ReferenceKey from './Settings/referenceKey';
 import ActivitiesPage from './Settings/activities';
 import EditProduct from './editProduct';
+import { useNavigate } from 'react-router-dom';
+import DrawerPanel from '../../../components/elements/DrawerPanel';
+import SetLocation from '../../../components/elements/DrawerPanel/drawerContent/setLocation';
 
 const Dashboard = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [agreedToTerms, setAgreedToTerms] = useState(true);
     const [showing, setShowing] = useState('0_Analytics');
+    const [showingInfo, setShowingInfo] = useState(null);
     const fakeData = { myCategories: { type: 'empty' } };
     const [files, setFiles] = useState(fakeData);
+    const [OpenDrawer, setOpenDrawer] = useState(true);
 
     const splitedShowing = showing.split('_');
     let myBreadcrumb = [
@@ -49,12 +55,14 @@ const Dashboard = () => {
         (state) => state.reducer.setOtpReducer
     );
     const { shopData } = useSelector((state) => state.reducer.setShopReducer);
-    // const loadFiles = useSelector((state) => state.reducer.myBusinessFile);
 
     const reLoad = () => {
         storeFiles(shopData.id, dispatch, setFiles);
     };
     useEffect(() => {
+        if (!shopData) {
+            navigate('/seller');
+        }
         reLoad();
     }, []);
 
@@ -78,6 +86,7 @@ const Dashboard = () => {
                 label: res.brandName,
             };
             myBrandData.push(myBrand);
+            return true;
         });
     }
 
@@ -88,7 +97,7 @@ const Dashboard = () => {
                 BreadcrumbList={myBreadcrumb}
                 setShowing={setShowing}
                 showing={showing}
-                shopName="Kemon-Mart"
+                shopName={shopData.data.shopName}
             >
                 {showing === 'Dashboard' && (
                     <Overview neededInfo={neededInfo} />
@@ -102,7 +111,6 @@ const Dashboard = () => {
                         myBrands={files.myBrand}
                         loadedCateg={files.myCategories}
                         setShowing={setShowing}
-                        showing={showing}
                     />
                 )}
                 {splitedShowing[1] === 'Collections' && (
@@ -117,16 +125,14 @@ const Dashboard = () => {
                         dispatch={dispatch}
                         allProducts={files.allProducts}
                         neededInfo={neededInfo}
+                        showingInfo={showingInfo}
                     />
                 )}
                 {splitedShowing[1] === 'My store' && (
                     <EditProduct
-                        myBrandData={myBrandData}
-                        loadedCateg={files.myCategories}
-                        dispatch={dispatch}
-                        allProducts={files.allProducts}
+                        setShowing={setShowing}
                         neededInfo={neededInfo}
-                        pageInfo={splitedShowing[2]}
+                        setShowingInfo={setShowingInfo}
                     />
                 )}
                 {splitedShowing[1] === 'Xtra Brand' && (
@@ -147,7 +153,9 @@ const Dashboard = () => {
                 {splitedShowing[1] === 'Entry Mode' && (
                     <EntryMode neededInfo={neededInfo} />
                 )}
-                {splitedShowing[1] === 'Reference Keys' && <ReferenceKey />}
+                {splitedShowing[1] === 'Reference Keys' && (
+                    <ReferenceKey id={shopData.id} />
+                )}
                 {splitedShowing[1] === 'Activities' && (
                     <ActivitiesPage neededInfo={neededInfo} />
                 )}
@@ -162,10 +170,10 @@ const Dashboard = () => {
                             shopData.data.entryMode === 'otp' ? (
                                 <MyOtpModal
                                     otpPic={otpPic}
-                                    id={shopData.id}
+                                    id={shopData.data._id}
                                     title="Enter verification code"
                                     note={`we have just sent a verification code to
-                            ${shopData.data.shopEmail} and it expires in 1hour`}
+                                            ${shopData.data.shopEmail} and it expires in 1hour`}
                                 />
                             ) : (
                                 <PasswordVerification id={shopData.id} />
@@ -176,6 +184,17 @@ const Dashboard = () => {
                         open={agreedToTerms}
                         buttonName="Varify Code"
                         handleClose={() => setAgreedToTerms(!agreedToTerms)}
+                    />
+                )}
+                {shopData.data && !shopData.data.Location[1].coordinates && (
+                    <DrawerPanel
+                        placement="bottom"
+                        title="Shop location coordinates"
+                        size="xs"
+                        children={<SetLocation />}
+                        backdrop={true}
+                        open={OpenDrawer}
+                        handleClose={() => setOpenDrawer(false)}
                     />
                 )}
             </DashboardWrapper>

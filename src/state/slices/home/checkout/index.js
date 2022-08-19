@@ -9,11 +9,9 @@ const addNewAddress = createAsyncThunk(
         const { data } = await martApi
             .post('/newAddress', payload.body, {})
             .then((e) => {
-                console.log(e, 'Then');
                 return e;
             })
             .catch((e) => {
-                console.log(e, 'catch');
                 return e.response;
             });
         return data;
@@ -26,11 +24,9 @@ const deleteAddHandler = createAsyncThunk(
         const { data } = await martApi
             .post('/deleteAddress', payload.body, {})
             .then((e) => {
-                console.log(e, 'Then');
                 return e;
             })
             .catch((e) => {
-                console.log(e, 'catch');
                 return e.response;
             });
         return data;
@@ -41,7 +37,6 @@ export const newAddress = (payload, dispatch) => {
     dispatch(addNewAddress(payload))
         .then(unwrapResult)
         .then((res) => {
-            console.log(res);
             toaster.push(
                 <Message showIcon type={res.type}>
                     {res.message.replace('_', ' ')}
@@ -54,18 +49,14 @@ export const newAddress = (payload, dispatch) => {
                 getAllAddress(payload, dispatch);
             }
         })
-        .catch((e) => {
-            console.log(e);
-        });
+        .catch((e) => {});
 };
 
 //
 export const deleteAddress = (payload, dispatch, setState) => {
-    console.log(payload);
     dispatch(deleteAddHandler(payload))
         .then(unwrapResult)
         .then((res) => {
-            console.log(res);
             toaster.push(
                 <Message showIcon type={res.type}>
                     {res.message.replace('_', ' ')}
@@ -78,7 +69,5 @@ export const deleteAddress = (payload, dispatch, setState) => {
                 getAllAddress(payload, dispatch, setState);
             }
         })
-        .catch((e) => {
-            console.log(e);
-        });
+        .catch((e) => {});
 };

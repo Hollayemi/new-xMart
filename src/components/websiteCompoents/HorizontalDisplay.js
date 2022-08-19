@@ -6,12 +6,10 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { getProduct } from '../../state/slices/home';
 import { Loader } from 'rsuite';
-import { myProducts2 } from '../SellerComponents/Info/Categories';
 import { FaShoppingCart, FaStar } from 'react-icons/fa';
 import { fakeImages } from './Images';
 import { cartHandler } from '../../state/slices/home/cart';
-import ModalPanel from '../elements/ModalPanel';
-import { SignInForm } from '../../pages/auth/signin/Signin';
+import SigninPop from '../../pages/auth/signin/Pop up';
 
 var settings = {
     infinite: true,
@@ -24,13 +22,8 @@ var settings = {
 };
 
 const HorizontalDisplay = (props) => {
-    const { userId, image, about, tag, slider, reverse, myCarts } = props;
-    const [myProducts, setProducts] = useState();
-    const dispatch = useDispatch();
-    useEffect(() => {
-        getProduct(dispatch, tag, 'prodCategory', setProducts);
-    }, []);
-
+    const { userId, image, about, tag, slider, reverse, myCarts, products } =
+        props;
     let Products = (
         <div className=" w-full h-44 flex justify-center items-center">
             <Loader
@@ -41,8 +34,8 @@ const HorizontalDisplay = (props) => {
             />
         </div>
     );
-    if (myProducts) {
-        Products = myProducts.message.map((each, index) => {
+    if (products.length > 0) {
+        Products = products.map((each, index) => {
             return (
                 <Product
                     key={index}
@@ -71,7 +64,7 @@ const HorizontalDisplay = (props) => {
             </h2>
             {slider}
             <div
-                className={`flex h-[810px] md:h-[480px] flex-col md:flex-row ${
+                className={`flex h-[550px] md:h-[300px] flex-col md:flex-row ${
                     reverse && 'md:flex-row-reverse'
                 }`}
             >
@@ -94,13 +87,13 @@ const HorizontalDisplay = (props) => {
                         </div>
                     </div>
                 </div>
-                <div className="flex flex-col justify-evenly pl-2 w-full md:w-[calc(100%-320px)]">
+                <div className="flex flex-col justify-evenly mt-1 pl-2 w-full md:w-[calc(100%-320px)]">
                     <div className="w-full relative">
                         <Slider {...settings}>{Products}</Slider>
                     </div>
-                    <div className="w-full relative">
+                    {/* <div className="w-full relative">
                         <Slider {...settings}>{Products}</Slider>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </div>
@@ -118,6 +111,9 @@ export const Product = (prop) => {
         body: {
             productId: id,
             userId: userId,
+            quantity: 1,
+            color: ['As displayed'],
+            size: ['As displayed'],
         },
     };
     return (
@@ -165,16 +161,7 @@ export const Product = (prop) => {
                     />
                 </div>
             </div>
-            <ModalPanel
-                closeButton={true}
-                title=" "
-                children={<SignInForm going="/" />}
-                hasBackdrop={true}
-                keyboard={true}
-                open={openAdd}
-                buttonName="Varify Code"
-                handleClose={() => setOpenAdd(!openAdd)}
-            />
+            <SigninPop setOpenAdd={setOpenAdd} openAdd={openAdd} />
         </div>
     );
 };

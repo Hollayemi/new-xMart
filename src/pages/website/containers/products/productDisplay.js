@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { FaCartArrowDown, FaCartPlus, FaTimes } from 'react-icons/fa';
+import { FaCartArrowDown, FaCartPlus, FaMapPin, FaTimes } from 'react-icons/fa';
 import fakeImg1 from '../../../../assets/images/png/_supreme4.png';
 import fakeImg2 from '../../../../assets/images/png/_supreme.png';
 import fakeImg3 from '../../../../assets/images/png/_supreme3.png';
@@ -9,11 +9,7 @@ import { ColorBtn, MyCartPreView, PreviewImg, SizeBtn } from './components';
 import { Loader } from 'rsuite';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import {
-    getOnebyId,
-    getOneProductHandler,
-} from '../../../../state/slices/home';
-import { unwrapResult } from '@reduxjs/toolkit';
+import { getOnebyId } from '../../../../state/slices/home';
 import ModalPanel from '../../../../components/elements/ModalPanel';
 import { SignInForm } from '../../../auth/signin/Signin';
 
@@ -24,34 +20,55 @@ export const ProductDisplay = ({
     status,
     prodState,
 }) => {
+    const dispatch = useDispatch();
     const [qty, setQty] = useState(10);
     const [image, setImage] = useState(fakeImg6);
     const [hideCart, setHideCart] = useState('hidden');
     const [openAdd, setOpenAdd] = useState(false);
-    const [myCarts, setAllCarts] = useState([]);
-    const dispatch = useDispatch();
-
-    let allCart = [];
-    const getMyCartFunc = () => {
-        if (allCart.length === 0) {
-            prodState.map((res) => {
-                console.log(res);
-                getOnebyId(dispatch, res)
-                    .then(unwrapResult)
-                    .then((res) => {
-                        console.log(res.message[0]);
-                        allCart.push(res.message[0]);
-                    });
-            });
-            console.log(allCart);
+    const [chosenColors, setColor] = useState([]);
+    const [cartItems, setCartItems] = useState([]);
+    const [preferedSizes, setPreferedSize] = useState(['As displayed']);
+    const addPayLoad = {
+        body: { ...payload.body, quantity: qty, size: preferedSizes },
+    };
+    const fetchOneProduct = async (id) => {
+        try {
+            const response = await getOnebyId(dispatch, id);
+            return response;
+        } catch (error) {
+            console.log(error);
         }
     };
 
+    const demo = (array) => {
+        let cartArray = [];
+        array.map(async (res) => {
+            let myResult = await fetchOneProduct(res);
+            cartArray.push(myResult);
+        });
+        console.log(cartArray);
+        setCartItems(cartArray);
+    };
+
+    const handleSizeChange = (size) => {
+        setPreferedSize([size]);
+    };
+
+    const addToCart = () => {
+        if (payload.body.userId !== 'noId') {
+            cartHandler(addPayLoad, dispatch, setHideCart);
+        } else {
+            setOpenAdd(!openAdd);
+        }
+        demo(prodState);
+    };
+
+    console.log(cartItems);
     const colors = ['blue', 'green', 'rose', 'red', 'slate'];
     const sizes = ['S', 'M', 'L', 'XL', 'XXL', 'XS'];
     return (
         <>
-            <div className="flex md:flex-row flex-col md:w-full px-2 sm:px-6 md:px-2 z-40 relative lg:w-11/12">
+            <div className="flex md:flex-row flex-col md:w-full px-2 sm:px-6 md:px-2 z-40 relative lg:w-11/12 mt-12">
                 <div className=" w-full md:w-3/5 h-[50vh] md:h-[70vh] mt-20 md:mt-0">
                     <div className=" w-full h-full border-slate-300 overflow-hidden shadow rounded-2xl bg-slate-200 border flex items-center justify-center">
                         <img
@@ -94,6 +111,13 @@ export const ProductDisplay = ({
                         Customers Most Recent List Of Customers Most Recent List
                         Of Customers
                     </p>
+                    <h5 className="flex items-start shadow py-2 justify-flex-start mb-3">
+                        <FaMapPin className="mt-1 pl-2 text-[15px]" />
+                        <p className="ml-5">
+                            Block 32, Oniho shoping Complex, Jakande Estate
+                            Jakande Estate, Isolo, Lagos state.
+                        </p>
+                    </h5>
                     <h4>Sizes available</h4>
                     <div className="flex">
                         {sizes.map((res, index) => {
@@ -103,6 +127,8 @@ export const ProductDisplay = ({
                                         key={index}
                                         disable={false}
                                         size={res}
+                                        setSize={handleSizeChange}
+                                        preferedSizes={preferedSizes}
                                     />
                                 );
                             } else {
@@ -111,6 +137,7 @@ export const ProductDisplay = ({
                                         key={index}
                                         disable={true}
                                         size={res}
+                                        setSize={handleSizeChange}
                                     />
                                 );
                             }
@@ -119,7 +146,14 @@ export const ProductDisplay = ({
                     <h4 className="mt-4">Colors available</h4>
                     <div className="flex">
                         {colors.map((res, index) => {
-                            return <ColorBtn key={index} color={res} />;
+                            return (
+                                <ColorBtn
+                                    key={index}
+                                    setColor={setColor}
+                                    chosenColors={chosenColors}
+                                    color={res}
+                                />
+                            );
                         })}
                     </div>
                     <div className="flex items-center mt-10">
@@ -144,18 +178,7 @@ export const ProductDisplay = ({
                         </div>
                         <div className="relative">
                             <div
-                                onClick={() => {
-                                    if (payload.body.userId !== 'noId') {
-                                        cartHandler(
-                                            payload,
-                                            dispatch,
-                                            setHideCart
-                                        );
-                                        // getMyCartFunc();
-                                    } else {
-                                        setOpenAdd(!openAdd);
-                                    }
-                                }}
+                                onClick={() => addToCart()}
                                 className="px-2 border cursor-pointer flex justify-center border-slate-200 ml-3 rounded-md shadow-md w-52 h-12 flex items-center"
                             >
                                 {status !== 'PENDING' ? (
@@ -202,31 +225,19 @@ export const ProductDisplay = ({
                                 <h5 className="text-slate-900 text-[13px] font-medium flex mx-3 my-2 items-center">
                                     Your cart{' '}
                                     <span className="w-5 h-5 rounded-full ml-2 font-bold flex items-center justify-center bg-slate-200">
-                                        {prodState.length}
+                                        {cartItems.length}
                                     </span>
                                 </h5>
                                 <div className="h-44 pb-10 myScroll overflow-auto">
-                                    {console.log(prodState)}
-                                    {prodState.length > 0 ? (
-                                        prodState.map(async (res) => {
-                                            const res_1 = await getOnebyId(
-                                                dispatch,
-                                                res
-                                            );
-                                            console.log(res_1);
+                                    {cartItems.length > 0 &&
+                                        cartItems.map((res, index) => (
                                             <MyCartPreView
-                                                name={res_1.prodName}
-                                                image={fakeImg2}
-                                                qty={12}
-                                                price={res_1.prodPrice}
-                                            />;
-                                        })
-                                    ) : (
-                                        // <NewA dispatch={dispatch} />
-                                        <div className="text-xs text-slate-500">
-                                            Your cart is empyt
-                                        </div>
-                                    )}
+                                                key={index}
+                                                image={fakeImg1}
+                                                price={res.prodPrice}
+                                                name={res.prodName}
+                                            />
+                                        ))}
                                 </div>
                                 <div className="flex absolute bg-white py-3 shadow bottom-0 w-full items-center justify-between px-4">
                                     <Link to="/cart">
@@ -256,19 +267,5 @@ export const ProductDisplay = ({
                 handleClose={() => setOpenAdd(!openAdd)}
             />
         </>
-    );
-};
-
-const NewA = async ({ dispatch }) => {
-    return await getOnebyId(dispatch, '62d73c57343eaa1a7ae5826e').then(
-        (res) => {
-            console.log(res);
-            <MyCartPreView
-                name={res.prodName}
-                image={fakeImg2}
-                qty={12}
-                price={res.prodPrice}
-            />;
-        }
     );
 };

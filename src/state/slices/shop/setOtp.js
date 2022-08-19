@@ -104,6 +104,6 @@ export const getOTPhandler = (dispatch, payload) => {
             );
         })
         .catch((e) => {
-            console.log(e);
+            console.log(e.response);
         });
 };

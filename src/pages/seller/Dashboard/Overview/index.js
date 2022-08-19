@@ -57,22 +57,22 @@ const Overview = ({ neededInfo }) => {
                 <Placeholder />
             )}
             <h5 className="font-bold mt-10 ml-4 text-md">Activities</h5>
-            <div className="flex items-center">
-                <div className="w-[340px] md:w-1/3 h-40 mx-1 my-3 min-h-[280px]">
+            <div className="md:flex items-center">
+                <div className="w-[310px] md:w-1/3 h-40 mx-1 my-3 min-h-[280px]">
                     <Activities
                         activities={activities}
                         header="Recent Activities"
                         title="Most Recent List Of Customers"
                     />
                 </div>
-                <div className="w-[340px] md:w-1/3 h-40 mx-1 my-3 min-h-[280px]">
+                <div className="w-[310px] md:w-1/3 h-40 mx-1 my-3 min-h-[280px]">
                     <Activities
                         activities={activities}
                         header="Recent Orders"
                         title="Most Recent List Of Ordered goods"
                     />
                 </div>
-                <div className="w-[340px] md:w-1/3 h-40 mx-1 my-3 min-h-[280px]">
+                <div className="w-[310px] md:w-1/3 h-40 mx-1 my-3 min-h-[280px]">
                     <Activities
                         activities={activities}
                         header="Recent Orders"

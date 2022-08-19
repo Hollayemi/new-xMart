@@ -3,8 +3,8 @@ import { PaystackButton } from 'react-paystack';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
 import { Message, toaster } from 'rsuite';
-import { handlePaymentSuccess } from '../../state/slices/shop/settings/editShop';
 import { updateInstance } from '../../state/slices/shop/settings/genApi';
+import { handlePaymentSuccess } from '../../state/slices/shop/settings/payment';
 
 const Purchase = ({ x_name, price, xtra, gift, memory, shopData }) => {
     const disPatch = useDispatch();
@@ -12,7 +12,7 @@ const Purchase = ({ x_name, price, xtra, gift, memory, shopData }) => {
         console.log(item);
         handlePaymentSuccess(disPatch, {
             ...payload,
-            id: shopData.data._id,
+            shopID: shopData.data._id,
         });
         alert('Thanks for doing business with us! Come back soon!!');
         let sep = xtra.split(' ');
@@ -68,7 +68,7 @@ const Purchase = ({ x_name, price, xtra, gift, memory, shopData }) => {
 
             <h4 className="text-slate-400">{xtra}</h4>
 
-            <button className="bg-slate-100 border rounded-lg h-8 w-36 mt-12">
+            {/* <button className="bg-slate-100 border rounded-lg h-8 w-36 mt-12">
                 <PaystackButton
                     {...{
                         ...componentProps,
@@ -78,7 +78,7 @@ const Purchase = ({ x_name, price, xtra, gift, memory, shopData }) => {
                         onClose: () => alert("Wait! Don't leave :("),
                     }}
                 />
-            </button>
+            </button> */}
             <br />
 
             <p className="text-xs mt-8 text-slate-400">

@@ -1,14 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { FaSearch } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
-import {
-    Input,
-    InputGroup,
-    Placeholder,
-    Progress,
-    SelectPicker,
-    Table,
-} from 'rsuite';
+import { Input, InputGroup, Progress, SelectPicker, Table } from 'rsuite';
 import PlaceholderGraph from 'rsuite/esm/Placeholder/PlaceholderGraph';
 import { getMyTools } from '../../../../state/slices/shop/overview';
 import { Graph2, TransacChart } from './components';
@@ -19,7 +12,7 @@ const Analytics = ({ neededInfo }) => {
     useEffect(() => {
         getMyTools(
             dispatch,
-            neededInfo.shopData.id,
+            neededInfo.shopData.data._id,
             neededInfo.otpData.accessToken,
             setTools
         );
@@ -33,12 +26,16 @@ const Analytics = ({ neededInfo }) => {
                         <TransacChart
                             title="Categories"
                             all={tools.message[0].Total_categories}
-                            left={tools.message[0].categories}
+                            left={
+                                tools.message[0].Total_categories -
+                                tools.message[0].categories
+                            }
                             chartLoader={
                                 <Graph2
                                     legend={false}
                                     myData={[
-                                        tools.message[0].categories,
+                                        tools.message[0].Total_categories -
+                                            tools.message[0].categories,
                                         tools.message[0].Total_categories,
                                     ]}
                                     labels={['categories', 'total']}
@@ -48,12 +45,16 @@ const Analytics = ({ neededInfo }) => {
                         <TransacChart
                             title="Brands"
                             all={tools.message[0].Total_brands}
-                            left={tools.message[0].brands}
+                            left={
+                                tools.message[0].Total_brands -
+                                tools.message[0].brands
+                            }
                             chartLoader={
                                 <Graph2
                                     legend={false}
                                     myData={[
-                                        tools.message[0].brands,
+                                        tools.message[0].Total_brands -
+                                            tools.message[0].brands,
                                         tools.message[0].Total_brands,
                                     ]}
                                     labels={['brands', 'total brands']}
@@ -63,12 +64,16 @@ const Analytics = ({ neededInfo }) => {
                         <TransacChart
                             title="Products"
                             all={tools.message[0].Total_products}
-                            left={tools.message[0].products}
+                            left={
+                                tools.message[0].Total_products -
+                                tools.message[0].products
+                            }
                             chartLoader={
                                 <Graph2
                                     legend={false}
                                     myData={[
-                                        tools.message[0].products,
+                                        tools.message[0].Total_products -
+                                            tools.message[0].products,
                                         tools.message[0].Total_products,
                                     ]}
                                     labels={['Products', 'total products']}
@@ -78,12 +83,16 @@ const Analytics = ({ neededInfo }) => {
                         <TransacChart
                             title="Memory"
                             all={tools.message[0].Total_memory}
-                            left={tools.message[0].memory}
+                            left={
+                                tools.message[0].Total_memory -
+                                tools.message[0].memory
+                            }
                             chartLoader={
                                 <Graph2
                                     legend={false}
                                     myData={[
-                                        tools.message[0].memory,
+                                        tools.message[0].Total_memory -
+                                            tools.message[0].memory,
                                         tools.message[0].Total_memory,
                                     ]}
                                     labels={['space', 'Purchased']}
@@ -99,9 +108,12 @@ const Analytics = ({ neededInfo }) => {
                         <Graph2
                             legend={true}
                             myData={[
-                                tools.message[0].Total_brands,
-                                tools.message[0].Total_products,
-                                tools.message[0].Total_categories,
+                                tools.message[0].Total_brands -
+                                    tools.message[0].brands,
+                                tools.message[0].Total_products -
+                                    tools.message[0].products,
+                                tools.message[0].Total_categories -
+                                    tools.message[0].categories,
                             ]}
                             labels={['Brands', 'Products', 'Categories']}
                         />

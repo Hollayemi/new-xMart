@@ -17,7 +17,7 @@ export const Category = ({ name, setCategory, expandCate }) => {
     );
 };
 
-const Categories = ({ setCategory, expandCate }) => {
+const Categories = ({ setCategory, expandCate, allCate }) => {
     return (
         <div className="w-full">
             <div className="font-medium text-sm text-white p-2 flex items-center w-full bg-slate-800">
@@ -30,51 +30,16 @@ const Categories = ({ setCategory, expandCate }) => {
                     expandCate={expandCate}
                     name="Kemon top features"
                 />
-                <Category
-                    setCategory={setCategory}
-                    expandCate={expandCate}
-                    name="Wears"
-                />
-                <Category
-                    setCategory={setCategory}
-                    expandCate={expandCate}
-                    name="Drinks"
-                />
-                <Category
-                    setCategory={setCategory}
-                    expandCate={expandCate}
-                    name="Sport"
-                />
-                <Category
-                    setCategory={setCategory}
-                    expandCate={expandCate}
-                    name="Game"
-                />
-                <Category
-                    setCategory={setCategory}
-                    expandCate={expandCate}
-                    name="Beauty"
-                />
-                <Category
-                    setCategory={setCategory}
-                    expandCate={expandCate}
-                    name="Health"
-                />
-                <Category
-                    setCategory={setCategory}
-                    expandCate={expandCate}
-                    name="Computer Electronics"
-                />
-                <Category
-                    setCategory={setCategory}
-                    expandCate={expandCate}
-                    name="Fashion"
-                />
-                <Category
-                    setCategory={setCategory}
-                    expandCate={expandCate}
-                    name="Other categories"
-                />
+                {allCate.map((res, index) => {
+                    return (
+                        <Category
+                            key={index}
+                            setCategory={setCategory}
+                            expandCate={expandCate}
+                            name={res}
+                        />
+                    );
+                })}
             </div>
         </div>
     );

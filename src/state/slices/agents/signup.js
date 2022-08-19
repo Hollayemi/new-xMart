@@ -51,7 +51,7 @@ export default new_agent.reducer;
 
 */
 
-export const registerAgentHandler = (formData, dispatch, userID, navigate) => {
+export const completeAgentReg = (formData, dispatch, userID, navigate) => {
     const payload = {
         body: {
             ...formData,

@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice, unwrapResult } from '@reduxjs/toolkit';
 import { Message, toaster } from 'rsuite';
 import martApi from '../../api/baseApi';
 import { REQUEST_STATUS } from '../../constants';
-import { FetchCartHandler, FetchSingle } from './fetchCart';
+import { FetchCartHandler } from './fetchCart';
 
 export const addCart = createAsyncThunk('post/myCart', async (payload) => {
     const { data } = await martApi
@@ -80,7 +80,6 @@ export default addNewCart.reducer;
 */
 
 export const cartHandler = (payload, dispatch, setHideCart) => {
-    setHideCart('hidden');
     dispatch(addCart(payload))
         .then(unwrapResult)
         .then((res) => {

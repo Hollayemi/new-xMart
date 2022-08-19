@@ -6,8 +6,8 @@ import fakeImg1 from '../../../../assets/images/png/_supreme4.png';
 // import { FetchCartHandler } from '../../../state/slices/home/cart/fetchCart';
 import { useParams } from 'react-router-dom';
 import { getOneProductHandler } from '../../../../state/slices/home';
-import { FetchCartHandler } from '../../../../state/slices/home/cart/fetchCart';
 import { ProductDisplay } from './productDisplay';
+import GetLocation from './getLocation';
 
 const ProductsContainer = () => {
     const params = useParams();
@@ -20,7 +20,7 @@ const ProductsContainer = () => {
 
     useEffect(() => {
         getOneProductHandler(dispatch, fetchPayload, setInfo);
-        FetchCartHandler(payload, dispatch);
+        // FetchCartHandler(payload, dispatch);
     }, []);
     const fetchPayload = {
         shopNick: params.shop.toLowerCase(),
@@ -32,20 +32,21 @@ const ProductsContainer = () => {
             userId: (userData && userData._id) || 'noId',
         },
     };
-    const prodState = [];
-    console.log(typeof prodState);
-    if (cartData && cartData.message.length > 0) {
-        cartData.message.map((x) => {
-            return prodState.push(x.productId);
-        });
-    }
+
+    const prodState =
+        cartData && cartData.message && cartData.message.length > 0
+            ? cartData.message.map((x) => {
+                  return x.productId;
+              })
+            : [];
+    console.log(prodState);
     let chosenSize = ['0'];
     chosenSize =
         (productInfo && productInfo.prodVari && productInfo.prodVari[0].size) ||
         '0';
     return (
         <section className="min-h-[100vh] bg-slate-90 pb-16 md:pb-0 w-full flex items-center justify-center">
-            <div className="fixed z-50 border-b bg-slate-900 border-slate-800 flex items-center justify-between px-5 md:px-10 py-2 top-0 left-0 w-full h-14">
+            <div className="fixed z-50 border-b bg-slate-900 border-slate-800 flex items-center justify-between px-5 md:px-10 py-2 top-0 left-0 w-full h-14 mb-10">
                 <i className="w-10 text-xl h-10 cursor-pointer hover:text-slate-500 md:hover:bg-slate-700  rounded-full flex items-center justify-center md:border md:border-slate-600 bg-slate-800">
                     <FaAngleLeft />
                 </i>
@@ -75,6 +76,7 @@ const ProductsContainer = () => {
             ) : (
                 <Loader speed="fast" content="wait..." />
             )}
+            <GetLocation />
         </section>
     );
 };

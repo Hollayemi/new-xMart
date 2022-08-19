@@ -36,16 +36,16 @@ const NewPage = () => {
     }
 
     const [formData, setFormData] = useState({
-        owner_name: '',
-        buzz_name: levele,
-        buzz_email: '',
-        buzz_phone: '',
-        buzz_location: '',
-        buzz_city: '',
-        buzz_postal: '',
-        buzz_state: '',
-        buzz_landmark: '',
-        buzz_cate: '',
+        shopNick: '',
+        shopName: levele,
+        shopEmail: '',
+        shopLine: '',
+        street: '',
+        city: '',
+        postalCode: '',
+        state: '',
+        landmark: '',
+        Category: '',
         accept_order: true,
     });
     const [Category, setCategory] = useState([]);
@@ -63,16 +63,16 @@ const NewPage = () => {
     const updateValue = (newVal, variable) => {
         // eslint-disable-next-line no-lone-blocks
         {
-            variable === 'owner_name' && (newValue = { owner_name: newVal });
-            variable === 'buzz_name' && (newValue = { buzz_name: newVal });
-            variable === 'buzz_email' && (newValue = { buzz_email: newVal });
-            variable === 'buzz_phone' && (newValue = { buzz_phone: newVal });
-            variable === 'buzz_loc' && (newValue = { buzz_location: newVal });
-            variable === 'buzz_city' && (newValue = { buzz_city: newVal });
-            variable === 'buzz_postal' && (newValue = { buzz_postal: newVal });
-            variable === 'buzz_state' && (newValue = { buzz_state: newVal });
-            variable === 'buzz_cate' && (newValue = { buzz_cate: newVal });
-            variable === 'buzz_lndmk' && (newValue = { buzz_landmark: newVal });
+            variable === 'shopNick' && (newValue = { shopNick: newVal });
+            variable === 'shopName' && (newValue = { shopName: newVal });
+            variable === 'shopEmail' && (newValue = { shopEmail: newVal });
+            variable === 'shopLine' && (newValue = { shopLine: newVal });
+            variable === 'buzz_loc' && (newValue = { street: newVal });
+            variable === 'city' && (newValue = { city: newVal });
+            variable === 'postalCode' && (newValue = { postalCode: newVal });
+            variable === 'state' && (newValue = { state: newVal });
+            variable === 'Category' && (newValue = { Category: newVal });
+            variable === 'buzz_lndmk' && (newValue = { landmark: newVal });
             variable === 'do_order' && (newValue = { accept_order: newVal });
             variable === 'avatar' && (newValue = { avatar: newVal });
         }
@@ -95,7 +95,7 @@ const NewPage = () => {
             ...formData,
             id: _id,
             isSelle: true,
-            buzz_cate: Category,
+            Category: Category,
         };
         createHandler(payload, dispatch, navigate);
     };
@@ -158,15 +158,15 @@ const NewPage = () => {
                                         <div className="flex w-full">
                                             <div className="w-2/4 m-1">
                                                 <InputGroup
-                                                    label="Your Name"
+                                                    label="Store Name"
                                                     name="ownerName"
-                                                    value={formData.owner_name}
-                                                    placeholder=" "
+                                                    value={formData.shopNick}
+                                                    placeholder="e.g xmart (a word)"
                                                     required={true}
                                                     onChange={(e) =>
                                                         updateValue(
                                                             e.target.value,
-                                                            'owner_name'
+                                                            'shopNick'
                                                         )
                                                     }
                                                 />
@@ -174,13 +174,13 @@ const NewPage = () => {
                                             <div className="w-2/4 m-1">
                                                 <InputGroup
                                                     label="Business Name"
-                                                    value={formData.buzz_name}
+                                                    value={formData.shopName}
                                                     placeholder=" "
                                                     required={true}
                                                     onChange={(e) =>
                                                         updateValue(
                                                             e.target.value,
-                                                            'buzz_name'
+                                                            'shopName'
                                                         )
                                                     }
                                                 />
@@ -190,13 +190,13 @@ const NewPage = () => {
                                             <div className="w-2/4 m-1">
                                                 <InputGroup
                                                     label="Business Email"
-                                                    value={formData.buzz_email}
-                                                    placeholder=" "
+                                                    value={formData.shopEmail}
+                                                    placeholder="e.g info@xmart.com "
                                                     required={true}
                                                     onChange={(e) =>
                                                         updateValue(
                                                             e.target.value,
-                                                            'buzz_email'
+                                                            'shopEmail'
                                                         )
                                                     }
                                                 />
@@ -204,14 +204,14 @@ const NewPage = () => {
                                             <div className="w-2/4 m-1">
                                                 <InputGroup
                                                     label="Business Line"
-                                                    placeholder=" "
-                                                    value={formData.buzz_phone}
+                                                    placeholder="e.g 07010010000 "
+                                                    value={formData.shopLine}
                                                     required={true}
                                                     type="number"
                                                     onChange={(e) =>
                                                         updateValue(
                                                             e.target.value,
-                                                            'buzz_phone'
+                                                            'shopLine'
                                                         )
                                                     }
                                                 />
@@ -226,13 +226,13 @@ const NewPage = () => {
                                                 <InputGroup
                                                     label="City"
                                                     name="ownerName"
-                                                    value={formData.buzz_city}
+                                                    value={formData.city}
                                                     placeholder=" "
                                                     required={true}
                                                     onChange={(e) =>
                                                         updateValue(
                                                             e.target.value,
-                                                            'buzz_city'
+                                                            'city'
                                                         )
                                                     }
                                                 />
@@ -240,13 +240,13 @@ const NewPage = () => {
                                             <div className="w-2/4 m-1">
                                                 <InputGroup
                                                     label="State"
-                                                    value={formData.buzz_state}
+                                                    value={formData.state}
                                                     placeholder=" "
                                                     required={true}
                                                     onChange={(e) =>
                                                         updateValue(
                                                             e.target.value,
-                                                            'buzz_state'
+                                                            'state'
                                                         )
                                                     }
                                                 />
@@ -256,13 +256,14 @@ const NewPage = () => {
                                             <div className="w-2/4 m-1">
                                                 <InputGroup
                                                     label="Postal Code"
-                                                    value={formData.buzz_postal}
+                                                    value={formData.postalCode}
                                                     placeholder=" "
+                                                    type="number"
                                                     required={true}
                                                     onChange={(e) =>
                                                         updateValue(
                                                             e.target.value,
-                                                            'buzz_postal'
+                                                            'postalCode'
                                                         )
                                                     }
                                                 />
@@ -270,10 +271,8 @@ const NewPage = () => {
                                             <div className="w-2/4 m-1">
                                                 <InputGroup
                                                     label="Landmark"
-                                                    placeholder=" "
-                                                    value={
-                                                        formData.buzz_landmark
-                                                    }
+                                                    placeholder="e.g Opposite GTB bank "
+                                                    value={formData.landmark}
                                                     required={true}
                                                     onChange={(e) =>
                                                         updateValue(
@@ -287,7 +286,7 @@ const NewPage = () => {
                                         <InputGroup
                                             label="Location"
                                             placeholder=" "
-                                            value={formData.buzz_location}
+                                            value={formData.location}
                                             required={true}
                                             onChange={(e) =>
                                                 updateValue(

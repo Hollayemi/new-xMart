@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import { FaUserEdit } from 'react-icons/fa';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Store from '../../../../assets/images/png/my store.png';
 import InputGroup from '../../../../components/elements/Input/InputGroup';
 import { editShopHandler } from '../../../../state/slices/shop/settings/editShop';
 const Setting = ({ neededInfo }) => {
-    console.log(neededInfo);
-    const { shopData } = neededInfo;
+    const { shopData } = useSelector((state) => state.reducer.setShopReducer);
     const [edit, setEdit] = useState(false);
-
+    console.log(shopData);
     const [formData, setFormData] = useState({
         shopName: shopData.data.shopName,
         shopEmail: shopData.data.shopEmail,
@@ -17,7 +16,7 @@ const Setting = ({ neededInfo }) => {
         city: shopData.data.Location[0].city,
         state: shopData.data.Location[0].state,
         postalCode: shopData.data.Location[0].postalCode,
-        landmark: shopData.data.Location[0].landMark,
+        landmark: shopData.data.Location[0].landmark,
     });
 
     let newValue = {};
@@ -55,7 +54,7 @@ const Setting = ({ neededInfo }) => {
                 </div>
                 <div className="w-full md:w-4/5">
                     <h3 className="border-b w-full leading-10 text-md px-3 flex justify-between items-center px-5 text-sm">
-                        <p>Business Information</p>
+                        <p>Store Information</p>
                         <i
                             onClick={() => setEdit(!edit)}
                             className="cursor-pointer h-8 w-8 flex items-center justify-center rounded-full hover:bg-gray-200"
@@ -188,10 +187,7 @@ const Setting = ({ neededInfo }) => {
                                     required={edit}
                                     value={formData.street}
                                     onChange={(e) =>
-                                        updateValue(
-                                            e.target.value,
-                                            'buzz_location'
-                                        )
+                                        updateValue(e.target.value, 'Location')
                                     }
                                 />
                             </div>

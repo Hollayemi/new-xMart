@@ -1,13 +1,19 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaCheckCircle, FaTrash } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import fakeImg1 from '../../../assets/images/png/_supreme4.png';
+import fakeImg2 from '../../../assets/images/png/_supreme5.png';
 import SearchWrapper from '../../../components/websiteCompoents/ReuseableFlex';
 import { getOnebyId } from '../../../state/slices/home';
-import { MyCartPreView } from '../containers/products/components';
+
 const Cart = () => {
+    const [cartItems, setCartItems] = useState([]);
     const { cartData } = useSelector((state) => state.reducer.cartedProduct);
+    useEffect(() => {
+        demo(prodState);
+    }, []);
+
     let prodState = [];
     if (cartData && cartData.message.length > 0) {
         cartData.message.map((x) => {
@@ -15,18 +21,24 @@ const Cart = () => {
         });
     }
     const dispatch = useDispatch();
-    console.log(prodState);
-    const allName = prodState.map(async (res) => {
-        console.log(res);
-        // const res_1 = await getOnebyId(dispatch, '62d73c57343eaa1a7ae5826e');
-        // console.log(res_1);
-        // <MyCartPreView
-        //     name={res_1.prodName}
-        //     image={fakeImg1}
-        //     qty={12}
-        //     price={res_1.prodPrice}
-        // />;
-    });
+    const fetchOneProduct = async (id) => {
+        try {
+            const response = await getOnebyId(dispatch, id);
+            return response;
+        } catch (error) {}
+    };
+
+    const demo = (array) => {
+        let cartArray = [];
+        array.map(async (res) => {
+            let myResult = await fetchOneProduct(res);
+            cartArray.push(myResult);
+        });
+        setCartItems(cartArray);
+    };
+
+    console.log(cartItems);
+
     return (
         <SearchWrapper>
             <section>
@@ -38,7 +50,6 @@ const Cart = () => {
                         <h5 className="w-full border-b border-slate-300 h-10 px-4 font-[800] text-lg leading-10">
                             Cart
                         </h5>
-                        {allName}
                         <CartItem
                             image={fakeImg1}
                             name="Arduino Uno Micro-controller Plus Usb Cabl..."
@@ -47,7 +58,7 @@ const Cart = () => {
                             company={'Kemom'}
                         />
                         <CartItem
-                            image={fakeImg1}
+                            image={fakeImg2}
                             name="Arduino Uno Micro-controller Plus Usb Cabl..."
                             F_qty={2}
                             amount={5000}
@@ -102,7 +113,7 @@ const CartItem = ({ image, name, F_qty, amount, company }) => {
                     <div className="border border-slate-900 h-4 w-4 cursor-pointer rounded-full absolute top-0 right-2">
                         <FaCheckCircle className="text-slate-900" />
                     </div>
-                    <div className="w-28 h-24 md:w-36 md:h-36 lg:h-28 flex justify-center items-center">
+                    <div className="w-28 min-w-32 min-h-32 h-24 md:w-48 md:h-40 lg:h-36 flex justify-center items-center">
                         <img
                             src={image}
                             className="w-full h-full max-h-fit"

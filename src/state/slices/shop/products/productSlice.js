@@ -3,8 +3,7 @@ import axios from 'axios';
 import { Message, toaster } from 'rsuite';
 import martApi from '../../api/baseApi';
 import { REQUEST_STATUS } from '../../constants';
-import { deleteHandler } from '../delete';
-// import { removeBackgroundFromImageBase64 } from 'remove.bg';
+import { updateInstance } from '../settings/genApi';
 //add product
 export const createNewProduct = createAsyncThunk(
     'post/newProductkk',
@@ -23,21 +22,21 @@ export const createNewProduct = createAsyncThunk(
     }
 );
 
-export const updateInstance = createAsyncThunk(
-    'post/collectionInstance',
-    async (payload) => {
-        const { data } = await martApi
-            .post(`/use`, payload, {})
-            .then((res) => {
-                return res;
-            })
-            .catch((e) => {
-                console.log(e.response);
-                return e.response;
-            });
-        return data;
-    }
-);
+// export const updateInstance = createAsyncThunk(
+//     'post/collectionInstance',
+//     async (payload) => {
+//         const { data } = await martApi
+//             .post(`/use`, payload, {})
+//             .then((res) => {
+//                 return res;
+//             })
+//             .catch((e) => {
+//                 console.log(e.response);
+//                 return e.response;
+//             });
+//         return data;
+//     }
+// );
 //
 const initialState = {
     creatname: '',
@@ -119,60 +118,13 @@ export const createProductHandler = (formData, dispatch, neededInfo) => {
             });
     }
 };
+/*
 
-//
-//
-//
 
-export const deleteProd = (
-    splited,
-    neededInfo,
-    getInfo,
-    eventFunc,
-    dispatch
-) => {
-    console.log(splited);
-    const payload = {
-        shopID: neededInfo.shopData.id,
-        body: {
-            delCase: 'Product',
-            _id: splited[2],
-            name: splited[0],
-        },
-        auth: {
-            token: 'Holla ' + neededInfo.otpData.accessToken,
-        },
-    };
-    const subPayload = {
-        id: neededInfo.shopData.id,
-        operator: '+',
-        useCase: 'products',
-        number: 1,
-    };
-    // setOpen(true);
-    dispatch(deleteHandler(payload))
-        .then(unwrapResult)
-        .then((resr) => {
-            dispatch(getInfo(neededInfo.shopData.id))
-                .then(unwrapResult)
-                .then((res) => {
-                    toaster.push(
-                        <Message showIcon type={resr.type}>
-                            {resr.message}
-                        </Message>,
-                        {
-                            placement: 'topEnd',
-                        }
-                    );
-                    if (resr.type) {
-                        dispatch(updateInstance(subPayload));
-                    }
-                    neededInfo.reFetchData();
-                });
-            eventFunc('');
-        })
-        .catch((e) => {});
-};
+
+
+
+*/
 
 export const removeBg = (imgUrl, setImgData) => {
     axios({
@@ -197,26 +149,3 @@ export const removeBg = (imgUrl, setImgData) => {
         })
         .catch((e) => console.log(e.response, 'something missing'));
 };
-
-// const localFile = '../../../../assets/images/main/banner1.jpg';
-// const base64img = fs.readFileSync(localFile, { encoding: 'base64' });
-// console.log(base64img);
-
-// export const removeBg2 = (name, setImgData) => {
-//     const outputFile = `${__dirname}/out/${name}.png`;
-//     removeBackgroundFromImageBase64({
-//         setImgData,
-//         apiKey: 'sMy4sR7AsoQNHLSNCZQEGL7r',
-//         size: 'regular',
-//         type: 'product',
-//         outputFile,
-//     })
-//         .then((result) => {
-//             console.log(`File saved to ${outputFile}`);
-//             const base64img = result.base64img;
-//             console.log(base64img);
-//         })
-//         .catch((errors) => {
-//             console.log(JSON.stringify(errors));
-//         });
-// };

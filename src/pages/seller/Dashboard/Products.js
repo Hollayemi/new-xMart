@@ -1,52 +1,57 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaPlus, FaEllipsisH, FaImage } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom';
 import { SelectPicker, CheckPicker, AvatarGroup, Avatar, Loader } from 'rsuite';
 import InputGroup from '../../../components/elements/Input/InputGroup';
 import IconDropdown from '../../../components/elements/IconDropDown';
 import { productInformation } from '../../../components/SellerComponents/Info/Categories';
 import TextAreaGroup from '../../../components/elements/Input/TextAreaGroup';
 import ImagePreview from './imagePreview';
-import {
-    createProductHandler,
-    deleteProd,
-} from '../../../state/slices/shop/products/productSlice';
+import { createProductHandler } from '../../../state/slices/shop/products/productSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { REQUEST_STATUS } from '../../../state/slices/constants';
 import ModalPanel from '../../../components/elements/ModalPanel';
-import { myBusinessFiles } from '../../../state/slices/shop/display/displayAll';
-// import * as fs from 'fs';
+import { loadSubCategories } from '../../../state/slices/shop/brands/brands';
+import { deleteProd } from '../../../state/slices/shop/products/deleteProduct';
+import { editProductHandler } from '../../../state/slices/shop/products/updateProduct';
 
 //folders
-const Product = ({ myBrandData, dispatch, neededInfo, allProducts }) => {
+const Product = ({
+    myBrandData,
+    dispatch,
+    neededInfo,
+    allProducts,
+    showingInfo,
+}) => {
     const [formData, setFormData] = useState({
-        prodName: '',
-        prodPrice: '',
-        prodBrand: '',
-        prodSub_Category: '',
-        prodCategory: '',
+        prodName: showingInfo ? showingInfo.prodName : '',
+        prodPrice: showingInfo ? showingInfo.prodPrice : '',
+        prodBrand: showingInfo ? showingInfo.prodBrand : '',
+        prodSub_Category: showingInfo ? showingInfo.prodSub_Category : '',
+        prodCategory: showingInfo ? showingInfo.prodCategory : '',
+        prodGroup: showingInfo ? showingInfo.prodGroup : '',
         prodVari: {
-            weight: '',
-            unit: '',
-            size: '',
-            color: '',
-            gender: '',
+            weight: showingInfo ? showingInfo.prodVari[0].weight : '',
+            unit: showingInfo ? showingInfo.prodVari[0].unit : '',
+            size: showingInfo ? showingInfo.prodVari[0].size : '',
+            color: showingInfo ? showingInfo.prodVari[0].color : '',
+            gender: showingInfo ? showingInfo.prodVari[0].gender : '',
         },
         images: [],
-        prodKey: '',
-        prodInfo: '',
+        prodKey: showingInfo ? showingInfo.prodKey : '',
+        prodInfo: showingInfo ? showingInfo.prodInfo : '',
         shopName: neededInfo.shopData.data.shopName,
-        shopNick: neededInfo.shopData.data.shopName.toLowerCase(),
+        shopNick: neededInfo.shopData.data.shopNick.toLowerCase(),
     });
     const newProd = useSelector((state) => state.reducer.myNewProduct);
     const [productCategory, setProductCategory] = useState(null);
+    const [productGroup, setProductGroup] = useState([]);
 
     let newValue = {};
     function updateValue(newVal, variable) {
-        // eslint-disable-next-line no-lone-blocks
         variable === 'name' && (newValue = { prodName: newVal });
         variable === 'price' && (newValue = { prodPrice: newVal });
         variable === 'reference' && (newValue = { prodKey: newVal });
+        variable === 'prodGroup' && (newValue = { prodGroup: newVal });
         variable === 'note' && (newValue = { prodInfo: newVal });
         variable === 'brand' &&
             (newValue = {
@@ -77,11 +82,49 @@ const Product = ({ myBrandData, dispatch, neededInfo, allProducts }) => {
         });
     }
 
+    useEffect(() => {
+        showingInfo &&
+            setProductGroup(
+                loadSubCategories(
+                    showingInfo.prodCategory,
+                    showingInfo.prodSub_Category
+                )
+            );
+    }, []);
+
     const createProduct = () => {
-        console.log(formData);
-        createProductHandler(formData, dispatch, neededInfo);
+        createProductHandler(
+            {
+                ...formData,
+                prodName: formData.prodName.split('-').join('_'),
+            },
+            dispatch,
+            neededInfo
+        );
+    };
+    const editProduct = () => {
+        editProductHandler(
+            {
+                ...formData,
+                prodId: showingInfo._id,
+                prodName: formData.prodName.split('-').join('_'),
+            },
+            dispatch,
+            neededInfo
+        );
     };
 
+    const selectBrandFunc = (value) => {
+        if (value) {
+            updateValue(value, 'brand');
+            setProductCategory(value.split('$$')[1]);
+            setProductGroup(
+                loadSubCategories(value.split('$$')[1], value.split('$$')[2])
+            );
+        } else {
+            setProductCategory(null);
+        }
+    };
     let folders = null;
     folders =
         allProducts.type === 'success' &&
@@ -124,6 +167,7 @@ const Product = ({ myBrandData, dispatch, neededInfo, allProducts }) => {
                                         label="Product Name"
                                         name="name"
                                         placeholder=" "
+                                        value={formData.prodName}
                                         required={true}
                                         onChange={(e) =>
                                             updateValue(e.target.value, 'name')
@@ -135,6 +179,7 @@ const Product = ({ myBrandData, dispatch, neededInfo, allProducts }) => {
                                         label="Price"
                                         name="name"
                                         placeholder=" "
+                                        value={formData.prodPrice}
                                         required={true}
                                         type="number"
                                         onChange={(e) =>
@@ -147,6 +192,7 @@ const Product = ({ myBrandData, dispatch, neededInfo, allProducts }) => {
                                         label="ref key (optional)."
                                         name="name"
                                         placeholder=" "
+                                        value={formData.prodKey}
                                         onChange={(e) =>
                                             updateValue(
                                                 e.target.value,
@@ -157,21 +203,39 @@ const Product = ({ myBrandData, dispatch, neededInfo, allProducts }) => {
                                 </div>
                                 <div className="w-full sm:w-1/2 max-w-[280px] md:w-[250px] sm:m-1">
                                     <SelectPicker
+                                        label="Brand Name"
                                         data={myBrandData}
                                         className="w-full bg-slate-100"
                                         size="lg"
-                                        placeholder="Select Brand"
-                                        onChange={(value) => {
-                                            if (value) {
-                                                updateValue(value, 'brand');
-                                                setProductCategory(
-                                                    value.split('$$')[1]
-                                                );
-                                            } else {
-                                                setProductCategory(null);
-                                            }
-                                        }}
+                                        placeholder={
+                                            showingInfo
+                                                ? `Brand (${formData.prodBrand})`
+                                                : 'Select Brand'
+                                        }
+                                        onChange={(value) =>
+                                            selectBrandFunc(value)
+                                        }
                                         onClean={() => updateValue('', 'brand')}
+                                    />
+                                </div>
+                                <div className="w-full sm:w-1/2 max-w-[280px] md:w-[250px] sm:m-1">
+                                    <SelectPicker
+                                        data={productGroup}
+                                        label="ggj"
+                                        className="w-full bg-slate-100"
+                                        size="lg"
+                                        disabled={formData.prodBrand === ''}
+                                        placeholder={
+                                            showingInfo
+                                                ? `Collection (${formData.prodGroup})`
+                                                : 'Product Collections'
+                                        }
+                                        onChange={(value) => {
+                                            updateValue(value, 'prodGroup');
+                                        }}
+                                        onClean={() =>
+                                            updateValue('', 'prodGroup')
+                                        }
                                     />
                                 </div>
                             </div>
@@ -187,7 +251,11 @@ const Product = ({ myBrandData, dispatch, neededInfo, allProducts }) => {
                                         data={productInformation.weight}
                                         className=" w-full sm:w-1/5 min-w-[280px] m-1 md:m-2 bg-slate-100"
                                         size="lg"
-                                        placeholder="Weight"
+                                        placeholder={
+                                            showingInfo
+                                                ? `Weight (${formData.prodVari.weight})`
+                                                : 'Weight'
+                                        }
                                         onChange={(value) =>
                                             updateValue(value, 'weight')
                                         }
@@ -198,7 +266,11 @@ const Product = ({ myBrandData, dispatch, neededInfo, allProducts }) => {
                                         data={productInformation.unit}
                                         className=" w-full sm:w-1/5 min-w-[280px] m-1 md:m-2 bg-slate-100"
                                         size="lg"
-                                        placeholder="Unit"
+                                        placeholder={
+                                            showingInfo
+                                                ? `Unit (${formData.prodVari.unit})`
+                                                : 'Unit'
+                                        }
                                         onChange={(value) =>
                                             updateValue(value, 'unit')
                                         }
@@ -208,14 +280,22 @@ const Product = ({ myBrandData, dispatch, neededInfo, allProducts }) => {
                                     data={productInformation.gender}
                                     className=" w-full sm:w-1/5 min-w-[280px] m-1 md:m-2 bg-slate-100"
                                     size="lg"
-                                    placeholder="Gender"
+                                    placeholder={
+                                        showingInfo
+                                            ? `Gender (${formData.prodVari.gender})`
+                                            : 'Gender'
+                                    }
                                     onChange={(value) =>
                                         updateValue(value, 'gender')
                                     }
                                 />
                                 <CheckPicker
                                     data={productInformation.color}
-                                    placeholder="Available colors"
+                                    placeholder={
+                                        showingInfo
+                                            ? `Colors (${formData.prodVari.color})`
+                                            : 'Available colors'
+                                    }
                                     className=" w-full sm:w-1/5 min-w-[280px] m-1 md:m-2 bg-slate-100"
                                     size="lg"
                                     onChange={(value) =>
@@ -226,7 +306,11 @@ const Product = ({ myBrandData, dispatch, neededInfo, allProducts }) => {
                                     data={productInformation.size}
                                     className=" w-full sm:w-1/5 min-w-[280px] m-1 md:m-2 bg-slate-100"
                                     size="lg"
-                                    placeholder="Size"
+                                    placeholder={
+                                        showingInfo
+                                            ? `Size (${formData.prodVari.size})`
+                                            : 'Size'
+                                    }
                                     onChange={(value) =>
                                         updateValue(value, 'size')
                                     }
@@ -236,6 +320,7 @@ const Product = ({ myBrandData, dispatch, neededInfo, allProducts }) => {
                                 <TextAreaGroup
                                     label="Give a short description"
                                     placeholder=" "
+                                    value={formData.prodInfo}
                                     required={true}
                                     onChange={(e) =>
                                         updateValue(e.target.value, 'note')
@@ -257,12 +342,22 @@ const Product = ({ myBrandData, dispatch, neededInfo, allProducts }) => {
                         <div className="mt-4 w-4/5"></div>
                     </div>
                     <div className="flex justify-center mt-10 pb-20">
-                        <button
-                            onClick={createProduct}
-                            className="text-center w-[300px] h-10 rounded bg-slate-600 text-white font-bold text-md"
-                        >
-                            Create Product
-                        </button>
+                        {!showingInfo && (
+                            <button
+                                onClick={createProduct}
+                                className="text-center w-[300px] h-10 rounded bg-slate-600 text-white font-bold text-md"
+                            >
+                                Create Product
+                            </button>
+                        )}
+                        {showingInfo && (
+                            <button
+                                onClick={editProduct}
+                                className="text-center w-[300px] h-10 rounded bg-slate-600 text-white font-bold text-md"
+                            >
+                                Update Product
+                            </button>
+                        )}
                     </div>
                 </div>
             </section>
@@ -286,14 +381,19 @@ const Folders = ({ name, neededInfo, prodImage, price, id }) => {
     const splited = eventFunc.split('-');
     const [open, setOpen] = useState(true);
     const dispatch = useDispatch();
-    const navigate = useNavigate();
+
     let max = 1;
     if (prodImage.length > 1) {
         max = 2;
     }
 
     const deleteProdHandler = () => {
-        deleteProd(splited, neededInfo, myBusinessFiles, eventFunc, dispatch);
+        let body = {
+            delCase: 'Product',
+            _id: splited[2],
+            name: splited[0],
+        };
+        deleteProd(body, neededInfo, eventFunc, dispatch);
     };
     return (
         <div className="flex cursor-pointer flex-col justify-btween min-w-[280px] relative px-4 m-2  h-32 border rounded-[50px] bg-blue-100 shadow-md">
@@ -301,10 +401,10 @@ const Folders = ({ name, neededInfo, prodImage, price, id }) => {
                 <AvatarGroup stack>
                     {prodImage
                         .filter((each, i) => i < max)
-                        .map((each) => (
+                        .map((each, index) => (
                             <Avatar
                                 circle
-                                key={each.name}
+                                key={index}
                                 src={each.image}
                                 alt={each.name}
                             />
@@ -317,23 +417,22 @@ const Folders = ({ name, neededInfo, prodImage, price, id }) => {
                         </Avatar>
                     )}
                 </AvatarGroup>
-                {/* <img
-                    src={prodImage}
-                    alt="Brand"
-                    className="w-12 text-sm rounded-lg shadow-md h-12"
-                /> */}
             </i>
             <i className="absolute top-5 right-7 w-6 h-3 bg-white rounded-full flex items-center justify-center text-xs text-slate-300 cursor-pointer">
                 <IconDropdown
                     Icon={<FaEllipsisH />}
                     Content={[
-                        { value: name + '-delete-' + id, name: 'Delete' },
-                        { value: name + '-edit-' + id, name: 'Edit' },
-                        { value: name + '-view-' + id, name: 'View' },
+                        {
+                            value: name + '-delete-' + id + '-product',
+                            name: 'Delete',
+                        },
+                        {
+                            value: name + '-view-' + id + '-product',
+                            name: 'View',
+                        },
                     ]}
                     onSelect={setEventFunc}
                     className="w-20"
-                    val={splited}
                 />
             </i>
             <div className="h-full">

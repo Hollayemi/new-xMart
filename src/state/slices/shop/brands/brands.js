@@ -160,6 +160,51 @@ export const loadChildren = (cate) => {
             forArr(res.children);
         }
     });
-    console.log(theArray);
+    return theArray;
+};
+
+export const loadCategories = (cate) => {
+    let theArray = [];
+    const forArr = (array) => {
+        for (let i = 0; i < array.length; i++) {
+            const holl = {
+                label: array[i].value,
+                value: array[i].value,
+            };
+            theArray.push(holl);
+        }
+    };
+    martCategories[0].children.map((res, index) => {
+        if (res.label === cate) {
+            forArr(res.children);
+        }
+    });
+    return theArray;
+};
+
+export const loadSubCategories = (cate, subCategory) => {
+    let theArray = [];
+    const forArr = (array) => {
+        for (let i = 0; i < array.length; i++) {
+            const holl = {
+                label: array[i].value,
+                value: array[i].value,
+            };
+            theArray.push(holl);
+            const element = array[i].children;
+            if (element.length > 0) {
+                theArray.push(['Others']);
+            }
+        }
+    };
+    martCategories[0].children.map((res, index) => {
+        if (res.label === cate) {
+            res.children.map((res, index) => {
+                if (res.label === subCategory) {
+                    forArr(res.children);
+                }
+            });
+        }
+    });
     return theArray;
 };

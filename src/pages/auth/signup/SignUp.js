@@ -17,7 +17,6 @@ const KemSignUp = () => {
         username: '',
         email: '',
         phoneNumber: '',
-        location: '',
         password: '',
         conf_pass: '',
         avatar: 'no image',
@@ -29,7 +28,6 @@ const KemSignUp = () => {
         variable === 'username' && (newValue = { username: newVal });
         variable === 'email' && (newValue = { email: newVal });
         variable === 'phone' && (newValue = { phoneNumber: newVal });
-        variable === 'location' && (newValue = { location: newVal });
         variable === 'password' && (newValue = { password: newVal });
         variable === 'conf_pass' && (newValue = { conf_pass: newVal });
         variable === 'avatar' && (newValue = { avatar: newVal });
@@ -201,17 +199,6 @@ const KemSignUp = () => {
                                                 />
                                             </div>
                                         </div>
-                                        <InputGroup
-                                            label="Location"
-                                            placeholder=" "
-                                            value={formData.location}
-                                            onChange={(e) =>
-                                                updateValue(
-                                                    e.target.value,
-                                                    'location'
-                                                )
-                                            }
-                                        />
                                     </>
                                 )}
                                 {step === 1 && (

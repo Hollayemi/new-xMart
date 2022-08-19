@@ -21,7 +21,7 @@ import {
 const Collections = ({ collections, neededInfo }) => {
     const { reFetchData, otpStatus, setFiles } = neededInfo;
     useEffect(() => {
-        storeFiles(shopData.id, dispatch, reFetchData);
+        storeFiles(shopData.data._id, dispatch, reFetchData);
     }, []);
 
     const [formData, setFormData] = useState({
@@ -208,12 +208,8 @@ const Folders = ({
                             name: 'Delete',
                         },
                         {
-                            value: name + '-edit-' + id + '-' + category,
-                            name: 'Edit',
-                        },
-                        {
-                            value: name + '-view-' + id + '-' + category,
-                            name: 'View',
+                            value: name + '-details-' + id + '-' + category,
+                            name: 'Details',
                         },
                     ]}
                     onSelect={setEventFunc}

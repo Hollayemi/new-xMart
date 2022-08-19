@@ -2,10 +2,6 @@ import React, { useState } from 'react';
 import { Tooltip, Whisper } from 'rsuite';
 import { InputFile } from '../../../components/elements/Input/InputFile';
 import { FaInfoCircle, FaPlus, FaTimes } from 'react-icons/fa';
-import {
-    removeBg,
-    removeBg2,
-} from '../../../state/slices/shop/products/productSlice';
 
 const ImagePreview = ({ fileList, setFileList }) => {
     const [preview, setPreview] = useState({ images: [] });
@@ -18,19 +14,15 @@ const ImagePreview = ({ fileList, setFileList }) => {
                 const reader = new FileReader();
                 reader.onloadend = () => {
                     setFileList(reader.result, 'image');
-                    removeBg(reader.result, setFileList);
                 };
                 reader.readAsDataURL(e.target.files[index]);
                 let newValue = {};
-                removeBg(e.target.files[index].name, setFileList);
                 newValue = { ...preview.images.push(preImg) };
                 setPreview({
                     ...preview,
                     ...newValue,
                 });
             }
-            // preImg = [URL.createObjectURL(e.target.files[0])];
-            // setFileList(fileList.concat([preImg[0]]), 'image');
         }
     };
     let pictures = null;

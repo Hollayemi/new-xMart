@@ -7,7 +7,7 @@ import { editShopInfo } from './settings/editShop';
 
 export const addShop = createAsyncThunk('post/addNewShop', async (payload) => {
     const { data } = await martApi
-        .post('/newBusiness', { payload }, {})
+        .post('/newBusiness', payload, {})
         .then((e) => {
             console.log(e, 'Then');
             return e;
@@ -100,7 +100,6 @@ const editExistingShop = createSlice({
         [getShopInfo.rejected]: (state) => {
             return { ...initialState, status: REQUEST_STATUS.REJECTED };
         },
-
         //
         //
         //
@@ -134,7 +133,7 @@ export const createHandler = (payload, dispatch, navigate) => {
         .then((shop_res) => {
             console.log(shop_res);
             if (shop_res.type === 'success') {
-                dispatch(otpHandler(shop_res.id))
+                dispatch(otpHandler(shop_res.data._id))
                     .then(unwrapResult)
                     .then((res) => {
                         console.log(res);
@@ -146,7 +145,7 @@ export const createHandler = (payload, dispatch, navigate) => {
                                 placement: 'topEnd',
                             }
                         );
-                        dispatch(shopConfig(shop_res.id))
+                        dispatch(shopConfig(shop_res.data._id))
                             .then(unwrapResult)
                             .then((config) => {
                                 console.log(config);

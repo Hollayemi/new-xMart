@@ -6,16 +6,16 @@ const Header = () => {
     const [open, setOpen] = useState('-mr-48');
     return (
         <section>
-            <div className="flex justify-center bg-slate-50">
-                <div className="flex items-center h-16 w-4/5 justify-between border-b border-gray-100">
+            <div className="flex justify-center">
+                <div className="flex items-center h-16 w-full px-10 justify-between border-b border-gray-100">
                     <div>
-                        <Link to="/share-story">
+                        <Link to="/">
                             <img src={Logo} alt="logo" width={120} />
                         </Link>
                     </div>
-                    <div className="w-48 md:w-auto">
+                    <div className="w-48 md:w-auto Lucida">
                         <ul
-                            className={`flex fixed w-48 ${open} md:w-auto px-2 md:px-0 md:mr-10 shadow md:shadow-none md:relative bg-white md:bg-transparent right-0 top-0  flex-col md:flex-row h-full items-center z-50 md:h-[50px] py-2 text-xs`}
+                            className={`flex Helvetica font-semibold fixed w-48 ${open} md:w-auto px-2 md:px-0 md:mr-10 shadow md:shadow-none md:relative bg-white md:bg-transparent right-0 top-0  flex-col md:flex-row h-full items-center z-50 md:h-[50px] py-2 text-xs`}
                         >
                             <i
                                 className="md:hidden absolute top-2 left-2 w-6 h-6 flex items-center justify-center rounded-full bg-slate-200"
@@ -23,7 +23,7 @@ const Header = () => {
                             >
                                 <FaTimes />
                             </i>
-                            <li className="h-10 px-2 mt-10 md:mt-0 sm:20 m-2 lg:w-24  lg:m-1 hover:bg-slate-100 rounded-sm flex md:justify-center items-center text-slate-800 w-full cursor-pointer">
+                            <li className=" Helvetica font-semibold h-10 px-2 mt-10 md:mt-0 sm:20 m-2 lg:w-24  lg:m-1 hover:bg-slate-100 rounded-sm flex md:justify-center items-center text-slate-800 w-full cursor-pointer">
                                 ABOUT US
                             </li>
                             <li className="h-10 px-2 sm:20 m-2 lg:w-24  lg:m-1 hover:bg-slate-100 rounded-sm flex md:justify-center items-center text-slate-800 w-full cursor-pointer">
@@ -53,7 +53,7 @@ const Header = () => {
                     <FaBars />
                 </i>
             </div>
-            <div className="flex justify-center w-full border-b border-gray-100 shadow-md hidden md:flex">
+            {/* <div className="flex justify-center w-full border-b border-gray-100 shadow-md hidden md:flex">
                 <ul className="flex items-center h-[35px] py-2 text-xs">
                     <li className="h-full w-20 m-2 md:w-24  lg:m-1 hover:bg-gray-50 rounded-sm flex justify-center items-center text-gray-800 hover:text-slate-400 cursor-pointer">
                         MARKET PLACE
@@ -71,7 +71,7 @@ const Header = () => {
                         EVENTS
                     </li>
                 </ul>
-            </div>
+            </div> */}
         </section>
     );
 };

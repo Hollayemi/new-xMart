@@ -12,7 +12,6 @@ const admin_signin = createAsyncThunk('post/admin_signin', async (payload) => {
         .catch((err) => {
             return err.response;
         });
-
     return data;
 });
 

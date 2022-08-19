@@ -10,7 +10,6 @@ export const updateInstance = createAsyncThunk(
                 return res;
             })
             .catch((e) => {
-                console.log(e.response);
                 return e.response;
             });
         return data;

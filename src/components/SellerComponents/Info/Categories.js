@@ -5,24 +5,23 @@ import fakeImg1 from '../../../assets/images/png/_supreme.png';
 import fakeImg2 from '../../../assets/images/png/_supreme2.jpg';
 import fakeImg3 from '../../../assets/images/png/_supreme3.png';
 import fakeImg4 from '../../../assets/images/png/_supreme4.png';
-import fakeImg5 from '../../../assets/images/png/_supreme5.png';
-import fakeImg6 from '../../../assets/images/png/_supreme6.png';
 import { MySlickSlide } from '../../../pages/website/Home';
 import { websiteImages } from '../../websiteCompoents/Images';
 import Slider from 'react-slick';
-// import fakeImg7 from '../../../assets/images/png/_supreme7.jpg';
 
 export const MartCategories = [
-    'Wears',
-    'Bags',
-    'Drinks',
+    'Men',
+    'Women',
+    'Kids & Babies',
+    'Liquor',
     'Kitchen Appliances',
     'Home Appliances',
-    'Computer & Electronics',
+    'Phones & Smartwatches',
     'Camping & Outdoors',
     'Beauty',
     'Book & Courses',
     'Fashion & Luggage',
+    'Computer & Electronics',
     'Toys',
     'Office & Stationary',
     'Pets',
@@ -118,70 +117,138 @@ const FoodSliders = () => {
     );
 };
 
-export const HomeDisplay = [
-    {
-        name: 'Wears',
-        about: 'Get decent wears for  from xmart',
-        image: LadiesImage,
-        slider: <WearSliders />,
-    },
-    {
-        name: 'Bags',
-        about: 'Get ladies decent outfit from xmart',
-        image: LadiesImage,
-        slider: <ElectronicsSliders />,
-    },
-    {
-        name: 'Food Materials',
-        about: 'Order for men jacket today, look different today',
-        image: MenImage,
-        slider: <FoodSliders />,
-    },
-    {
-        name: 'Phone Accessories',
-        about: 'High quality of leader shoes from xmart',
-        image: FootImage,
-        slider: <PhoneSlider />,
-    },
-];
+export const HomeDisplay = {
+    Men: ['Get decent wears for  from xmart', LadiesImage, <WearSliders />],
+    Phones: [
+        'Get ladies decent outfit from xmart',
+        LadiesImage,
+        <ElectronicsSliders />,
+    ],
+    Computer: [
+        'Order for men jacket today, look different today',
+        MenImage,
+        <FoodSliders />,
+    ],
+    Home: [
+        'Order for men jacket today, look different today',
+        MenImage,
+        <FoodSliders />,
+    ],
+    Tv: ['High quality of leader shoes from xmart', FootImage, <PhoneSlider />],
+};
 
 export const martCategories = [
     {
-        label: 'Kemon-Mart Categories',
+        label: 'xMart Categories',
         value: 'home',
         children: [
             {
-                label: 'Wears',
-                value: 'Wears',
+                label: 'Women',
+                value: 'Women',
                 children: [
                     {
-                        label: 'Kids Wears',
-                        value: 'Kids Wears',
+                        label: 'Clothing',
+                        value: 'Clothing',
                         children: [
                             {
-                                label: 'Kids Foot Wear',
-                                value: 'kids Foot Wear',
+                                label: 'Knitwear',
+                                value: 'Knitwear',
                                 children: [],
                             },
                             {
-                                label: 'kids Wrist Wear',
-                                value: 'kids Wrist Wear',
+                                label: 'Trousers & Chinos',
+                                value: 'Trousers & Chinos',
                                 children: [],
                             },
                             {
-                                label: 'kids Head Wear',
-                                value: 'kids Head Wear',
+                                label: 'Swimwear',
+                                value: 'Swimwear',
+                                children: [],
+                            },
+                            {
+                                label: 'T-Shirts',
+                                value: 'T-Shirts',
+                                children: [],
+                            },
+                            {
+                                label: 'Underwear',
+                                value: 'Underwear',
+                                children: [],
+                            },
+                            {
+                                label: 'Suits',
+                                value: 'Suits',
+                                children: [],
+                            },
+                            {
+                                label: 'Skirts',
+                                value: 'Skirts',
+                                children: [],
+                            },
+                            {
+                                label: 'Shorts',
+                                value: 'Shorts',
+                                children: [],
+                            },
+                            {
+                                label: 'Sleep & Lounge',
+                                value: 'Sleep & Lounge',
+                                children: [],
+                            },
+                            {
+                                label: 'Jumpsuits, Rompers & Overalls',
+                                value: 'Jumpsuits, Rompers & Overalls',
+                                children: [],
+                            },
+                            {
+                                label: 'Leggings',
+                                value: 'Leggings',
+                                children: [],
+                            },
+                            {
+                                label: 'Undies',
+                                value: 'Undies',
+                                children: [],
+                            },
+                            {
+                                label: 'Maternity',
+                                value: 'Maternity',
                                 children: [],
                             },
                         ],
                     },
                     {
-                        label: 'Ladies Wears',
+                        label: 'Accessories',
                         value: 'Ladies Wears',
                         children: [
                             {
-                                label: 'ladies Foot Wear',
-                                value: 'ladies Foot Wear',
+                                label: 'Belts',
+                                value: 'Belts',
+                                children: [],
+                            },
+                            {
+                                label: 'Hats & Caps',
+                                value: 'Hats & Caps',
+                                children: [],
+                            },
+                            {
+                                label: 'Bags',
+                                value: 'Bags',
+                                children: [],
+                            },
+                            {
+                                label: 'Sunglasses',
+                                value: 'Sunglasses',
+                                children: [],
+                            },
+                            {
+                                label: 'Watches & Eyewear',
+                                value: 'Watches & Eyewear',
+                                children: [],
+                            },
+                            {
+                                label: 'Scarves & head ties',
+                                value: 'Scarves & head ties',
                                 children: [],
                             },
                             {
@@ -190,19 +257,183 @@ export const martCategories = [
                                 children: [],
                             },
                             {
-                                label: 'Ladies Head Wear',
-                                value: 'Ladies Head Wear',
+                                label: 'Wallets',
+                                value: 'Wallets',
                                 children: [],
                             },
                         ],
                     },
                     {
-                        label: 'Men Wears',
-                        value: 'Men Wears',
+                        label: 'Beauty',
+                        value: 'Beauty',
                         children: [
                             {
-                                label: 'Men Foot Wear',
-                                value: 'Men Foot Wear',
+                                label: 'Hair Care',
+                                value: 'Hair Care',
+                                children: [],
+                            },
+                            {
+                                label: 'Skincare',
+                                value: 'Skincare',
+                                children: [],
+                            },
+                            {
+                                label: 'Make-up & Nails',
+                                value: 'Make-up & Nails',
+                                children: [],
+                            },
+                            {
+                                label: 'Fragrances',
+                                value: 'Fragrances',
+                                children: [],
+                            },
+                            {
+                                label: 'Body, Bath & Shower',
+                                value: 'Body, Bath & Shower',
+                                children: [],
+                            },
+                        ],
+                    },
+                    {
+                        label: 'Shoes',
+                        value: 'Shoes',
+                        children: [
+                            {
+                                label: 'Boot Shoes',
+                                value: 'Boot Shoes',
+                                children: [],
+                            },
+                            {
+                                label: 'Flat Shoes',
+                                value: 'Flat Shoes',
+                                children: [],
+                            },
+                            {
+                                label: 'Heels',
+                                value: 'Heels',
+                                children: [],
+                            },
+                            {
+                                label: 'Sandals',
+                                value: 'Sandals',
+                                children: [],
+                            },
+                            {
+                                label: 'Sneakers & Canvas',
+                                value: 'Sneakers & Canvas',
+                                children: [],
+                            },
+                        ],
+                    },
+                ],
+            },
+            {
+                label: 'Men',
+                value: 'Men',
+                children: [
+                    {
+                        label: 'Clothing',
+                        value: 'Clothing',
+                        children: [
+                            {
+                                label: 'Knitwear',
+                                value: 'Knitwear',
+                                children: [],
+                            },
+                            {
+                                label: 'Trousers & Chinos',
+                                value: 'Trousers & Chinos',
+                                children: [],
+                            },
+                            {
+                                label: 'Swimwear',
+                                value: 'Swimwear',
+                                children: [],
+                            },
+                            {
+                                label: 'Jeans',
+                                value: 'Jeans',
+                                children: [],
+                            },
+                            {
+                                label: 'T-Shirts',
+                                value: 'T-Shirts',
+                                children: [],
+                            },
+                            {
+                                label: 'Underwear',
+                                value: 'Underwear',
+                                children: [],
+                            },
+                            {
+                                label: 'Suits',
+                                value: 'Suits',
+                                children: [],
+                            },
+                            {
+                                label: 'Socks',
+                                value: 'Socks',
+                                children: [],
+                            },
+                            {
+                                label: 'Shorts',
+                                value: 'Shorts',
+                                children: [],
+                            },
+                            {
+                                label: 'Sleep & Lounge',
+                                value: 'Sleep & Lounge',
+                                children: [],
+                            },
+                            {
+                                label: 'Jumpsuits, Rompers & Overalls',
+                                value: 'Jumpsuits, Rompers & Overalls',
+                                children: [],
+                            },
+                            {
+                                label: 'Underwear',
+                                value: 'Underwear',
+                                children: [],
+                            },
+                        ],
+                    },
+                    {
+                        label: 'Accessories',
+                        value: 'Accessories',
+                        children: [
+                            {
+                                label: 'Belts',
+                                value: 'Belts',
+                                children: [],
+                            },
+                            {
+                                label: 'Jewellery',
+                                value: 'Jewellery',
+                                children: [],
+                            },
+                            {
+                                label: 'Hats & Caps',
+                                value: 'Hats & Caps',
+                                children: [],
+                            },
+                            {
+                                label: 'Bags',
+                                value: 'Bags',
+                                children: [],
+                            },
+                            {
+                                label: 'Sunglasses',
+                                value: 'Sunglasses',
+                                children: [],
+                            },
+                            {
+                                label: 'Watches & Eyewear',
+                                value: 'Watches & Eyewear',
+                                children: [],
+                            },
+                            {
+                                label: 'Cuff Links, Shirt Studs & Tie Clips',
+                                value: 'Cuff Links, Shirt Studs & Tie Clips',
                                 children: [],
                             },
                             {
@@ -211,29 +442,75 @@ export const martCategories = [
                                 children: [],
                             },
                             {
-                                label: 'Men Head Wear',
-                                value: 'Men Head Wear',
+                                label: 'Wallets',
+                                value: 'Wallets',
                                 children: [],
                             },
                         ],
                     },
                     {
-                        label: 'Men & Women Wears',
-                        value: 'Men & Women Wears',
+                        label: 'Grooming',
+                        value: 'Grooming',
                         children: [
                             {
-                                label: 'Men & Women Foot Wear',
-                                value: 'Men & Women Foot Wear',
+                                label: 'Hair Care',
+                                value: 'Hair Care',
                                 children: [],
                             },
                             {
-                                label: 'Men & Women Wrist Wear',
-                                value: 'Men & Women Wrist Wear',
+                                label: 'Skincare',
+                                value: 'Skincare',
                                 children: [],
                             },
                             {
-                                label: 'Men & Women Head Wear',
-                                value: 'Men & Women Head Wear',
+                                label: 'Shaving',
+                                value: 'Shaving',
+                                children: [],
+                            },
+                            {
+                                label: 'Fragrances',
+                                value: 'Fragrances',
+                                children: [],
+                            },
+                            {
+                                label: 'Body, Bath & Shower',
+                                value: 'Body, Bath & Shower',
+                                children: [],
+                            },
+                        ],
+                    },
+                    {
+                        label: 'Shoes',
+                        value: 'Shoes',
+                        children: [
+                            {
+                                label: 'Boots',
+                                value: 'Boots',
+                                children: [],
+                            },
+                            {
+                                label: 'Casual Shoes',
+                                value: 'Casual Shoes',
+                                children: [],
+                            },
+                            {
+                                label: 'Formal Shoes',
+                                value: 'Formal Shoes',
+                                children: [],
+                            },
+                            {
+                                label: 'Slippers & Flip-flops',
+                                value: 'Slippers & Flip-flops',
+                                children: [],
+                            },
+                            {
+                                label: 'Sneakers & Canvas',
+                                value: 'Sneakers & Canvas',
+                                children: [],
+                            },
+                            {
+                                label: 'Sport Shoes',
+                                value: 'Sport Shoes',
                                 children: [],
                             },
                         ],
@@ -241,87 +518,639 @@ export const martCategories = [
                 ],
             },
             {
-                label: 'Bags',
-                value: 'Bags',
+                label: 'Kids & Babies',
+                value: 'Kids & Babies',
                 children: [
                     {
-                        label: 'kids School Bags',
-                        value: 'kids School Bags',
-                        children: [],
+                        label: 'Clothing',
+                        value: 'Clothing',
+                        children: [
+                            {
+                                label: 'T-shirt',
+                                value: 'T-shirt',
+                                children: [],
+                            },
+                            {
+                                label: 'Polo',
+                                value: 'Polo',
+                                children: [],
+                            },
+                            {
+                                label: 'Jeans',
+                                value: 'Jeans',
+                                children: [],
+                            },
+                        ],
                     },
                     {
-                        label: 'Ladies Bag',
-                        value: 'Ladies Bag',
-                        children: [],
-                    },
-                    {
-                        label: 'Hand Bags',
-                        value: 'Hand Bags',
-                        children: [],
-                    },
-                    {
-                        label: 'Cross Bags',
-                        value: 'Cross Bags',
-                        children: [],
-                    },
-                    {
-                        label: 'Men Bags',
-                        value: 'Men Bags',
-                        children: [],
-                    },
-                    {
-                        label: 'Men & Women Bags',
-                        value: 'Men & Women Bags',
-                        children: [],
-                    },
-                ],
-            },
-
-            {
-                label: 'Drinks',
-                value: 'Drinks',
-                children: [
-                    {
-                        label: 'Men & Women Foot Wear',
-                        value: 'Men & Women Foot Wear',
-                        children: [],
-                    },
-                    {
-                        label: 'Men & Women Wrist Wear',
-                        value: 'Men & Women Wrist Wear',
-                        children: [],
-                    },
-                    {
-                        label: 'Men & Women Head Wear',
-                        value: 'Men & Women Head Wear',
-                        children: [],
-                    },
-                    {
-                        label: 'Men & Women Bags',
-                        value: 'Men & Women Bags',
-                        children: [],
+                        label: 'Accessories',
+                        value: 'Accessories',
+                        children: [
+                            {
+                                label: 'School Bags',
+                                value: 'School Bags',
+                                children: [],
+                            },
+                            {
+                                label: 'Baby care & Nursery',
+                                value: 'Baby care & Nursery',
+                                children: [],
+                            },
+                            {
+                                label: 'Changing & Feeding',
+                                value: 'Changing & Feeding',
+                                children: [],
+                            },
+                        ],
                     },
                 ],
             },
             {
-                label: 'Kitchen Appliances',
-                value: 'Kitchen Appliances',
-                children: [],
-            },
-            {
-                label: 'Home Appliances',
-                value: 'Home Appliances',
-                children: [],
+                label: 'Phones & Smartwatches',
+                value: 'Phones & Smartwatches',
+                children: [
+                    {
+                        label: 'Cellphones',
+                        value: 'Cellphones',
+                        children: [
+                            {
+                                label: 'Tecno',
+                                value: 'Tecno',
+                                children: [],
+                            },
+                            {
+                                label: 'Infinix',
+                                value: 'Infinix',
+                                children: [],
+                            },
+                            {
+                                label: 'Gionee',
+                                value: 'Gionee',
+                                children: [],
+                            },
+                            {
+                                label: 'Redmi',
+                                value: 'Redmi',
+                                children: [],
+                            },
+                            {
+                                label: 'Samsung',
+                                value: 'Samsung',
+                                children: [],
+                            },
+                            {
+                                label: 'Xiaomi',
+                                value: 'Xiaomi',
+                                children: [],
+                            },
+                            {
+                                label: 'Apple',
+                                value: 'Apple',
+                                children: [],
+                            },
+                            {
+                                label: 'Huawei',
+                                value: 'Huawei',
+                                children: [],
+                            },
+                            {
+                                label: 'Hisense',
+                                value: 'Hisense',
+                                children: [],
+                            },
+                            {
+                                label: 'Nokia',
+                                value: 'Nokia',
+                                children: [],
+                            },
+                        ],
+                    },
+                    {
+                        label: 'Cellular Accessories',
+                        value: 'Cellular Accessories',
+                        children: [
+                            {
+                                label: 'Android Cord',
+                                value: 'Android Cord',
+                                children: [],
+                            },
+                            {
+                                label: 'Phone Pouch',
+                                value: 'Phone Pouch',
+                                children: [],
+                            },
+                            {
+                                label: 'Power Bank',
+                                value: 'Power Bank',
+                                children: [],
+                            },
+                            {
+                                label: 'Type C Charger',
+                                value: 'Type C Charger',
+                                children: [],
+                            },
+                            {
+                                label: 'iPhone Charger',
+                                value: 'iPhone Charger',
+                                children: [],
+                            },
+                            {
+                                label: 'Case',
+                                value: 'Case',
+                                children: [],
+                            },
+                            {
+                                label: 'Earpiece',
+                                value: 'Earpiece',
+                                children: [],
+                            },
+                            {
+                                label: 'Phone Glass Protector',
+                                value: 'Phone Glass Protector',
+                                children: [],
+                            },
+                            {
+                                label: 'Phone Stand Tripod',
+                                value: 'Phone Stand Tripod',
+                                children: [],
+                            },
+                            {
+                                label: 'Selfie Stick',
+                                value: 'Selfie Stick',
+                                children: [],
+                            },
+                            {
+                                label: 'Earbuds',
+                                value: 'Earbuds',
+                                children: [],
+                            },
+                            {
+                                label: 'Headphones',
+                                value: 'Headphones',
+                                children: [],
+                            },
+                            {
+                                label: 'Others',
+                                value: 'Others',
+                                children: [],
+                            },
+                        ],
+                    },
+                    {
+                        label: 'Tablets & Kindles',
+                        value: 'Tablets & Kindles',
+                        children: [],
+                    },
+                    {
+                        label: 'Smartwatches',
+                        value: 'Smartwatches',
+                        children: [
+                            {
+                                label: 'Luxury Smartwatch',
+                                value: 'Luxury Smartwatch',
+                                children: [],
+                            },
+                            {
+                                label: 'Budget Smartwatch',
+                                value: 'Budget Smartwatch',
+                                children: [],
+                            },
+                            {
+                                label: 'GPS Smartwatch',
+                                value: 'GPS Smartwatch',
+                                children: [],
+                            },
+                            {
+                                label: 'Hybrid Smartwatch',
+                                value: 'Hybrid Smartwatch',
+                                children: [],
+                            },
+                            {
+                                label: 'Fitness Tracker',
+                                value: 'Fitness Tracker',
+                                children: [],
+                            },
+                        ],
+                    },
+                    {
+                        label: 'Repairing Accessories',
+                        value: 'Repairing Accessories',
+                        children: [
+                            {
+                                label: 'For iPhone',
+                                value: 'For iPhone',
+                                children: [],
+                            },
+                            {
+                                label: 'For Android',
+                                value: 'For Android',
+                                children: [],
+                            },
+                            {
+                                label: 'For Smartwatch',
+                                value: 'For Smartwatch',
+                                children: [],
+                            },
+                            {
+                                label: 'For Tablets',
+                                value: 'For Tablets',
+                                children: [],
+                            },
+                        ],
+                    },
+                ],
             },
             {
                 label: 'Computer & Electronics',
                 value: 'Computer & Electronics',
-                children: [],
+                children: [
+                    {
+                        label: 'Computers & Laptops',
+                        value: 'Computers & Laptops',
+                        children: [
+                            {
+                                label: 'Hp',
+                                value: 'Hp',
+                                children: [],
+                            },
+                            {
+                                label: 'Acer',
+                                value: 'Acer',
+                                children: [],
+                            },
+                            {
+                                label: 'Dell',
+                                value: 'Dell',
+                                children: [],
+                            },
+                            {
+                                label: 'Zinox',
+                                value: 'Zinox',
+                                children: [],
+                            },
+                            {
+                                label: 'Macbook',
+                                value: 'Macbook',
+                                children: [],
+                            },
+                        ],
+                    },
+                    {
+                        label: 'Smart Home',
+                        value: 'Smart Home',
+                        children: [],
+                    },
+                    {
+                        label: 'Desktop',
+                        value: 'Desktop',
+                        children: [
+                            {
+                                label: 'Monitors',
+                                value: 'Monitors',
+                                children: [],
+                            },
+                            {
+                                label: 'Networking',
+                                value: 'Networking',
+                                children: [],
+                            },
+                            {
+                                label: 'Software',
+                                value: 'Software',
+                                children: [],
+                            },
+                            {
+                                label: 'Storage Devices',
+                                value: 'Storage Devices',
+                                children: [],
+                            },
+                        ],
+                    },
+                    {
+                        label: 'Computer Accessories',
+                        value: 'Computer Accessories',
+                        children: [
+                            {
+                                label: 'Battery',
+                                value: 'Battery',
+                                children: [],
+                            },
+                            {
+                                label: 'Keyboard',
+                                value: 'Keyboard',
+                                children: [],
+                            },
+                            {
+                                label: 'Mouse',
+                                value: 'Mouse',
+                                children: [],
+                            },
+                            {
+                                label: 'Charger',
+                                value: 'Charger',
+                                children: [],
+                            },
+                            {
+                                label: 'Battery',
+                                value: 'Battery',
+                                children: [],
+                            },
+                            {
+                                label: 'Screen',
+                                value: 'Screen',
+                                children: [],
+                            },
+                            {
+                                label: 'Other Computer Accessories',
+                                value: 'Other Computer Accessories',
+                                children: [],
+                            },
+                        ],
+                    },
+                    {
+                        label: 'Digital Cameras',
+                        value: 'Digital Cameras',
+                        children: [
+                            {
+                                label: 'Canon',
+                                value: 'Canon',
+                                children: [],
+                            },
+                            {
+                                label: 'Nikik',
+                                value: 'Nikik',
+                                children: [],
+                            },
+                            {
+                                label: 'Digital Cameras Accessories',
+                                value: 'Digital Cameras Accessories',
+                                children: [],
+                            },
+                        ],
+                    },
+                    {
+                        label: 'Action Cams & Drones',
+                        value: 'Action Cams & Drones',
+                        children: [],
+                    },
+                    {
+                        label: 'Household Materials',
+                        value: 'Household Materials',
+                        children: [
+                            {
+                                label: 'Generators',
+                                value: 'Generators',
+                                children: [],
+                            },
+                            {
+                                label: 'Television',
+                                value: 'Television',
+                                children: [],
+                            },
+                            {
+                                label: 'Air Conditioners',
+                                value: 'Air Conditioners',
+                                children: [],
+                            },
+                            {
+                                label: 'Solar',
+                                value: 'Solar',
+                                children: [],
+                            },
+                            {
+                                label: 'Electric cookers',
+                                value: 'Electric cookers',
+                                children: [],
+                            },
+                            {
+                                label: 'Electirc Fans',
+                                value: 'Electirc Fans',
+                                children: [],
+                            },
+                            {
+                                label: 'Washing Machines',
+                                value: 'Washing Machines',
+                                children: [],
+                            },
+                        ],
+                    },
+                ],
             },
             {
-                label: 'Camping & Outdoors',
-                value: 'Camping & Outdoors',
-                children: [],
+                label: 'Liquor',
+                value: 'Liquor',
+                children: [
+                    {
+                        label: 'Beer & Ciders',
+                        value: 'Beer & Ciders',
+                        children: [],
+                    },
+                    {
+                        label: 'Gin',
+                        value: 'Gin',
+                        children: [],
+                    },
+                    {
+                        label: 'Whisky & Bourbon',
+                        value: 'Whisky & Bourbon',
+                        children: [],
+                    },
+                    {
+                        label: 'Wine',
+                        value: 'Wine',
+                        children: [],
+                    },
+                    {
+                        label: 'Non-alcoholic',
+                        value: 'Non-alcoholic',
+                        children: [],
+                    },
+                    {
+                        label: 'Beverages',
+                        value: 'Beverages',
+                        children: [],
+                    },
+                ],
+            },
+            {
+                label: 'Home Appliances',
+                value: 'Home Appliances',
+                children: [
+                    {
+                        label: 'Bathroom',
+                        value: 'Bathroom',
+                        children: [
+                            {
+                                label: 'Accessories',
+                                value: 'Accessories',
+                                children: [],
+                            },
+                            {
+                                label: 'Bath Rug',
+                                value: 'Bath Rug',
+                                children: [],
+                            },
+                            {
+                                label: 'Towel',
+                                value: 'Towel',
+                                children: [],
+                            },
+                            {
+                                label: 'Kids Bathroom',
+                                value: 'Kids Bathroom',
+                                children: [],
+                            },
+                        ],
+                    },
+                    {
+                        label: 'Bedroom',
+                        value: 'Bedroom',
+                        children: [
+                            {
+                                label: 'Bedspreads, Coverlets & Duvets',
+                                value: 'Bedspreads, Coverlets & Duvets',
+                                children: [],
+                            },
+                            {
+                                label: 'Blankets & Throws',
+                                value: 'Blankets & Throws',
+                                children: [],
+                            },
+                            {
+                                label: 'Decorative Pillows, Inserts & Covers',
+                                value: 'Decorative Pillows, Inserts & Covers',
+                                children: [],
+                            },
+                            {
+                                label: 'Kids Bedding',
+                                value: 'Kids Bedding',
+                                children: [],
+                            },
+                            {
+                                label: 'Mattress Pads & Protectors',
+                                value: 'Mattress Pads & Protectors',
+                                children: [],
+                            },
+                            {
+                                label: 'Nursery Bedding',
+                                value: 'Nursery Bedding',
+                                children: [],
+                            },
+                            {
+                                label: 'Pillows & Positioners',
+                                value: 'Pillows & Positioners',
+                                children: [],
+                            },
+                            {
+                                label: 'Bed',
+                                value: 'Bed',
+                                children: [],
+                            },
+                            {
+                                label: 'Wardrobe',
+                                value: 'Wardrobe',
+                                children: [],
+                            },
+                        ],
+                    },
+                    {
+                        label: 'Kitchen & Dining',
+                        value: 'Kitchen & Dining',
+                        children: [
+                            {
+                                label: 'Sink',
+                                value: 'Sink',
+                                children: [],
+                            },
+                            {
+                                label: 'Shelves & Racks',
+                                value: 'Shelves & Racks',
+                                children: [],
+                            },
+                            {
+                                label: 'Pots',
+                                value: 'Pots',
+                                children: [],
+                            },
+                            {
+                                label: 'Cookers',
+                                value: 'Cookers',
+                                children: [],
+                            },
+                            {
+                                label: 'Dishes',
+                                value: 'Dishes',
+                                children: [],
+                            },
+                            {
+                                label: 'Other Accessories',
+                                value: 'Other Accessories',
+                                children: [],
+                            },
+                            {
+                                label: 'Kids Room Decor',
+                                value: 'Kids Room Decor',
+                                children: [],
+                            },
+                        ],
+                    },
+                    {
+                        label: 'Indoor Decor',
+                        value: 'Indoor Decor',
+                        children: [
+                            {
+                                label: 'Area Rugs, Runners & Pads',
+                                value: 'Area Rugs, Runners & Pads',
+                                children: [],
+                            },
+                            {
+                                label: 'Candles & Holders',
+                                value: 'Candles & Holders',
+                                children: [],
+                            },
+                            {
+                                label: 'Clocks',
+                                value: 'Clocks',
+                                children: [],
+                            },
+                            {
+                                label: 'Draperies & Curtains',
+                                value: 'Draperies & Curtains',
+                                children: [],
+                            },
+                            {
+                                label: 'Home Decor Accents',
+                                value: 'Home Decor Accents',
+                                children: [],
+                            },
+                            {
+                                label: 'Home Fragrances',
+                                value: 'Home Fragrances',
+                                children: [],
+                            },
+                            {
+                                label: 'Kids Room Decor',
+                                value: 'Kids Room Decor',
+                                children: [],
+                            },
+                            {
+                                label: 'Lighting',
+                                value: 'Lighting',
+                                children: [],
+                            },
+                            {
+                                label: 'Mirrors',
+                                value: 'Mirrors',
+                                children: [],
+                            },
+                            {
+                                label: 'Picture Frames',
+                                value: 'Picture Frames',
+                                children: [],
+                            },
+                        ],
+                    },
+                ],
             },
             {
                 label: 'Book & Courses',
@@ -336,12 +1165,170 @@ export const martCategories = [
             {
                 label: 'Fashion & Luggage',
                 value: 'Fashion & Luggage',
-                children: [],
+                children: [
+                    {
+                        label: 'Suitcases',
+                        value: 'Suitcases',
+                        children: [
+                            {
+                                label: 'Set',
+                                value: 'Set',
+                                children: [],
+                            },
+                            {
+                                label: 'Medium',
+                                value: 'Medium',
+                                children: [],
+                            },
+                            {
+                                label: 'Large',
+                                value: 'Large',
+                                children: [],
+                            },
+                            {
+                                label: 'Small',
+                                value: 'Small',
+                                children: [],
+                            },
+                        ],
+                    },
+                    {
+                        label: 'Business Bags',
+                        value: 'Business Bags',
+                        children: [
+                            {
+                                label: 'Business Bags',
+                                value: 'Business Bags',
+                                children: [],
+                            },
+                            {
+                                label: 'Student Bags',
+                                value: 'Student Bags',
+                                children: [],
+                            },
+                            {
+                                label: 'Fashion Bags',
+                                value: 'Fashion Bags',
+                                children: [],
+                            },
+                            {
+                                label: 'Backpacks & Duffles',
+                                value: 'Backpacks & Duffles',
+                                children: [],
+                            },
+                            {
+                                label: 'Handbags',
+                                value: 'Handbags',
+                                children: [],
+                            },
+                            {
+                                label: 'Backpacks & Duffles',
+                                value: 'Backpacks & Duffles',
+                                children: [],
+                            },
+                        ],
+                    },
+                    {
+                        label: 'Travel Accessories',
+                        value: 'Travel Accessories',
+                        children: [
+                            {
+                                label: 'Others',
+                                value: 'Others',
+                                children: [],
+                            },
+                        ],
+                    },
+                    {
+                        label: 'Watches',
+                        value: 'Watches',
+                        children: [
+                            {
+                                label: 'Leather',
+                                value: 'Leather',
+                                children: [],
+                            },
+                            {
+                                label: 'Rolex',
+                                value: 'Rolex',
+                                children: [],
+                            },
+                            {
+                                label: 'Gold',
+                                value: 'Gold',
+                                children: [],
+                            },
+                            {
+                                label: 'Silver',
+                                value: 'Silver',
+                                children: [],
+                            },
+                        ],
+                    },
+                    {
+                        label: 'Wallets & Purses',
+                        value: 'Wallets & Purses',
+                        children: [
+                            {
+                                label: 'Others',
+                                value: 'Others',
+                                children: [],
+                            },
+                        ],
+                    },
+                    {
+                        label: 'Jewellery',
+                        value: 'Jewellery',
+                        children: [
+                            {
+                                label: 'Silver',
+                                value: 'Silver',
+                                children: [],
+                            },
+                        ],
+                    },
+                    {
+                        label: 'Wallets & Purses',
+                        value: 'Wallets & Purses',
+                        children: [],
+                    },
+                ],
             },
             {
-                label: 'Toys',
-                value: 'Toys',
-                children: [],
+                label: 'Toys & Games',
+                value: 'Toys & Games',
+                children: [
+                    {
+                        label: 'Action Figures',
+                        value: 'Action Figures',
+                        children: [],
+                    },
+                    {
+                        label: 'Dolls',
+                        value: 'Dolls',
+                        children: [],
+                    },
+                    {
+                        label: 'Board Games',
+                        value: 'Board Games',
+                        children: [],
+                    },
+                    {
+                        label: 'Card Games',
+                        value: 'Card Games',
+                        children: [],
+                    },
+                    {
+                        label: 'Puzzles',
+                        value: 'Puzzles',
+                        children: [],
+                    },
+                    {
+                        label: 'Kids Party Supplies',
+                        value: 'Kids Party Supplies',
+                        children: [],
+                    },
+                ],
             },
             {
                 label: 'Office & Stationary',
@@ -351,27 +1338,329 @@ export const martCategories = [
             {
                 label: 'Pets',
                 value: 'Pets',
-                children: [],
+                children: [
+                    {
+                        label: 'Dogs',
+                        value: 'Dogs',
+                        children: [
+                            {
+                                label: 'Puppy',
+                                value: 'Puppy',
+                                children: [],
+                            },
+                            {
+                                label: 'Female Dog',
+                                value: 'Female Dog',
+                                children: [],
+                            },
+                            {
+                                label: 'Male Dog',
+                                value: 'Male Dog',
+                                children: [],
+                            },
+                        ],
+                    },
+                    {
+                        label: 'Cats',
+                        value: 'Cats',
+                        children: [
+                            {
+                                label: 'Kitten',
+                                value: 'Kitten',
+                                children: [],
+                            },
+                            {
+                                label: 'Female Cat',
+                                value: 'Female Cat',
+                                children: [],
+                            },
+                            {
+                                label: 'Male Cat',
+                                value: 'Male Cat',
+                                children: [],
+                            },
+                        ],
+                    },
+                    {
+                        label: 'Fish',
+                        value: 'Fish',
+                        children: [
+                            {
+                                label: 'Fingerlins',
+                                value: 'Fingerlins',
+                                children: [],
+                            },
+                            {
+                                label: 'Cat fishes',
+                                value: 'Cat fishes',
+                                children: [],
+                            },
+                            {
+                                label: 'Roasted fishes',
+                                value: 'Roasted fishes',
+                                children: [],
+                            },
+                        ],
+                    },
+                    {
+                        label: 'Small Pets',
+                        value: 'Small Pets',
+                        children: [],
+                    },
+                ],
             },
             {
                 label: 'Sport & Training',
                 value: 'Sport & Training',
-                children: [],
+                children: [
+                    {
+                        label: 'Tennis',
+                        value: 'Tennis',
+                        children: [
+                            {
+                                label: 'Egg',
+                                value: 'Egg',
+                                children: [],
+                            },
+                        ],
+                    },
+                    {
+                        label: 'Soccer',
+                        value: 'Soccer',
+                        children: [],
+                    },
+                    {
+                        label: 'Badmiton',
+                        value: 'Badmiton',
+                        children: [],
+                    },
+                ],
             },
             {
                 label: 'Tv, Audio & Media',
                 value: 'Tv, Audio & Media',
-                children: [],
+                children: [
+                    {
+                        label: 'TV Brands',
+                        value: 'TV Brands',
+                        children: [
+                            {
+                                label: 'Hisense',
+                                value: 'Hisense',
+                                children: [],
+                            },
+                            {
+                                label: 'LG',
+                                value: 'LG',
+                                children: [],
+                            },
+                            {
+                                label: 'TCL',
+                                value: 'TCL',
+                                children: [],
+                            },
+                            {
+                                label: 'Vizio',
+                                value: 'Vizio',
+                                children: [],
+                            },
+                            {
+                                label: 'Philips',
+                                value: 'Philips',
+                                children: [],
+                            },
+                            {
+                                label: 'Samsung',
+                                value: 'Samsung',
+                                children: [],
+                            },
+                            {
+                                label: 'Sony',
+                                value: 'Sony',
+                                children: [],
+                            },
+                        ],
+                    },
+                    {
+                        label: 'Dishes',
+                        value: 'Dishes',
+                        children: [
+                            {
+                                label: 'DSTV',
+                                value: 'DSTV',
+                                children: [],
+                            },
+                            {
+                                label: 'GOTV',
+                                value: 'GOTV',
+                                children: [],
+                            },
+                            {
+                                label: 'DVD',
+                                value: 'DVD',
+                                children: [],
+                            },
+                            {
+                                label: 'VCD',
+                                value: 'VCD',
+                                children: [],
+                            },
+                        ],
+                    },
+
+                    {
+                        label: 'Home Entertainment',
+                        value: 'Home Entertainment',
+                        children: [],
+                    },
+                    {
+                        label: 'Headsets',
+                        value: 'Headsets',
+                        children: [
+                            {
+                                label: 'Oraimo',
+                                value: 'Oraimo',
+                                children: [],
+                            },
+                            {
+                                label: 'New Age',
+                                value: 'New Age',
+                                children: [],
+                            },
+                            {
+                                label: 'Others',
+                                value: 'Others',
+                                children: [],
+                            },
+                        ],
+                    },
+                    {
+                        label: 'TV Series',
+                        value: 'TV Series',
+                        children: [],
+                    },
+                    {
+                        label: 'Movies & Series',
+                        value: 'Movies & Series',
+                        children: [],
+                    },
+                    {
+                        label: 'Guitars',
+                        value: 'Guitars',
+                        children: [],
+                    },
+                    {
+                        label: 'Keyboard',
+                        value: 'Keyboard',
+                        children: [],
+                    },
+                    {
+                        label: 'Musical Instruments',
+                        value: 'Musical Instruments',
+                        children: [],
+                    },
+                    {
+                        label: 'Keyboard',
+                        value: 'Keyboard',
+                        children: [],
+                    },
+                ],
             },
             {
                 label: 'Gaming',
                 value: 'Gaming',
-                children: [],
+                children: [
+                    {
+                        label: 'PlayStation',
+                        value: 'PlayStation',
+                        children: [],
+                    },
+                    {
+                        label: 'PC Gaming',
+                        value: 'PC Gaming',
+                        children: [
+                            {
+                                label: 'PS3',
+                                value: 'PS3',
+                                children: [],
+                            },
+                            {
+                                label: 'PS4',
+                                value: 'PS4',
+                                children: [],
+                            },
+                            {
+                                label: 'PS5',
+                                value: 'PS5',
+                                children: [],
+                            },
+                            {
+                                label: 'Key pad',
+                                value: 'Key pad',
+                                children: [],
+                            },
+                        ],
+                    },
+                    {
+                        label: 'Others',
+                        value: 'Others',
+                        children: [],
+                    },
+                ],
             },
             {
                 label: 'Health & Person',
                 value: 'Health & Person',
-                children: [],
+                children: [
+                    {
+                        label: 'Health Equipment',
+                        value: 'Health Equipment',
+                        children: [
+                            {
+                                label: 'Medicine & Treatments',
+                                value: 'Medicine & Treatments',
+                                children: [],
+                            },
+                            {
+                                label: 'Sanitize & First Aid',
+                                value: 'Sanitize & First Aid',
+                                children: [],
+                            },
+                            {
+                                label: 'Sexual Health',
+                                value: 'Sexual Health',
+                                children: [],
+                            },
+                        ],
+                    },
+                    {
+                        label: 'Wellness Store',
+                        value: 'Wellness Store',
+                        children: [
+                            {
+                                label: 'Store',
+                                value: 'Store',
+                                children: [],
+                            },
+                        ],
+                    },
+                    {
+                        label: 'Personal Care',
+                        value: 'Personal Care',
+                        children: [
+                            {
+                                label: 'Natural Care',
+                                value: 'Natural Care',
+                                children: [],
+                            },
+                            {
+                                label: 'Lip & Skin Care',
+                                value: 'Lip & Skin Care',
+                                children: [],
+                            },
+                        ],
+                    },
+                ],
             },
         ],
     },

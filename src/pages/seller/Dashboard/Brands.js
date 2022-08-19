@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { FaFolderOpen, FaPlus, FaEllipsisH } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom';
 import { CheckPicker, SelectPicker } from 'rsuite';
 import InputGroup from '../../../components/elements/Input/InputGroup';
 import IconDropdown from '../../../components/elements/IconDropDown';
@@ -9,7 +8,7 @@ import Folder2 from '../../../assets/images/main/folder2.png';
 import {
     createBrand,
     deleteBrand,
-    loadChildren,
+    loadCategories,
 } from '../../../state/slices/shop/brands/brands';
 import ModalPanel from '../../../components/elements/ModalPanel';
 import { deleteHandler } from '../../../state/slices/shop/delete';
@@ -17,11 +16,11 @@ import { myBusinessFiles } from '../../../state/slices/shop/display/displayAll';
 import { REQUEST_STATUS } from '../../../state/slices/constants';
 import { useDispatch } from 'react-redux';
 
-// //////////////////////
-// //////////////////////
+////////////////////////
+////////////////////////
 ////////////////////////
 
-const Brand = ({ neededInfo, loadedCateg, myBrands, setShowing, showing }) => {
+const Brand = ({ neededInfo, loadedCateg, myBrands, setShowing }) => {
     const { shopData, otpStatus, reFetchData } = neededInfo;
     const dispatch = useDispatch();
     useEffect(() => {
@@ -81,7 +80,7 @@ const Brand = ({ neededInfo, loadedCateg, myBrands, setShowing, showing }) => {
     }
     const selectCateFunc = (e) => {
         updateValue(e, 'category');
-        setChildren(loadChildren(e));
+        setChildren(loadCategories(e));
     };
     //
     //

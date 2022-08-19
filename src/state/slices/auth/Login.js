@@ -96,6 +96,13 @@ export const myLogin = (formData, navigate, dispatch, wasGoing) => {
             }
         })
         .catch((err) => {
-            console.log(err);
+            toaster.push(
+                <Message showIcon type={'error'}>
+                    No Connection
+                </Message>,
+                {
+                    placement: 'topEnd',
+                }
+            );
         });
 };

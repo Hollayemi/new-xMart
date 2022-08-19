@@ -7940,6 +7940,11 @@
   "resolved" "https://registry.npmjs.org/react-fast-compare/-/react-fast-compare-3.2.0.tgz"
   "version" "3.2.0"
 
+"react-google-location@^1.2.2":
+  "integrity" "sha512-eGZRPLtacKHUwEEWT4tYszv0d6HgfrFwPFvx7v7k3+2uxZ93D+4vmEG9VxZD1uAMiqNvos0RTiy7gZGkZpWjNA=="
+  "resolved" "https://registry.npmjs.org/react-google-location/-/react-google-location-1.2.2.tgz"
+  "version" "1.2.2"
+
 "react-helmet@^6.1.0":
   "integrity" "sha512-4uMzEY9nlDlgxr61NL3XbKRy1hEkXmKNXhjbAIOVw5vcFrsdYbH2FEwcNyWvWinl103nXgzYNlns9ca+8kFiWw=="
   "resolved" "https://registry.npmjs.org/react-helmet/-/react-helmet-6.1.0.tgz"

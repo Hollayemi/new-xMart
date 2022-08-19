@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Badge, Drawer, Dropdown, Input, InputGroup } from 'rsuite';
 import {
     FaShoppingCart,
@@ -19,10 +19,17 @@ import {
     FaMailBulk,
 } from 'react-icons/fa';
 import Categories from './Categories';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import myLogo from '../../assets/images/png/logo2x.png';
+import { MartCategories } from '../SellerComponents/Info/Categories';
 
 export const BigHeader = ({ top, raise, sideBarState, cartItems }) => {
+    const [search, setSearch] = useState('');
+    const navigate = useNavigate();
+    const newSearch = () => {
+        console.log(search);
+        navigate('/search/' + search);
+    };
     return (
         <div
             className={`container-fluid fixed top-0 z-50 w-full top-0 bg-slate-700 shadow-sm h-28`}
@@ -51,9 +58,12 @@ export const BigHeader = ({ top, raise, sideBarState, cartItems }) => {
                 <div className="flex items-center justify-evenly md:w-5/6 lg:w-4/5">
                     <div className="w-1/2 min-w-[290px] mx-4">
                         <InputGroup inside>
-                            <Input placeholder="Search products, brand and categories" />
+                            <Input
+                                onChange={(e) => setSearch(e)}
+                                placeholder="Search products, brand and categories"
+                            />
                             <InputGroup.Button>
-                                <FaSearch />
+                                <FaSearch onClick={newSearch} />
                             </InputGroup.Button>
                         </InputGroup>
                     </div>
@@ -268,6 +278,7 @@ export const SmallHeader = ({ expandCate, setCategory, open, setOpen }) => {
                                     setCategory={setCategory}
                                     expandCate={expandCate}
                                     setOpen={setOpen}
+                                    allCate={MartCategories}
                                 />
                             </div>
                             <ul className="bg-white shadow mb-4">
@@ -314,6 +325,7 @@ const Header = ({ expandCate, setCategory, setOpen, open, cartItems }) => {
     return (
         <>
             <div className="hidden md:block">
+                <div className="mt-16"></div>
                 <BigHeader cartItems={cartItems} />
             </div>
             <div className="block md:hidden">

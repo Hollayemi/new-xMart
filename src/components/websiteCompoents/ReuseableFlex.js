@@ -12,7 +12,7 @@ const SearchWrapper = (props) => {
     const getFromCate = loadChildren(expandCate);
     return (
         <section className="bg-slate-50">
-            <div className="md:h-24"></div>
+            <div className="md:h-10"></div>
             <Header
                 expandCate={expandCate}
                 setCategory={setCategory}

@@ -5,6 +5,7 @@ import martApi from '../api/baseApi';
 export const RegNewUser = createAsyncThunk(
     'post/RegNewUser',
     async (payload) => {
+        console.log(payload);
         const { data } = await martApi
             .post('/createAcc', { payload }, {})
             .then((e) => {

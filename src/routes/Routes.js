@@ -1,5 +1,6 @@
 import { useRoutes } from 'react-router-dom';
 import LazyLoading from '../components/LazyLoading';
+import RandomSearch from '../pages/website/containers/randomSearch';
 
 const NotFound = LazyLoading(() => import('../pages/NotFound'));
 const AuthOutlet = LazyLoading(() => import('../components/HOC/AuthOutlet'));
@@ -10,8 +11,11 @@ const ErorrBoundary = LazyLoading(() =>
 );
 
 const Home = LazyLoading(() => import('../pages/website/Home'));
+const SearchCategory = LazyLoading(() =>
+    import('../pages/website/containers/searchCategories')
+);
 const SearchBrands = LazyLoading(() =>
-    import('../pages/website/containers/brands')
+    import('../pages/website/containers/searchGroup')
 );
 const ProdContainter = LazyLoading(() =>
     import('../pages/website/containers/products')
@@ -20,14 +24,11 @@ const Checkout = LazyLoading(() => import('../pages/website/checkout'));
 const Cart = LazyLoading(() => import('../pages/website/cart'));
 // auth Routes
 const SignUp = LazyLoading(() => import('../pages/auth/signup/SignUp'));
-const SignIn = LazyLoading(() => import('../pages/auth/signin/Signin'));
+const SignIn = LazyLoading(() => import('../pages/auth/signin'));
 const Sell = LazyLoading(() => import('../pages/seller/seller/Home'));
 const Agent = LazyLoading(() => import('../pages/Agent/website/Home'));
 
 // admin page
-const Admin = LazyLoading(() =>
-    import('../pages/Agent - Copy/website/Home.js')
-);
 const AdminLogin = LazyLoading(() =>
     import('../pages/Agent - Copy/website/Login')
 );
@@ -66,7 +67,15 @@ const AppRoutes = () => {
                 },
                 {
                     path: '/s/:category',
+                    element: <SearchCategory />,
+                },
+                {
+                    path: '/s/:category/:brand',
                     element: <SearchBrands />,
+                },
+                {
+                    path: '/search/:search',
+                    element: <RandomSearch />,
                 },
                 {
                     path: '/b/:shop/:product',
@@ -117,7 +126,7 @@ const AppRoutes = () => {
         {
             path: '/admin',
             children: [
-                { element: <Admin />, index: true },
+                { element: <AdminLogin />, index: true },
                 {
                     path: '/admin/signup',
                     element: <AdminSignup />,
